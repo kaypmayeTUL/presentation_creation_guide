@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Presentation Authoring Guide — Howard-Tilton Memorial Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     CSS VARIABLES — TULANE DESIGN SYSTEM
+     Edit these to change the entire guide's color scheme.
+     ============================================================ */
+  :root {
+    --green:      #285C4D;   /* Primary: Tulane green */
+    --green-dark: #1a3d32;   /* Hover / header backgrounds */
+    --green-light:#e8f2ef;   /* Subtle tinted backgrounds */
+    --blue:       #71C5E8;   /* Accent: Tulane sky blue */
+    --blue-light: #d8f0fa;   /* Light blue backgrounds */
+    --gold:       #C8973A;   /* Highlight callouts */
+    --gold-light: #fdf3e0;   /* Light gold background */
+    --red:        #b94040;   /* Warning callouts */
+    --red-light:  #fdeaea;
+    --white:      #ffffff;
+    --off-white:  #f7f9f8;
+    --text:       #1a2e25;   /* Primary body text */
+    --text-muted: #4a6358;   /* Secondary / muted text */
+    --border:     #ccddd8;   /* Subtle borders */
+    --code-bg:    #1a2e25;   /* Dark code block bg */
+    --code-text:  #a8e6cf;   /* Code text */
+
+    --font-body:  'DM Sans', sans-serif;
+    --font-serif: 'Source Serif 4', serif;
+    --font-code:  'Source Code Pro', monospace;
+
+    --sidebar-w: 260px;
+    --content-max: 860px;
+    --radius: 8px;
+    --shadow: 0 2px 12px rgba(40,92,77,0.10);
+  }
+
+  /* ============================================================ RESET */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--off-white);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ============================================================ SIDEBAR NAV */
+  #sidebar {
+    width: var(--sidebar-w);
+    background: var(--green-dark);
+    color: var(--white);
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  #sidebar-header .logo {
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  #sidebar-header .subtitle {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+  }
+
+  #sidebar nav { padding: 8px 0 24px; flex: 1; }
+  #sidebar nav a {
+    display: block;
+    padding: 8px 16px 8px 18px;
+    font-size: 0.80rem;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    line-height: 1.35;
+  }
+  #sidebar nav a:hover,
+  #sidebar nav a.active {
+    color: var(--white);
+    background: rgba(255,255,255,0.08);
+    border-left-color: var(--blue);
+  }
+  #sidebar nav .nav-section {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.35);
+    padding: 16px 16px 4px;
+  }
+
+  /* ============================================================ MAIN CONTENT */
+  #main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  /* Top header bar */
+  #topbar {
+    background: var(--green);
+    color: var(--white);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  #topbar h1 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  #topbar .version {
+    font-size: 0.75rem;
+    color: var(--blue);
+    font-weight: 500;
+  }
+
+  /* Content area */
+  #content {
+    padding: 48px 40px 80px;
+    max-width: calc(var(--content-max) + 80px);
+  }
+
+  /* ============================================================ TYPOGRAPHY */
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    color: var(--green);
+    line-height: 1.25;
+  }
+  h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5em; }
+  h2 {
+    font-size: 1.55rem; font-weight: 600;
+    margin-top: 3rem; margin-bottom: 0.7rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--green-light);
+  }
+  h3 { font-size: 1.15rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.5rem; color: var(--green-dark); }
+  h4 { font-size: 0.95rem; font-weight: 600; margin-top: 1.4rem; margin-bottom: 0.35rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  p { font-size: 0.95rem; line-height: 1.7; color: var(--text); margin-bottom: 0.9em; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--green-dark); }
+  a { color: var(--green); }
+  a:hover { color: var(--blue); }
+
+  ul, ol { margin: 0.5em 0 1em 1.4em; }
+  li { font-size: 0.93rem; line-height: 1.65; margin-bottom: 0.3em; }
+  li ul { margin-top: 0.3em; margin-bottom: 0.3em; }
+
+  /* ============================================================ SECTIONS */
+  .section { margin-bottom: 3rem; scroll-margin-top: 72px; }
+
+  /* Hero intro card */
+  .hero-card {
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    color: white;
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow);
+  }
+  .hero-card h1 { color: white; font-size: 1.9rem; margin-bottom: 0.5rem; }
+  .hero-card p { color: rgba(255,255,255,0.85); font-size: 1rem; margin-bottom: 0; }
+  .hero-card .tags { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero-card .tag {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ============================================================ CALLOUT BOXES */
+  .callout {
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    border-left: 4px solid;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .callout-body { flex: 1; }
+  .callout-body strong { display: block; margin-bottom: 3px; font-size: 0.88rem; }
+  .callout-body p { font-size: 0.88rem; margin-bottom: 0; }
+
+  .callout-tip    { background: var(--blue-light);  border-color: var(--blue);  }
+  .callout-warn   { background: var(--gold-light);  border-color: var(--gold);  }
+  .callout-danger { background: var(--red-light);   border-color: var(--red);   }
+  .callout-note   { background: var(--green-light); border-color: var(--green); }
+
+  /* ============================================================ CODE BLOCKS */
+  .code-block {
+    position: relative;
+    margin: 1.2rem 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.18);
+  }
+  .code-label {
+    background: var(--green);
+    color: var(--blue);
+    font-family: var(--font-code);
+    font-size: 0.70rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .code-label .copy-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+  .code-label .copy-btn:hover { background: rgba(255,255,255,0.28); }
+  .code-label .copy-btn.copied { color: var(--blue); }
+
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    font-family: var(--font-code);
+    font-size: 0.81rem;
+    line-height: 1.6;
+    padding: 18px 20px;
+    overflow-x: auto;
+    tab-size: 2;
+    white-space: pre;
+  }
+  /* inline code */
+  code:not(pre code) {
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-family: var(--font-code);
+    font-size: 0.82em;
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  /* Syntax highlight colors (manual) */
+  .kw  { color: #f8c471; } /* keywords */
+  .str { color: #abebc6; } /* strings */
+  .cm  { color: #7fb3a0; font-style: italic; } /* comments */
+  .fn  { color: #85c1e9; } /* function names */
+  .num { color: #e8a87c; } /* numbers */
+  .tag { color: #f1948a; } /* HTML tags */
+  .attr{ color: #f8c471; } /* HTML attributes */
+  .val { color: #abebc6; } /* attribute values */
+
+  /* ============================================================ TABLES */
+  .table-wrap { overflow-x: auto; margin: 1.2rem 0; border-radius: var(--radius); box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; background: white; }
+  th {
+    background: var(--green);
+    color: white;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 10px 14px;
+    text-align: left;
+  }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--off-white); }
+  td code { font-size: 0.80em; }
+
+  /* ============================================================ PRESENTATION INVENTORY CARDS */
+  .pres-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin: 1.2rem 0; }
+  .pres-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    border-top: 3px solid var(--green);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .pres-card .pres-title { font-weight: 600; font-size: 0.88rem; margin-bottom: 5px; color: var(--green-dark); }
+  .pres-card .pres-slides { font-size: 0.77rem; color: var(--text-muted); margin-bottom: 5px; }
+  .pres-card .pres-features { display: flex; flex-wrap: wrap; gap: 4px; }
+  .pres-card .feat {
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+
+  /* ============================================================ STEPS */
+  .steps { counter-reset: step; margin: 1.2rem 0; }
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 1.4rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    counter-increment: step;
+    background: var(--green);
+    color: white;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 0.9rem;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-body h4 { margin-top: 0; color: var(--green-dark); }
+  .step-body p, .step-body ul { font-size: 0.9rem; }
+
+  /* ============================================================ COLLAPSIBLE SECTIONS */
+  details {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin: 0.8rem 0;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.90rem;
+    color: var(--green-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    list-style: none;
+  }
+  details summary::before { content: '▶'; font-size: 0.65rem; transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details summary::-webkit-details-marker { display: none; }
+  details .details-body { padding: 0 16px 16px; }
+
+  /* ============================================================ EDIT QUICK-REF */
+  .edit-table .green { color: var(--green-dark); font-weight: 600; }
+  .badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+  }
+  .badge-easy   { background: #d5f0e8; color: #1a5e42; }
+  .badge-medium { background: #fef3d0; color: #7a5100; }
+  .badge-hard   { background: #ffe0e0; color: #7a1414; }
+
+  /* ============================================================ SCROLL PROGRESS */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--blue);
+    width: 0%;
+    transition: width 0.1s linear;
+    z-index: 999;
+  }
+
+  /* ============================================================ RESPONSIVE */
+  @media (max-width: 768px) {
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    #topbar { padding: 12px 20px; }
+    #content { padding: 28px 20px 60px; }
+  }
+  /* ============================================================ SANDBOX */
+  .sandbox-preset-btn {
+    background: var(--green-light); color: var(--green-dark);
+    border: 1px solid var(--border); border-radius: 5px;
+    padding: 4px 12px; font-family: var(--font-body); font-size: 0.78rem;
+    font-weight: 500; cursor: pointer; transition: background 0.15s;
+  }
+  .sandbox-preset-btn:hover { background: var(--blue-light); border-color: var(--blue); }
+  .sandbox-clear-btn { background: var(--red-light) !important; color: var(--red) !important; border-color: var(--red) !important; }
+  .sandbox-clear-btn:hover { opacity: 0.8; }
+  #sandbox-frame { resize: vertical; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ============================================================ SIDEBAR -->
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <div class="logo">Howard-Tilton Memorial Library</div>
+    <div class="subtitle">HTML Presentation Authoring Guide</div>
+  </div>
+  <nav>
+    <div class="nav-section">Overview</div>
+    <a href="#intro">Introduction</a>
+    <a href="#inventory">Presentation Inventory</a>
+    <a href="#anatomy">Anatomy of a Presentation</a>
+
+    <div class="nav-section">Building from Scratch</div>
+    <a href="#scaffold">The Full Scaffold</a>
+    <a href="#css-variables">CSS Variables & Branding</a>
+    <a href="#nav-system">Navigation System</a>
+    <a href="#slides">Writing Slides</a>
+    <a href="#activities">Interactive Activities</a>
+    <a href="#tracker">Activity Tracker</a>
+    <a href="#export">Export / Email Panel</a>
+
+    <div class="nav-section">Editing Elements</div>
+    <a href="#edit-text">Text & Content</a>
+    <a href="#edit-slides-count">Slide Count</a>
+    <a href="#edit-colors">Colors & Branding</a>
+    <a href="#edit-activities-edit">Activity Questions</a>
+    <a href="#edit-checklist">Checklists</a>
+    <a href="#edit-links">Links</a>
+
+    <div class="nav-section">Patterns & Recipes</div>
+    <a href="#slide-layouts">Slide Layout Patterns</a>
+    <a href="#activity-types">Activity Type Patterns</a>
+    <a href="#tables-patterns">Tables & Comparisons</a>
+    <a href="#quiz-pattern">Scored Quiz</a>
+
+    <div class="nav-section">Tools</div>
+    <a href="#sandbox">🧪 Slide Sandbox</a>
+
+    <div class="nav-section">Publishing</div>
+    <a href="#hosting">Hosting on GitHub Pages</a>
+    <a href="#checklist-launch">Launch Checklist</a>
+    <a href="#troubleshooting">Troubleshooting</a>
+  </nav>
+</aside>
+
+<!-- ============================================================ MAIN -->
+<main id="main">
+  <div id="topbar">
+    <h1>HTML Presentation Authoring Guide</h1>
+    <span class="version">Kay P. Maye · Howard-Tilton Memorial Library</span>
+  </div>
+
+  <div id="content">
+
+    <!-- ===== HERO ===== -->
+    <div class="hero-card">
+      <h1>Build Library Instruction Presentations Without AI</h1>
+      <p>A complete reference for creating, editing, and publishing the interactive HTML presentation format developed for Scholarly Engagement workshops at Tulane University. Copy-paste code included throughout.</p>
+      <div class="tags">
+        <span class="tag">Tulane Design System</span>
+        <span class="tag">Single-File HTML</span>
+        <span class="tag">No Build Tools</span>
+        <span class="tag">GitHub Pages Ready</span>
+        <span class="tag">Keyboard Navigation</span>
+        <span class="tag">Activity Tracker</span>
+      </div>
+    </div>
+
+    <!-- ===== SECTION: INTRO ===== -->
+    <section class="section" id="intro">
+      <h2>Introduction</h2>
+      <p>These presentations are <strong>self-contained single HTML files</strong> — one file, no dependencies beyond Google Fonts. They require no frameworks, no build tools, and no server-side code. A plain text editor and a web browser are all you need. Each file can be opened locally, emailed, or hosted on GitHub Pages.</p>
+
+      <p>The format was designed for library instruction at Howard-Tilton Memorial Library. Core principles:</p>
+      <ul>
+        <li><strong>Self-contained:</strong> One file. All CSS, JavaScript, and content live inside it.</li>
+        <li><strong>Accessible:</strong> Keyboard navigation (← → arrows), dropdown slide selector, touch/swipe support.</li>
+        <li><strong>Interactive:</strong> Text inputs, quizzes, checklists, and Boolean builders embedded in slides.</li>
+        <li><strong>Trackable:</strong> An activity badge counts completions and stays visible in the nav bar.</li>
+        <li><strong>Exportable:</strong> A floating panel lets students email or download their activity responses.</li>
+        <li><strong>Branded:</strong> Tulane green <code>#285C4D</code>, sky blue <code>#71C5E8</code>, and Google Fonts throughout.</li>
+      </ul>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body">
+          <strong>Recommended Editor</strong>
+          <p>Use <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a> (free). Install the <strong>Prettier</strong> extension for auto-formatting and <strong>Live Server</strong> to preview changes instantly in your browser as you type. For quick edits, Notepad++ on Windows or TextEdit (in plain-text mode) on Mac also work.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: INVENTORY ===== -->
+    <section class="section" id="inventory">
+      <h2>Presentation Inventory</h2>
+      <p>Eleven interactive HTML presentations have been built in this format. Each shares the same underlying architecture.</p>
+
+      <div class="pres-grid">
+        <div class="pres-card">
+          <div class="pres-title">Introduction to Academic Research</div>
+          <div class="pres-slides">19 slides</div>
+          <div class="pres-features">
+            <span class="feat">pretest</span><span class="feat">clusters</span><span class="feat">database finder</span><span class="feat">synthesis matrix</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">The Search Ecosystem</div>
+          <div class="pres-slides">16 slides</div>
+          <div class="pres-features">
+            <span class="feat">Boolean quiz</span><span class="feat">ecosystem metaphor</span><span class="feat">topic input</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">Annotated Bibliography</div>
+          <div class="pres-slides">14 slides</div>
+          <div class="pres-features">
+            <span class="feat">practice activities</span><span class="feat">checklist</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">Literature Review</div>
+          <div class="pres-slides">15 slides</div>
+          <div class="pres-features">
+            <span class="feat">narrative focus</span><span class="feat">matrix activity</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">Introduction to R</div>
+          <div class="pres-slides">~16 slides</div>
+          <div class="pres-features">
+            <span class="feat">code examples</span><span class="feat">exercises</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">Introduction to Python</div>
+          <div class="pres-slides">18 slides</div>
+          <div class="pres-features">
+            <span class="feat">tabs</span><span class="feat">live quiz</span><span class="feat">syntax highlighting</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">Excel Data Analysis Workshop</div>
+          <div class="pres-slides">~14 slides</div>
+          <div class="pres-features">
+            <span class="feat">movie dataset</span><span class="feat">step-by-step</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">Supervised Learning with Python</div>
+          <div class="pres-slides">14 slides</div>
+          <div class="pres-features">
+            <span class="feat">code callouts</span><span class="feat">car data</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">BERT Topic Modeling</div>
+          <div class="pres-slides">~17 slides</div>
+          <div class="pres-features">
+            <span class="feat">sentiment analysis</span><span class="feat">comparison tables</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">Scoping Review Guide</div>
+          <div class="pres-slides">10-step walkthrough</div>
+          <div class="pres-features">
+            <span class="feat">PRISMA-ScR</span><span class="feat">save/load JSON</span><span class="feat">carry-forward</span>
+          </div>
+        </div>
+        <div class="pres-card">
+          <div class="pres-title">NIH Data Management & Sharing</div>
+          <div class="pres-slides">21 slides</div>
+          <div class="pres-features">
+            <span class="feat">2026 format update</span><span class="feat">checklist</span><span class="feat">metadata table</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: ANATOMY ===== -->
+    <section class="section" id="anatomy">
+      <h2>Anatomy of a Presentation File</h2>
+      <p>Every presentation follows this structure inside a single <code>.html</code> file:</p>
+
+      <div class="code-block">
+        <div class="code-label">HTML FILE STRUCTURE <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;!-- Meta tags, Google Fonts link --&gt;
+  &lt;style&gt;
+    /* ① CSS Variables (colors, fonts) */
+    /* ② Layout &amp; nav bar styles */
+    /* ③ Slide content styles */
+    /* ④ Activity / interactive styles */
+    /* ⑤ Utility classes */
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- ② Navigation bar (fixed at top) --&gt;
+  &lt;nav id="navbar"&gt;...&lt;/nav&gt;
+
+  &lt;!-- ③ All slides as divs --&gt;
+  &lt;div id="presentation"&gt;
+    &lt;div class="slide active" id="slide-1"&gt;...&lt;/div&gt;
+    &lt;div class="slide" id="slide-2"&gt;...&lt;/div&gt;
+    &lt;!-- ...more slides... --&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ④ Floating export panel --&gt;
+  &lt;div id="export-panel"&gt;...&lt;/div&gt;
+
+  &lt;script&gt;
+    /* ⑤ JavaScript */
+    // Navigation logic (showSlide, totalSlides)
+    // Activity tracking
+    // Quiz / checklist logic
+    // Export (email / download)
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: SCAFFOLD ===== -->
+    <section class="section" id="scaffold">
+      <h2>The Full Scaffold</h2>
+      <p>Copy and paste this entire block to start a new presentation. Replace the placeholder text as noted in the comments. This gives you a 3-slide shell with navigation, activity tracker, and export panel fully wired up.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Key variable to update first:</strong>
+          <p>Find <code>const totalSlides = 3;</code> in the JavaScript section and change <code>3</code> to match however many slides you create. Getting this wrong will break the Previous/Next buttons.</p>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-label">COMPLETE STARTER TEMPLATE — presentation-starter.html <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;title&gt;YOUR PRESENTATION TITLE — Howard-Tilton Memorial Library&lt;/title&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Source+Code+Pro:wght@400;600&amp;display=swap" rel="stylesheet"&gt;
+&lt;style&gt;
+
+/* ============================================================
+   CSS VARIABLES — Edit these to restyle the whole presentation
+   ============================================================ */
+:root {
+  --green:      #285C4D;
+  --green-dark: #1a3d32;
+  --green-light:#e8f2ef;
+  --blue:       #71C5E8;
+  --blue-light: #d8f0fa;
+  --gold:       #C8973A;
+  --white:      #ffffff;
+  --off-white:  #f5f7f6;
+  --text:       #1a2e25;
+  --text-muted: #4a6358;
+  --border:     #d0ddd9;
+
+  --font-heading: 'Source Serif 4', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-code:    'Source Code Pro', 'Courier New', monospace;
+}
+
+/* ============================================================ RESET */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: var(--font-body); color: var(--text); }
+
+/* ============================================================ NAV BAR */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--green); color: white;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; height: 52px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  gap: 12px;
+}
+#navbar .brand {
+  font-family: var(--font-heading); font-weight: 600; font-size: 0.90rem;
+  white-space: nowrap; color: white; flex-shrink: 0;
+}
+#navbar .nav-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+/* Slide selector dropdown */
+#slide-select {
+  background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 5px; padding: 4px 8px; font-size: 0.80rem; cursor: pointer;
+  font-family: var(--font-body); max-width: 220px;
+}
+#slide-select option { background: var(--green-dark); color: white; }
+
+/* Prev / Next buttons */
+.nav-btn {
+  background: rgba(255,255,255,0.18); color: white;
+  border: 1px solid rgba(255,255,255,0.3); border-radius: 5px;
+  padding: 5px 12px; font-size: 0.82rem; cursor: pointer;
+  font-family: var(--font-body); font-weight: 500;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.30); }
+.nav-btn:disabled { opacity: 0.35; cursor: default; }
+
+/* Slide counter */
+#slide-counter { font-size: 0.78rem; color: rgba(255,255,255,0.70); white-space: nowrap; }
+
+/* Activity tracker badge */
+#activity-badge {
+  background: var(--blue); color: var(--green-dark);
+  font-size: 0.72rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 12px;
+  white-space: nowrap; cursor: default;
+}
+
+/* ============================================================ SLIDES */
+#presentation { position: fixed; top: 52px; left: 0; right: 0; bottom: 0; }
+
+.slide {
+  display: none; position: absolute; inset: 0;
+  padding: 36px 48px 28px;
+  overflow-y: auto;
+  background: var(--white);
+  animation: slideIn 0.25s ease;
+}
+.slide.active { display: block; }
+@keyframes slideIn { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
+
+/* Slide title / subtitle */
+.slide-title {
+  font-family: var(--font-heading); font-size: 1.85rem; font-weight: 700;
+  color: var(--green); margin-bottom: 6px; line-height: 1.2;
+}
+.slide-subtitle {
+  font-size: 1rem; color: var(--text-muted); font-weight: 300;
+  margin-bottom: 24px;
+}
+
+/* Content blocks */
+.content-box {
+  background: var(--off-white); border-left: 4px solid var(--green);
+  border-radius: 0 8px 8px 0; padding: 16px 20px; margin-bottom: 16px;
+}
+.content-box h3 {
+  font-family: var(--font-heading); font-size: 1.05rem; font-weight: 600;
+  color: var(--green-dark); margin-bottom: 8px;
+}
+.content-box p, .content-box li { font-size: 0.92rem; line-height: 1.65; }
+.content-box ul { margin-left: 1.2em; }
+
+/* Blue accent box */
+.blue-box {
+  background: var(--blue-light); border-left: 4px solid var(--blue);
+  border-radius: 0 8px 8px 0; padding: 16px 20px; margin-bottom: 16px;
+}
+.blue-box p, .blue-box li { font-size: 0.92rem; line-height: 1.65; }
+.blue-box ul { margin-left: 1.2em; }
+
+/* Two-column grid */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+@media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ============================================================ TITLE SLIDE */
+.title-slide {
+  background: linear-gradient(150deg, var(--green) 0%, var(--green-dark) 100%);
+  color: white; display: flex !important; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 48px;
+}
+.title-slide h1 {
+  font-family: var(--font-heading); font-size: 2.4rem; font-weight: 700;
+  color: white; margin-bottom: 0.4em; line-height: 1.2; max-width: 700px;
+}
+.title-slide .presenter { font-size: 1rem; color: rgba(255,255,255,0.80); margin-bottom: 6px; }
+.title-slide .institution { font-size: 0.85rem; color: var(--blue); font-weight: 500; }
+.title-slide .nav-hint {
+  margin-top: 28px; font-size: 0.78rem; color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.20); border-radius: 20px;
+  padding: 5px 16px;
+}
+
+/* ============================================================ ACTIVITIES */
+.activity-box {
+  background: var(--blue-light); border: 2px solid var(--blue);
+  border-radius: 10px; padding: 20px; margin-top: 20px;
+}
+.activity-box h3 {
+  font-family: var(--font-heading); color: var(--green-dark);
+  font-size: 1rem; font-weight: 600; margin-bottom: 12px;
+}
+.activity-box textarea, .activity-box input[type="text"] {
+  width: 100%; border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px 12px; font-family: var(--font-body); font-size: 0.90rem;
+  background: white; resize: vertical; min-height: 80px;
+  transition: border-color 0.15s;
+}
+.activity-box textarea:focus, .activity-box input[type="text"]:focus {
+  outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(40,92,77,0.12);
+}
+.save-btn {
+  background: var(--green); color: white; border: none; border-radius: 6px;
+  padding: 8px 20px; font-family: var(--font-body); font-size: 0.87rem;
+  font-weight: 500; cursor: pointer; margin-top: 10px; transition: background 0.15s;
+}
+.save-btn:hover { background: var(--green-dark); }
+.save-confirm { font-size: 0.80rem; color: var(--green); margin-top: 6px; display: none; }
+
+/* ============================================================ CHECKLISTS */
+.checklist { list-style: none; margin: 0; padding: 0; }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+  font-size: 0.92rem; cursor: pointer;
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist li .cb {
+  width: 20px; height: 20px; border: 2px solid var(--green);
+  border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; transition: all 0.15s; background: white; margin-top: 1px;
+}
+.checklist li.checked .cb { background: var(--green); border-color: var(--green); color: white; }
+.checklist li.checked .cb::after { content: '✓'; }
+.checklist li.checked span { text-decoration: line-through; color: var(--text-muted); }
+
+/* ============================================================ EXPORT PANEL */
+#export-panel {
+  position: fixed; bottom: 20px; right: 20px; z-index: 200;
+  background: white; border: 1px solid var(--border);
+  border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  width: 300px; overflow: hidden;
+  transition: height 0.25s ease;
+}
+#export-toggle {
+  background: var(--green); color: white; padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; font-size: 0.85rem; font-weight: 500;
+  font-family: var(--font-body); border: none; width: 100%;
+}
+#export-body { padding: 14px; display: none; }
+#export-body.open { display: block; }
+.export-btn {
+  display: block; width: 100%; padding: 8px; margin-bottom: 8px;
+  border-radius: 6px; font-family: var(--font-body); font-size: 0.85rem;
+  font-weight: 500; cursor: pointer; border: none; transition: background 0.15s;
+}
+.export-email { background: var(--blue); color: var(--green-dark); }
+.export-download { background: var(--off-white); color: var(--text); border: 1px solid var(--border) !important; }
+.export-email:hover { background: #5ab5db; }
+.export-download:hover { background: var(--border); }
+
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- ============================================================ NAVBAR --&gt;
+&lt;nav id="navbar"&gt;
+  &lt;span class="brand"&gt;YOUR PRESENTATION TITLE&lt;/span&gt;
+  &lt;div class="nav-controls"&gt;
+    &lt;!-- Dropdown: add one &lt;option&gt; per slide --&gt;
+    &lt;select id="slide-select" onchange="showSlide(parseInt(this.value))"&gt;
+      &lt;option value="1"&gt;1. Introduction&lt;/option&gt;
+      &lt;option value="2"&gt;2. Your Second Slide&lt;/option&gt;
+      &lt;option value="3"&gt;3. Closing&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled&gt;← Prev&lt;/button&gt;
+    &lt;button class="nav-btn" id="next-btn" onclick="nextSlide()"&gt;Next →&lt;/button&gt;
+    &lt;span id="slide-counter"&gt;1 / 3&lt;/span&gt;
+    &lt;span id="activity-badge"&gt;0 / 2 activities&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;!-- ============================================================ SLIDES --&gt;
+&lt;div id="presentation"&gt;
+
+  &lt;!-- ===== SLIDE 1: Title ===== --&gt;
+  &lt;div class="slide title-slide active" id="slide-1"&gt;
+    &lt;h1&gt;YOUR PRESENTATION TITLE&lt;/h1&gt;
+    &lt;p class="presenter"&gt;Kay P. Maye, Scholarly Engagement Librarian&lt;/p&gt;
+    &lt;p class="institution"&gt;Howard-Tilton Memorial Library · Tulane University&lt;/p&gt;
+    &lt;p class="nav-hint"&gt;Use ← → arrow keys or the dropdown to navigate&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ===== SLIDE 2: Content Slide ===== --&gt;
+  &lt;div class="slide" id="slide-2"&gt;
+    &lt;h2 class="slide-title"&gt;Your Second Slide&lt;/h2&gt;
+    &lt;p class="slide-subtitle"&gt;Optional subtitle or context&lt;/p&gt;
+
+    &lt;div class="content-box"&gt;
+      &lt;h3&gt;Section Heading&lt;/h3&gt;
+      &lt;p&gt;Your content goes here. Add bullet lists, more boxes, tables, etc.&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;First point&lt;/li&gt;
+        &lt;li&gt;Second point&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Activity box — tied to activity #1 --&gt;
+    &lt;div class="activity-box"&gt;
+      &lt;h3&gt;✏️ Activity: Reflect&lt;/h3&gt;
+      &lt;p style="font-size:0.88rem; margin-bottom:10px;"&gt;Write a short response to the prompt below.&lt;/p&gt;
+      &lt;textarea id="act1-response" placeholder="Type your response here..."&gt;&lt;/textarea&gt;
+      &lt;br&gt;
+      &lt;button class="save-btn" onclick="saveActivity(1)"&gt;Save Response&lt;/button&gt;
+      &lt;p class="save-confirm" id="act1-confirm"&gt;✓ Saved!&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ===== SLIDE 3: Closing ===== --&gt;
+  &lt;div class="slide" id="slide-3"&gt;
+    &lt;h2 class="slide-title"&gt;Questions &amp; Next Steps&lt;/h2&gt;
+    &lt;div class="blue-box"&gt;
+      &lt;p&gt;&lt;strong&gt;Contact:&lt;/strong&gt; Kay P. Maye · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80ebede1f9e5c0f4f5ece1eee5aee5e4f5">[email&#160;protected]</a>&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;LibGuides:&lt;/strong&gt; &lt;a href="https://libguides.tulane.edu" target="_blank"&gt;libguides.tulane.edu&lt;/a&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;&lt;!-- /presentation --&gt;
+
+&lt;!-- ============================================================ EXPORT PANEL --&gt;
+&lt;div id="export-panel"&gt;
+  &lt;button id="export-toggle" onclick="toggleExport()"&gt;
+    &lt;span&gt;📥 Download / Email Responses&lt;/span&gt;
+    &lt;span id="export-arrow"&gt;▲&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div id="export-body"&gt;
+    &lt;button class="export-btn export-email" onclick="emailResponses()"&gt;📧 Open in Email&lt;/button&gt;
+    &lt;button class="export-btn export-download" onclick="downloadResponses()"&gt;⬇ Download as .txt&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ============================================================ JAVASCRIPT --&gt;
+&lt;script&gt;
+/* ── Configuration ─────────────────────────────────────────── */
+const totalSlides    = 3;   // ← UPDATE THIS when you add/remove slides
+const totalActivities = 2;  // ← UPDATE THIS to match activity count
+const presTitle      = "YOUR PRESENTATION TITLE";
+const contactEmail   = "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a41474b534f6a5e5f464b444f044f4e5f">[email&#160;protected]</a>";
+
+/* ── State ──────────────────────────────────────────────────── */
+let currentSlide = 1;
+let activitiesCompleted = new Set();
+
+/* ── Navigation ─────────────────────────────────────────────── */
+function showSlide(n) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.getElementById('slide-' + n).classList.add('active');
+  currentSlide = n;
+  document.getElementById('slide-counter').textContent = n + ' / ' + totalSlides;
+  document.getElementById('slide-select').value = n;
+  document.getElementById('prev-btn').disabled = (n === 1);
+  document.getElementById('next-btn').disabled = (n === totalSlides);
+  window.scrollTo(0, 0);
+}
+function nextSlide() { if (currentSlide &lt; totalSlides) showSlide(currentSlide + 1); }
+function prevSlide() { if (currentSlide &gt; 1) showSlide(currentSlide - 1); }
+
+/* Keyboard + swipe */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  nextSlide();
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    prevSlide();
+});
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (dx &lt; -50) nextSlide();
+  if (dx &gt; 50)  prevSlide();
+});
+
+/* ── Activity Tracking ─────────────────────────────────────── */
+function saveActivity(num) {
+  activitiesCompleted.add(num);
+  document.getElementById('act' + num + '-confirm').style.display = 'block';
+  updateBadge();
+}
+function updateBadge() {
+  document.getElementById('activity-badge').textContent =
+    activitiesCompleted.size + ' / ' + totalActivities + ' activities';
+}
+
+/* ── Export ─────────────────────────────────────────────────── */
+function toggleExport() {
+  const body  = document.getElementById('export-body');
+  const arrow = document.getElementById('export-arrow');
+  const open  = body.classList.toggle('open');
+  arrow.textContent = open ? '▼' : '▲';
+}
+function collectResponses() {
+  // Collect all textarea values — add more IDs as you add activities
+  const ids = ['act1-response', 'act2-response'];
+  let out = presTitle + ' — Activity Responses\n';
+  out += new Date().toLocaleDateString() + '\n';
+  out += '═'.repeat(50) + '\n\n';
+  ids.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el &amp;&amp; el.value.trim()) {
+      out += 'Activity ' + (i + 1) + ':\n' + el.value.trim() + '\n\n';
+    }
+  });
+  return out;
+}
+function emailResponses() {
+  const body = encodeURIComponent(collectResponses());
+  window.location.href = 'mailto:' + contactEmail + '?subject=' +
+    encodeURIComponent(presTitle + ' Responses') + '&amp;body=' + body;
+}
+function downloadResponses() {
+  const blob = new Blob([collectResponses()], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'responses.txt';
+  a.click();
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: CSS VARIABLES ===== -->
+    <section class="section" id="css-variables">
+      <h2>CSS Variables &amp; Branding</h2>
+      <p>All colors, fonts, and spacing are controlled by CSS custom properties at the top of the <code>&lt;style&gt;</code> block. Changing a variable here updates every element that uses it.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Variable</th><th>Default Value</th><th>Used For</th></tr></thead>
+          <tbody>
+            <tr><td><code>--green</code></td><td><code>#285C4D</code></td><td>Nav bar, headings, borders, buttons</td></tr>
+            <tr><td><code>--green-dark</code></td><td><code>#1a3d32</code></td><td>Hover states, title slide gradient</td></tr>
+            <tr><td><code>--green-light</code></td><td><code>#e8f2ef</code></td><td>Subtle background tints</td></tr>
+            <tr><td><code>--blue</code></td><td><code>#71C5E8</code></td><td>Activity badge, highlights, links</td></tr>
+            <tr><td><code>--blue-light</code></td><td><code>#d8f0fa</code></td><td>Activity box backgrounds</td></tr>
+            <tr><td><code>--gold</code></td><td><code>#C8973A</code></td><td>Warning callout borders</td></tr>
+            <tr><td><code>--font-heading</code></td><td><code>'Source Serif 4'</code></td><td>Slide titles, brand name</td></tr>
+            <tr><td><code>--font-body</code></td><td><code>'DM Sans'</code></td><td>All body text, buttons, UI</td></tr>
+            <tr><td><code>--font-code</code></td><td><code>'Source Code Pro'</code></td><td>Code examples</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body">
+          <strong>Creating a non-Tulane version</strong>
+          <p>To use a different institution's colors, just change <code>--green</code> and <code>--blue</code> in the <code>:root</code> block. Everything else — buttons, borders, highlights, the title slide gradient — will update automatically. You do not need to hunt through the CSS for individual color references.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: NAV SYSTEM ===== -->
+    <section class="section" id="nav-system">
+      <h2>Navigation System</h2>
+
+      <h3>Dropdown Slide Selector</h3>
+      <p>The <code>&lt;select&gt;</code> element lists every slide. Add or remove <code>&lt;option&gt;</code> elements as you add slides. The <code>value</code> must match the slide number.</p>
+
+      <div class="code-block">
+        <div class="code-label">HTML — slide dropdown options <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;select id="slide-select" onchange="showSlide(parseInt(this.value))"&gt;
+  &lt;option value="1"&gt;1. Introduction&lt;/option&gt;
+  &lt;option value="2"&gt;2. Research as Inquiry&lt;/option&gt;
+  &lt;option value="3"&gt;3. Types of Sources&lt;/option&gt;
+  &lt;option value="4"&gt;4. Boolean Searching&lt;/option&gt;
+  &lt;option value="5"&gt;5. Activity: Search Plan&lt;/option&gt;
+  &lt;option value="6"&gt;6. Q&amp;A and Next Steps&lt;/option&gt;
+&lt;/select&gt;</pre>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Three places to update when adding a slide</strong>
+          <p>1. Add an <code>&lt;option&gt;</code> in the dropdown. &nbsp;2. Add the <code>&lt;div class="slide"&gt;</code> block. &nbsp;3. Update <code>const totalSlides</code> in JavaScript.</p>
+        </div>
+      </div>
+
+      <h3>JavaScript Navigation Core</h3>
+      <p>This is the <code>showSlide()</code> function. You do not normally need to edit it — just keep <code>totalSlides</code> accurate.</p>
+      <div class="code-block">
+        <div class="code-label">JavaScript — navigation core <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>const totalSlides = 12; // ← always update this
+
+function showSlide(n) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.getElementById('slide-' + n).classList.add('active');
+  currentSlide = n;
+  document.getElementById('slide-counter').textContent = n + ' / ' + totalSlides;
+  document.getElementById('slide-select').value = n;
+  document.getElementById('prev-btn').disabled = (n === 1);
+  document.getElementById('next-btn').disabled = (n === totalSlides);
+  window.scrollTo(0, 0);
+}</pre>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: SLIDES ===== -->
+    <section class="section" id="slides">
+      <h2>Writing Slides</h2>
+
+      <h3>Every slide follows this pattern</h3>
+      <div class="code-block">
+        <div class="code-label">HTML — basic content slide <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;!-- Replace N with the slide number. Add class="active" to the first slide only. --&gt;
+&lt;div class="slide" id="slide-N"&gt;
+  &lt;h2 class="slide-title"&gt;Slide Title Here&lt;/h2&gt;
+  &lt;p class="slide-subtitle"&gt;Optional explanatory line&lt;/p&gt;
+
+  &lt;div class="content-box"&gt;
+    &lt;h3&gt;Section Heading&lt;/h3&gt;
+    &lt;p&gt;Paragraph text here.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Bullet point one&lt;/li&gt;
+      &lt;li&gt;Bullet point two&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+
+  &lt;div class="blue-box"&gt;
+    &lt;p&gt;&lt;strong&gt;Tip or callout:&lt;/strong&gt; Use blue-box for a secondary callout.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+
+      <h3>Title / Opening slide</h3>
+      <div class="code-block">
+        <div class="code-label">HTML — title slide (dark green gradient) <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;div class="slide title-slide active" id="slide-1"&gt;
+  &lt;h1&gt;Introduction to Academic Research&lt;/h1&gt;
+  &lt;p class="presenter"&gt;Kay P. Maye, Scholarly Engagement Librarian&lt;/p&gt;
+  &lt;p class="institution"&gt;Howard-Tilton Memorial Library · Tulane University&lt;/p&gt;
+  &lt;p class="nav-hint"&gt;Use ← → arrow keys or the dropdown to navigate&lt;/p&gt;
+&lt;/div&gt;</pre>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: ACTIVITIES ===== -->
+    <section class="section" id="activities">
+      <h2>Interactive Activities</h2>
+
+      <h3>Textarea activity (most common)</h3>
+      <p>Add this inside any slide. The <code>id</code> on the <code>&lt;textarea&gt;</code> and the number passed to <code>saveActivity()</code> must be consistent and unique per activity.</p>
+
+      <div class="code-block">
+        <div class="code-label">HTML — textarea activity block <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;div class="activity-box"&gt;
+  &lt;h3&gt;✏️ Activity: Your Topic&lt;/h3&gt;
+  &lt;p style="font-size:0.88rem; margin-bottom:10px;"&gt;
+    Describe the prompt for students here.
+  &lt;/p&gt;
+  &lt;textarea id="act3-response" placeholder="Type your response..."&gt;&lt;/textarea&gt;
+  &lt;br&gt;
+  &lt;button class="save-btn" onclick="saveActivity(3)"&gt;Save Response&lt;/button&gt;
+  &lt;p class="save-confirm" id="act3-confirm"&gt;✓ Saved!&lt;/p&gt;
+&lt;/div&gt;</pre>
+      </div>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">📋</span>
+        <div class="callout-body">
+          <strong>Naming convention</strong>
+          <p>For activity number <code>N</code>, use: textarea id <code>act<em>N</em>-response</code>, confirm paragraph id <code>act<em>N</em>-confirm</code>, and call <code>saveActivity(<em>N</em>)</code>. Keep numbers sequential.</p>
+        </div>
+      </div>
+
+      <h3>Multiple text inputs (structured reflection)</h3>
+      <div class="code-block">
+        <div class="code-label">HTML — multi-field activity <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;div class="activity-box"&gt;
+  &lt;h3&gt;✏️ Activity: Search Planning&lt;/h3&gt;
+  &lt;p style="font-size:0.88rem; margin-bottom:12px;"&gt;Complete each field before saving.&lt;/p&gt;
+
+  &lt;label style="font-size:0.85rem; font-weight:600; color:var(--green-dark);"&gt;
+    Your research topic:
+  &lt;/label&gt;
+  &lt;input type="text" id="act4-topic" placeholder="e.g., effects of social media on mental health"
+         style="width:100%; margin:6px 0 12px; padding:8px 12px; border:1px solid var(--border);
+                border-radius:6px; font-size:0.90rem;"&gt;
+
+  &lt;label style="font-size:0.85rem; font-weight:600; color:var(--green-dark);"&gt;
+    Three keywords:
+  &lt;/label&gt;
+  &lt;input type="text" id="act4-keywords" placeholder="e.g., social media, adolescents, anxiety"
+         style="width:100%; margin:6px 0 12px; padding:8px 12px; border:1px solid var(--border);
+                border-radius:6px; font-size:0.90rem;"&gt;
+
+  &lt;button class="save-btn" onclick="saveActivity(4)"&gt;Save&lt;/button&gt;
+  &lt;p class="save-confirm" id="act4-confirm"&gt;✓ Saved!&lt;/p&gt;
+&lt;/div&gt;</pre>
+      </div>
+
+      <h3>Scored quiz</h3>
+      <p>See the <a href="#quiz-pattern">Quiz Pattern</a> section below for the full copy-paste version.</p>
+    </section>
+
+    <!-- ===== SECTION: TRACKER ===== -->
+    <section class="section" id="tracker">
+      <h2>Activity Tracker Badge</h2>
+      <p>The badge in the nav bar reads <code>0 / N activities</code> and increments each time a student saves an activity. You only need to keep <code>totalActivities</code> accurate.</p>
+
+      <div class="code-block">
+        <div class="code-label">JavaScript — activity tracking <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>const totalActivities = 4; // ← number of activities in the presentation
+let activitiesCompleted = new Set(); // Set prevents double-counting
+
+function saveActivity(num) {
+  activitiesCompleted.add(num);
+  // Show the confirmation message for this activity
+  document.getElementById('act' + num + '-confirm').style.display = 'block';
+  updateBadge();
+}
+
+function updateBadge() {
+  document.getElementById('activity-badge').textContent =
+    activitiesCompleted.size + ' / ' + totalActivities + ' activities';
+}</pre>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: EXPORT ===== -->
+    <section class="section" id="export">
+      <h2>Export / Email Panel</h2>
+      <p>The floating panel in the bottom-right corner lets students email or download their responses. To add a new activity's response to the export, add its textarea ID to the <code>ids</code> array in <code>collectResponses()</code>.</p>
+
+      <div class="code-block">
+        <div class="code-label">JavaScript — export logic <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>function collectResponses() {
+  // ← Add or remove IDs here to match your activities
+  const ids = [
+    'act1-response',
+    'act2-response',
+    'act3-response',
+    'act4-response',
+  ];
+  const labels = [
+    'Activity 1: Reflect',
+    'Activity 2: Search Plan',
+    'Activity 3: Source Evaluation',
+    'Activity 4: Synthesis',
+  ];
+
+  let out = presTitle + ' — Activity Responses\n';
+  out += 'Date: ' + new Date().toLocaleDateString() + '\n';
+  out += '═'.repeat(50) + '\n\n';
+
+  ids.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el &amp;&amp; el.value.trim()) {
+      out += labels[i] + '\n';
+      out += el.value.trim() + '\n\n';
+    }
+  });
+  return out;
+}</pre>
+      </div>
+    </section>
+
+    <!-- ===== EDITING SECTION ===== -->
+    <section class="section" id="edit-text">
+      <h2>Editing: Text &amp; Content</h2>
+
+      <div class="table-wrap">
+        <table class="edit-table">
+          <thead><tr><th>What you want to change</th><th>Where to find it</th><th>Difficulty</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Slide title</td>
+              <td>Find <code>&lt;h2 class="slide-title"&gt;</code> inside the slide's <code>&lt;div&gt;</code></td>
+              <td><span class="badge badge-easy">easy</span></td>
+            </tr>
+            <tr>
+              <td>Slide subtitle</td>
+              <td>Find <code>&lt;p class="slide-subtitle"&gt;</code> below the title</td>
+              <td><span class="badge badge-easy">easy</span></td>
+            </tr>
+            <tr>
+              <td>Body text / bullets</td>
+              <td>Edit the <code>&lt;p&gt;</code> and <code>&lt;li&gt;</code> elements inside <code>.content-box</code></td>
+              <td><span class="badge badge-easy">easy</span></td>
+            </tr>
+            <tr>
+              <td>Presenter name</td>
+              <td>Find the title slide; edit <code>&lt;p class="presenter"&gt;</code></td>
+              <td><span class="badge badge-easy">easy</span></td>
+            </tr>
+            <tr>
+              <td>Activity prompt text</td>
+              <td>Edit the <code>&lt;p&gt;</code> inside the <code>.activity-box</code></td>
+              <td><span class="badge badge-easy">easy</span></td>
+            </tr>
+            <tr>
+              <td>Presentation title (in browser tab)</td>
+              <td>Edit <code>&lt;title&gt;</code> in the <code>&lt;head&gt;</code> and the <code>const presTitle</code> JS variable</td>
+              <td><span class="badge badge-easy">easy</span></td>
+            </tr>
+            <tr>
+              <td>Contact email</td>
+              <td>Edit <code>const contactEmail</code> in the <code>&lt;script&gt;</code></td>
+              <td><span class="badge badge-easy">easy</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="edit-slides-count">
+      <h2>Editing: Slide Count</h2>
+      <p>Adding or removing slides requires changes in three places. Miss any one of them and navigation breaks.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Add/remove the slide HTML block</h4>
+            <p>Copy an existing <code>&lt;div class="slide" id="slide-N"&gt;...&lt;/div&gt;</code> block and paste it after the last slide. Increment <code>N</code> by 1. To delete a slide, remove its entire <code>&lt;div&gt;</code> block and renumber any slides that follow.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Update the dropdown</h4>
+            <p>Add a matching <code>&lt;option value="N"&gt;N. Slide Title&lt;/option&gt;</code> in the <code>&lt;select id="slide-select"&gt;</code>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Update totalSlides in JavaScript</h4>
+            <p>Find <code>const totalSlides = X;</code> near the top of the <code>&lt;script&gt;</code> block. Change <code>X</code> to the new total.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="edit-colors">
+      <h2>Editing: Colors &amp; Branding</h2>
+      <p>Change the CSS variables in <code>:root</code> at the top of the <code>&lt;style&gt;</code> block:</p>
+
+      <div class="code-block">
+        <div class="code-label">CSS — change branding colors <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>:root {
+  /* Change these two lines to rebrand the entire presentation */
+  --green: #285C4D;    /* ← Your primary color */
+  --blue:  #71C5E8;    /* ← Your accent color  */
+
+  /* Derived shades — usually leave these alone */
+  --green-dark:  #1a3d32;
+  --green-light: #e8f2ef;
+  --blue-light:  #d8f0fa;
+}</pre>
+      </div>
+    </section>
+
+    <section class="section" id="edit-activities-edit">
+      <h2>Editing: Activity Questions</h2>
+      <p>To change an activity prompt: find the <code>.activity-box</code> div for that activity (look for the <code>id</code> on its textarea, e.g., <code>act2-response</code>). Edit the <code>&lt;p&gt;</code> text inside. The save logic does not depend on the prompt text, so no JavaScript changes are needed.</p>
+
+      <p>To add a new activity:</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Add the HTML block</h4>
+            <p>Copy an existing <code>.activity-box</code> div. Give the textarea a new unique id (e.g., <code>act5-response</code>) and the confirm paragraph <code>id="act5-confirm"</code>. Update the <code>onclick="saveActivity(5)"</code>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Update totalActivities</h4>
+            <p>Find <code>const totalActivities = N;</code> in the script and increment it.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Add to export</h4>
+            <p>Add <code>'act5-response'</code> to the <code>ids</code> array in <code>collectResponses()</code>, and a matching label to the <code>labels</code> array.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="edit-checklist">
+      <h2>Editing: Checklists</h2>
+      <div class="code-block">
+        <div class="code-label">HTML — interactive checklist <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;ul class="checklist"&gt;
+  &lt;li onclick="toggleCheck(this)"&gt;
+    &lt;span class="cb"&gt;&lt;/span&gt;
+    &lt;span&gt;First checklist item text here&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li onclick="toggleCheck(this)"&gt;
+    &lt;span class="cb"&gt;&lt;/span&gt;
+    &lt;span&gt;Second checklist item text here&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li onclick="toggleCheck(this)"&gt;
+    &lt;span class="cb"&gt;&lt;/span&gt;
+    &lt;span&gt;Third checklist item text here&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</pre>
+      </div>
+
+      <p>Add this small JavaScript function to the <code>&lt;script&gt;</code> block:</p>
+      <div class="code-block">
+        <div class="code-label">JavaScript — checklist toggle <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>function toggleCheck(li) {
+  li.classList.toggle('checked');
+}</pre>
+      </div>
+    </section>
+
+    <section class="section" id="edit-links">
+      <h2>Editing: Links</h2>
+      <p>Always use <code>target="_blank"</code> on external links so they open in a new tab and don't break the presentation flow:</p>
+      <div class="code-block">
+        <div class="code-label">HTML — external link <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;a href="https://libguides.tulane.edu/az/databases" target="_blank"&gt;
+  A–Z Databases
+&lt;/a&gt;</pre>
+      </div>
+    </section>
+
+    <!-- ===== PATTERNS ===== -->
+    <section class="section" id="slide-layouts">
+      <h2>Slide Layout Patterns</h2>
+
+      <details>
+        <summary>Two-column layout</summary>
+        <div class="details-body">
+          <div class="code-block">
+            <div class="code-label">HTML — two-column grid <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;div class="two-col"&gt;
+  &lt;div class="content-box"&gt;
+    &lt;h3&gt;Left Column&lt;/h3&gt;
+    &lt;p&gt;Content for the left side.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="blue-box"&gt;
+    &lt;h3&gt;Right Column&lt;/h3&gt;
+    &lt;p&gt;Content for the right side.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Table inside a slide</summary>
+        <div class="details-body">
+          <div class="code-block">
+            <div class="code-label">HTML — comparison table <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;table style="width:100%; border-collapse:collapse; font-size:0.88rem; margin-top:14px;"&gt;
+  &lt;thead&gt;
+    &lt;tr style="background:var(--green); color:white;"&gt;
+      &lt;th style="padding:9px 14px; text-align:left;"&gt;Column One&lt;/th&gt;
+      &lt;th style="padding:9px 14px; text-align:left;"&gt;Column Two&lt;/th&gt;
+      &lt;th style="padding:9px 14px; text-align:left;"&gt;Column Three&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr style="border-bottom:1px solid var(--border);"&gt;
+      &lt;td style="padding:8px 14px;"&gt;Row 1, Cell 1&lt;/td&gt;
+      &lt;td style="padding:8px 14px;"&gt;Row 1, Cell 2&lt;/td&gt;
+      &lt;td style="padding:8px 14px;"&gt;Row 1, Cell 3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style="background:var(--off-white); border-bottom:1px solid var(--border);"&gt;
+      &lt;td style="padding:8px 14px;"&gt;Row 2, Cell 1&lt;/td&gt;
+      &lt;td style="padding:8px 14px;"&gt;Row 2, Cell 2&lt;/td&gt;
+      &lt;td style="padding:8px 14px;"&gt;Row 2, Cell 3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Tabbed content panel</summary>
+        <div class="details-body">
+          <p>Used in the Python and R presentations to show code alongside explanations.</p>
+          <div class="code-block">
+            <div class="code-label">HTML + JS — tabbed panel <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;!-- Tab buttons --&gt;
+&lt;div style="display:flex; gap:4px; margin-bottom:0;"&gt;
+  &lt;button class="tab-btn active" onclick="showTab('tab-overview', this)"&gt;Overview&lt;/button&gt;
+  &lt;button class="tab-btn" onclick="showTab('tab-code', this)"&gt;Code&lt;/button&gt;
+  &lt;button class="tab-btn" onclick="showTab('tab-output', this)"&gt;Output&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Tab panels --&gt;
+&lt;div id="tab-overview" class="tab-panel" style="display:block; padding:16px; background:var(--off-white); border:1px solid var(--border); border-radius:0 8px 8px 8px;"&gt;
+  &lt;p&gt;Overview content here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id="tab-code" class="tab-panel" style="display:none; background:var(--code-bg); padding:16px; border-radius:0 8px 8px 8px;"&gt;
+  &lt;pre style="color:#a8e6cf; font-family:var(--font-code); font-size:0.82rem;"&gt;print("Hello, world!")&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id="tab-output" class="tab-panel" style="display:none; padding:16px; background:var(--off-white); border:1px solid var(--border); border-radius:0 8px 8px 8px;"&gt;
+  &lt;p&gt;Output content here.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Add these styles once in &lt;style&gt; --&gt;
+&lt;style&gt;
+.tab-btn {
+  background: var(--border); color: var(--text); border: 1px solid var(--border);
+  padding: 6px 14px; border-radius: 6px 6px 0 0; cursor: pointer; font-size:0.83rem;
+  font-family: var(--font-body); font-weight: 500;
+}
+.tab-btn.active { background: var(--green); color: white; border-color: var(--green); }
+&lt;/style&gt;
+
+&lt;!-- Add to &lt;script&gt; --&gt;
+&lt;script&gt;
+function showTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p =&gt; p.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(b =&gt; b.classList.remove('active'));
+  document.getElementById(tabId).style.display = 'block';
+  btn.classList.add('active');
+}
+&lt;/script&gt;</pre>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="section" id="activity-types">
+      <h2>Activity Type Patterns</h2>
+
+      <details>
+        <summary>Auto-populate from previous activity</summary>
+        <div class="details-body">
+          <p>Used in the lit review and annotated bib presentations — an earlier activity's text pre-fills a later textarea.</p>
+          <div class="code-block">
+            <div class="code-label">JavaScript — pull from a prior activity <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// Call this when navigating to the slide that uses the previous value.
+// Add to showSlide() or to the slide's onshow handler.
+function pullFromPrevious() {
+  const src = document.getElementById('act1-response');
+  const dst = document.getElementById('act3-topic-prefill');
+  if (src &amp;&amp; dst &amp;&amp; src.value.trim() &amp;&amp; !dst.value.trim()) {
+    dst.value = src.value.trim();
+  }
+}
+
+// Then call it inside showSlide():
+function showSlide(n) {
+  // ... existing nav code ...
+  if (n === 7) pullFromPrevious(); // slide 7 uses activity 1's value
+}</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Boolean search builder</summary>
+        <div class="details-body">
+          <div class="code-block">
+            <div class="code-label">HTML + JS — live Boolean builder <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;div class="activity-box"&gt;
+  &lt;h3&gt;🔍 Boolean Search Builder&lt;/h3&gt;
+  &lt;div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;"&gt;
+    &lt;input type="text" id="bool-term1" placeholder="Term 1" style="flex:1; min-width:120px; padding:8px; border:1px solid var(--border); border-radius:6px;"&gt;
+    &lt;select id="bool-op1" style="padding:8px; border:1px solid var(--border); border-radius:6px;"&gt;
+      &lt;option value="AND"&gt;AND&lt;/option&gt;
+      &lt;option value="OR"&gt;OR&lt;/option&gt;
+      &lt;option value="NOT"&gt;NOT&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type="text" id="bool-term2" placeholder="Term 2" style="flex:1; min-width:120px; padding:8px; border:1px solid var(--border); border-radius:6px;"&gt;
+  &lt;/div&gt;
+  &lt;button class="save-btn" onclick="buildBoolean()"&gt;Build Search String&lt;/button&gt;
+  &lt;p id="bool-result" style="margin-top:10px; font-family:var(--font-code); font-size:0.90rem; color:var(--green-dark);"&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function buildBoolean() {
+  const t1 = document.getElementById('bool-term1').value.trim();
+  const op = document.getElementById('bool-op1').value;
+  const t2 = document.getElementById('bool-term2').value.trim();
+  if (t1 &amp;&amp; t2) {
+    document.getElementById('bool-result').textContent = t1 + ' ' + op + ' ' + t2;
+  }
+}
+&lt;/script&gt;</pre>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="section" id="quiz-pattern">
+      <h2>Scored Quiz Pattern</h2>
+      <p>Used in The Search Ecosystem (6-question Boolean quiz) and the Python / R presentations. Each question is an object in a JavaScript array.</p>
+
+      <div class="code-block">
+        <div class="code-label">HTML + JavaScript — self-contained scored quiz <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;!-- Place this HTML inside any slide --&gt;
+&lt;div id="quiz-container"&gt;&lt;/div&gt;
+&lt;div id="quiz-results" style="display:none; padding:16px; background:var(--green-light);
+     border-radius:8px; margin-top:12px;"&gt;&lt;/div&gt;
+
+&lt;!-- Place this JavaScript in the &lt;script&gt; block --&gt;
+&lt;script&gt;
+const quizQuestions = [
+  {
+    question: "Which operator narrows a search by requiring BOTH terms to appear?",
+    options: ["OR", "NOT", "AND", "NEAR"],
+    correct: 2,  // 0-indexed: "AND" is index 2
+    explanation: "AND narrows results — both terms must be present."
+  },
+  {
+    question: "Which operator broadens a search to include EITHER term?",
+    options: ["AND", "OR", "NOT", "WITH"],
+    correct: 1,
+    explanation: "OR broadens results — either or both terms may appear."
+  },
+  // ← Add more question objects here
+];
+
+let quizAnswers = {};
+
+function renderQuiz() {
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = quizQuestions.map((q, i) =&gt; `
+    &lt;div style="background:white; border:1px solid var(--border); border-radius:8px;
+                padding:14px 16px; margin-bottom:12px;"&gt;
+      &lt;p style="font-weight:600; font-size:0.92rem; margin-bottom:10px;"&gt;
+        ${i+1}. ${q.question}
+      &lt;/p&gt;
+      ${q.options.map((opt, j) =&gt; `
+        &lt;label style="display:flex; align-items:center; gap:8px; margin-bottom:6px;
+                      cursor:pointer; font-size:0.88rem;"&gt;
+          &lt;input type="radio" name="q${i}" value="${j}"
+                 onchange="quizAnswers[${i}]=${j}"&gt;
+          ${opt}
+        &lt;/label&gt;
+      `).join('')}
+    &lt;/div&gt;
+  `).join('');
+
+  container.innerHTML += `
+    &lt;button class="save-btn" onclick="scoreQuiz()"&gt;Submit Quiz&lt;/button&gt;`;
+}
+
+function scoreQuiz() {
+  let score = 0;
+  let feedback = '';
+  quizQuestions.forEach((q, i) =&gt; {
+    const chosen = quizAnswers[i];
+    const correct = chosen === q.correct;
+    if (correct) score++;
+    feedback += `&lt;p style="margin-bottom:8px;"&gt;
+      &lt;strong&gt;Q${i+1}:&lt;/strong&gt;
+      ${correct ? '✅' : '❌'}
+      ${!correct ? '&lt;em&gt;(' + q.options[q.correct] + ')&lt;/em&gt; — ' : ''}
+      ${q.explanation}
+    &lt;/p&gt;`;
+  });
+  const results = document.getElementById('quiz-results');
+  results.style.display = 'block';
+  results.innerHTML = `
+    &lt;h3 style="font-family:var(--font-heading); color:var(--green); margin-bottom:10px;"&gt;
+      Score: ${score} / ${quizQuestions.length}
+    &lt;/h3&gt;
+    ${feedback}`;
+  saveActivity(5); // mark quiz as completed — use the right activity number
+}
+
+// Call renderQuiz() when the slide loads, or on page load:
+document.addEventListener('DOMContentLoaded', renderQuiz);
+&lt;/script&gt;</pre>
+      </div>
+    </section>
+
+    <!-- ===== HOSTING ===== -->
+    <section class="section" id="hosting">
+      <h2>Hosting on GitHub Pages</h2>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Create a GitHub repository</h4>
+            <p>Go to <a href="https://github.com" target="_blank">github.com</a>, sign in, and click <strong>New repository</strong>. Name it something like <code>library-presentations</code>. Make it Public.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Upload your HTML file</h4>
+            <p>Click <strong>Add file → Upload files</strong>. Drag in your <code>.html</code> file. If you name it <code>index.html</code> it becomes the root URL. For multiple presentations, use descriptive filenames like <code>intro-to-research.html</code>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Enable GitHub Pages</h4>
+            <p>Go to <strong>Settings → Pages</strong>. Under <em>Source</em>, choose <strong>Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Click Save.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Your URL</h4>
+            <p>After 1–2 minutes, your presentation is live at:<br>
+            <code>https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/&lt;filename&gt;.html</code></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body">
+          <strong>QR codes for the title slide</strong>
+          <p>Once you have a GitHub Pages URL, generate a QR code at <a href="https://www.qr-code-generator.com" target="_blank">qr-code-generator.com</a>. Download as PNG, then embed it as a base64 string using any online <em>image-to-base64</em> converter and paste into an <code>&lt;img src="data:image/png;base64,..."&gt;</code> tag on the title slide.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="checklist-launch">
+      <h2>Launch Checklist</h2>
+      <p>Before sharing a presentation, verify each of these:</p>
+      <ul>
+        <li>✅ <code>totalSlides</code> matches actual slide count</li>
+        <li>✅ <code>totalActivities</code> matches actual activity count</li>
+        <li>✅ Dropdown has one <code>&lt;option&gt;</code> per slide with correct <code>value</code></li>
+        <li>✅ First slide has <code>class="slide active"</code>; all others have <code>class="slide"</code></li>
+        <li>✅ Every activity textarea has a unique id (<code>act1-response</code>, <code>act2-response</code>, …)</li>
+        <li>✅ Every activity confirm element has a matching id (<code>act1-confirm</code>, etc.)</li>
+        <li>✅ All external links include <code>target="_blank"</code></li>
+        <li>✅ <code>collectResponses()</code> includes all activity textarea IDs</li>
+        <li>✅ Presentation title is updated in <code>&lt;title&gt;</code>, the navbar <code>.brand</code> span, and <code>const presTitle</code></li>
+        <li>✅ Contact email is correct in <code>const contactEmail</code></li>
+        <li>✅ Tested in Chrome and Firefox — open the file locally first, then from GitHub Pages</li>
+        <li>✅ Keyboard arrow navigation works (← →)</li>
+        <li>✅ Export panel opens and the email/download produces readable output</li>
+      </ul>
+    </section>
+
+    <section class="section" id="troubleshooting">
+      <h2>Troubleshooting</h2>
+
+      <details>
+        <summary>Clicking Next/Prev goes past the last or first slide</summary>
+        <div class="details-body"><p><code>totalSlides</code> in the JavaScript is wrong. Count your <code>&lt;div class="slide"&gt;</code> elements and set <code>totalSlides</code> to that number.</p></div>
+      </details>
+
+      <details>
+        <summary>Dropdown shows wrong slide names or skips a slide</summary>
+        <div class="details-body"><p>A <code>&lt;option value="N"&gt;</code> is missing or has a wrong value. The <code>value</code> attribute must exactly equal the slide number in the <code>id="slide-N"</code>.</p></div>
+      </details>
+
+      <details>
+        <summary>Activity badge doesn't increment</summary>
+        <div class="details-body"><p>The <code>onclick="saveActivity(N)"</code> call uses a number that doesn't match or the function isn't present. Also check that <code>act<em>N</em>-confirm</code> exists as a paragraph id.</p></div>
+      </details>
+
+      <details>
+        <summary>Google Fonts aren't loading (offline / internal network)</summary>
+        <div class="details-body"><p>The presentations load fonts from <code>fonts.googleapis.com</code>. If the computer is offline or on a restricted network, add a CSS fallback at the end of each font-family declaration, e.g., <code>font-family: 'Source Serif 4', Georgia, serif;</code>. The presentations already include these fallbacks via the CSS variables.</p></div>
+      </details>
+
+      <details>
+        <summary>Export email opens but body is blank</summary>
+        <div class="details-body"><p>The student hasn't saved any activities yet (nothing to export). If you want to test it, type into a textarea and click Save first.</p></div>
+      </details>
+
+      <details>
+        <summary>Slide content is cut off / not scrolling</summary>
+        <div class="details-body"><p>The slide div needs <code>overflow-y: auto;</code> in its CSS. Check that the <code>.slide</code> rule includes this property. If a single slide has too much content, consider splitting it into two slides.</p></div>
+      </details>
+
+      <details>
+        <summary>Special characters (&amp;, &lt;, &gt;) display as garbled text</summary>
+        <div class="details-body">
+          <p>In HTML content, these characters must be escaped:</p>
+          <ul>
+            <li><code>&amp;</code> → <code>&amp;amp;</code></li>
+            <li><code>&lt;</code> → <code>&amp;lt;</code></li>
+            <li><code>&gt;</code> → <code>&amp;gt;</code></li>
+          </ul>
+          <p>In JavaScript strings (inside <code>&lt;script&gt;</code>), use the raw characters.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- ===== SECTION: SANDBOX ===== -->
+    <section class="section" id="sandbox">
+      <h2>🧪 Slide Sandbox</h2>
+      <p>Paste or write slide HTML below and click <strong>Render Slide</strong> to preview it exactly as it would appear inside a real presentation — complete with Tulane CSS, fonts, and all utility classes. No need to run a local server or open a separate file.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body">
+          <strong>What to paste here</strong>
+          <p>Paste just the <em>inner contents</em> of a <code>&lt;div class="slide"&gt;</code> — the heading, boxes, activity, and text — not the outer slide div itself. You can also paste a full slide div and the sandbox will still render it. Try the <strong>Load Example</strong> buttons to see common patterns immediately.</p>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; align-items:center;">
+        <span style="font-size:0.80rem; font-weight:600; color:var(--text-muted); margin-right:4px;">Load example:</span>
+        <button class="sandbox-preset-btn" onclick="loadPreset('content')">Content Slide</button>
+        <button class="sandbox-preset-btn" onclick="loadPreset('twocol')">Two-Column</button>
+        <button class="sandbox-preset-btn" onclick="loadPreset('activity')">Activity Box</button>
+        <button class="sandbox-preset-btn" onclick="loadPreset('checklist')">Checklist</button>
+        <button class="sandbox-preset-btn" onclick="loadPreset('table')">Table</button>
+        <button class="sandbox-preset-btn" onclick="loadPreset('title')">Title Slide</button>
+        <button class="sandbox-preset-btn sandbox-clear-btn" onclick="clearSandbox()">✕ Clear</button>
+      </div>
+
+      <!-- Editor -->
+      <div style="position:relative;">
+        <textarea id="sandbox-editor"
+          spellcheck="false"
+          placeholder="Paste your slide HTML here, then click Render Slide…"
+          style="
+            width: 100%;
+            min-height: 220px;
+            font-family: var(--font-code);
+            font-size: 0.81rem;
+            line-height: 1.6;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--code-bg);
+            color: var(--code-text);
+            resize: vertical;
+            tab-size: 2;
+            outline: none;
+            transition: border-color 0.15s;
+          "
+          onfocus="this.style.borderColor='var(--blue)'"
+          onblur="this.style.borderColor='var(--border)'"
+        ></textarea>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:10px; align-items:center; flex-wrap:wrap;">
+        <button onclick="renderSandbox()" style="
+          background: var(--green); color: white; border: none;
+          border-radius: 6px; padding: 9px 24px;
+          font-family: var(--font-body); font-size: 0.90rem; font-weight: 600;
+          cursor: pointer; transition: background 0.15s;
+          display: flex; align-items: center; gap: 7px;
+        " onmouseover="this.style.background='var(--green-dark)'" onmouseout="this.style.background='var(--green)'">
+          ▶ Render Slide
+        </button>
+        <button onclick="copyRenderedLink()" id="sandbox-copy-btn" style="
+          background: var(--off-white); color: var(--text); border: 1px solid var(--border);
+          border-radius: 6px; padding: 9px 18px;
+          font-family: var(--font-body); font-size: 0.88rem; font-weight: 500;
+          cursor: pointer; transition: background 0.15s;
+        " onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--off-white)'">
+          📋 Copy HTML
+        </button>
+        <span id="sandbox-status" style="font-size:0.80rem; color:var(--text-muted);"></span>
+      </div>
+
+      <!-- Preview frame wrapper -->
+      <div id="sandbox-preview-wrap" style="
+        margin-top: 20px;
+        border: 2px solid var(--green);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        display: none;
+      ">
+        <!-- Preview header bar (mimics the real nav bar) -->
+        <div style="
+          background: var(--green); color: white;
+          padding: 0 16px; height: 44px;
+          display: flex; align-items: center; justify-content: space-between;
+          font-family: var(--font-body); font-size: 0.82rem;
+        ">
+          <span style="font-weight:600; opacity:0.85;">Slide Preview</span>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span style="background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3);
+                         border-radius:4px; padding:3px 10px; font-size:0.75rem; opacity:0.9;">
+              ← Prev
+            </span>
+            <span style="background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3);
+                         border-radius:4px; padding:3px 10px; font-size:0.75rem; opacity:0.9;">
+              Next →
+            </span>
+            <span style="background:var(--blue); color:var(--green-dark);
+                         font-size:0.70rem; font-weight:700; padding:2px 8px; border-radius:10px;">
+              0 / 0 activities
+            </span>
+          </div>
+        </div>
+        <!-- The iframe -->
+        <iframe id="sandbox-frame"
+          style="width:100%; height:480px; border:none; display:block; background:white;"
+          sandbox="allow-scripts allow-same-origin"
+          title="Slide preview"
+        ></iframe>
+        <!-- Resize handle label -->
+        <div style="background:var(--green-light); border-top:1px solid var(--border);
+                    padding:5px 12px; font-size:0.72rem; color:var(--text-muted);
+                    display:flex; justify-content:space-between; align-items:center;">
+          <span>Rendered with full Tulane CSS · Activities and buttons are interactive</span>
+          <span>Drag iframe border to resize ↕</span>
+        </div>
+      </div>
+
+    </section>
+
+  </div><!-- /content -->
+</main><!-- /main -->
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── Sidebar smooth-scroll (offset for sticky topbar) ─── */
+const TOPBAR_H = 64; // px — matches #topbar height
+
+document.querySelectorAll('#sidebar nav a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.scrollY - TOPBAR_H - 8;
+    window.scrollTo({ top, behavior: 'smooth' });
+    // update active state immediately on click
+    document.querySelectorAll('#sidebar nav a').forEach(a => a.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+/* ── Sidebar active highlighting on scroll ─── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('#sidebar nav a');
+const observer  = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector('#sidebar nav a[href="#' + entry.target.id + '"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+
+/* ── Scroll progress bar ─── */
+window.addEventListener('scroll', () => {
+  const h  = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+
+/* ── Sandbox ─────────────────────────────────────────────── */
+const SLIDE_CSS = `
+  :root {
+    --green:#285C4D; --green-dark:#1a3d32; --green-light:#e8f2ef;
+    --blue:#71C5E8; --blue-light:#d8f0fa; --gold:#C8973A;
+    --white:#ffffff; --off-white:#f5f7f6; --text:#1a2e25;
+    --text-muted:#4a6358; --border:#d0ddd9;
+    --font-heading:'Source Serif 4',Georgia,serif;
+    --font-body:'DM Sans',system-ui,sans-serif;
+    --font-code:'Source Code Pro','Courier New',monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font-body);color:var(--text);background:var(--white);
+       padding:32px 40px 28px;min-height:100vh;}
+  h2.slide-title{font-family:var(--font-heading);font-size:1.75rem;font-weight:700;
+    color:var(--green);margin-bottom:6px;line-height:1.2;}
+  p.slide-subtitle{font-size:1rem;color:var(--text-muted);font-weight:300;margin-bottom:20px;}
+  h1{font-family:var(--font-heading);font-size:2.2rem;font-weight:700;
+    color:var(--green);margin-bottom:0.4em;line-height:1.2;}
+  h3{font-family:var(--font-heading);font-size:1.05rem;font-weight:600;
+    color:var(--green-dark);margin-bottom:8px;}
+  p{font-size:0.93rem;line-height:1.68;margin-bottom:0.85em;}
+  ul,ol{margin:0.4em 0 0.85em 1.3em;}
+  li{font-size:0.92rem;line-height:1.65;margin-bottom:0.3em;}
+  a{color:var(--green);}
+  strong{color:var(--green-dark);}
+  code{background:var(--green-light);color:var(--green-dark);font-family:var(--font-code);
+    font-size:0.82em;padding:1px 5px;border-radius:3px;border:1px solid var(--border);}
+  pre{background:#1a2e25;color:#a8e6cf;font-family:var(--font-code);font-size:0.80rem;
+    line-height:1.6;padding:14px 16px;border-radius:8px;overflow-x:auto;margin:10px 0;}
+  .content-box{background:var(--off-white);border-left:4px solid var(--green);
+    border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:14px;}
+  .blue-box{background:var(--blue-light);border-left:4px solid var(--blue);
+    border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:14px;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .title-slide{background:linear-gradient(150deg,var(--green) 0%,var(--green-dark) 100%);
+    color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:48px;min-height:calc(100vh - 0px);margin:-32px -40px -28px;}
+  .title-slide h1{color:white;max-width:700px;}
+  .title-slide .presenter{font-size:1rem;color:rgba(255,255,255,0.80);margin-bottom:6px;}
+  .title-slide .institution{font-size:0.85rem;color:var(--blue);font-weight:500;}
+  .title-slide .nav-hint{margin-top:24px;font-size:0.78rem;color:rgba(255,255,255,0.45);
+    border:1px solid rgba(255,255,255,0.20);border-radius:20px;padding:5px 16px;}
+  .activity-box{background:var(--blue-light);border:2px solid var(--blue);
+    border-radius:10px;padding:18px;margin-top:18px;}
+  .activity-box h3{color:var(--green-dark);font-size:1rem;font-weight:600;margin-bottom:10px;}
+  .activity-box textarea,.activity-box input[type=text]{width:100%;border:1px solid var(--border);
+    border-radius:6px;padding:9px 12px;font-family:var(--font-body);font-size:0.90rem;
+    background:white;resize:vertical;min-height:76px;}
+  .activity-box textarea:focus,.activity-box input:focus{outline:none;
+    border-color:var(--green);box-shadow:0 0 0 3px rgba(40,92,77,0.12);}
+  .save-btn{background:var(--green);color:white;border:none;border-radius:6px;
+    padding:7px 18px;font-family:var(--font-body);font-size:0.87rem;font-weight:500;
+    cursor:pointer;margin-top:9px;}
+  .save-btn:hover{background:var(--green-dark);}
+  .save-confirm{font-size:0.80rem;color:var(--green);margin-top:5px;display:none;}
+  .checklist{list-style:none;margin:0;padding:0;}
+  .checklist li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;
+    border-bottom:1px solid var(--border);font-size:0.92rem;cursor:pointer;}
+  .checklist li:last-child{border-bottom:none;}
+  .checklist li .cb{width:20px;height:20px;border:2px solid var(--green);
+    border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    font-size:0.75rem;background:white;margin-top:1px;}
+  .checklist li.checked .cb{background:var(--green);border-color:var(--green);color:white;}
+  .checklist li.checked .cb::after{content:'\\u2713';}
+  .checklist li.checked span{text-decoration:line-through;color:var(--text-muted);}
+  table{width:100%;border-collapse:collapse;font-size:0.87rem;margin-top:12px;}
+  th{background:var(--green);color:white;font-weight:600;font-size:0.78rem;
+    text-transform:uppercase;letter-spacing:0.05em;padding:9px 14px;text-align:left;}
+  td{padding:8px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--off-white);}
+`;
+
+const PRESETS = {
+  content: `<h2 class="slide-title">Types of Sources</h2>
+<p class="slide-subtitle">Choosing the right source for your research question</p>
+
+<div class="content-box">
+  <h3>Scholarly / Peer-Reviewed</h3>
+  <p>Written by researchers, reviewed by experts before publication. Best for academic arguments.</p>
+  <ul>
+    <li>Journal articles (found in databases like JSTOR, ProQuest)</li>
+    <li>Conference proceedings, dissertations</li>
+  </ul>
+</div>
+
+<div class="blue-box">
+  <p><strong>Tip:</strong> Use the "Peer Reviewed" filter in most library databases to limit results automatically.</p>
+</div>`,
+
+  twocol: `<h2 class="slide-title">Primary vs. Secondary Sources</h2>
+<p class="slide-subtitle">Understanding the difference</p>
+<div class="two-col">
+  <div class="content-box">
+    <h3>Primary Sources</h3>
+    <p>Original, firsthand material created at the time of the event.</p>
+    <ul><li>Diaries, letters, speeches</li><li>Raw data, surveys</li><li>Original research articles</li></ul>
+  </div>
+  <div class="blue-box">
+    <h3>Secondary Sources</h3>
+    <p>Interpret or analyze primary sources.</p>
+    <ul><li>Textbooks, review articles</li><li>Biographies, documentaries</li><li>Literature review chapters</li></ul>
+  </div>
+</div>`,
+
+  activity: `<h2 class="slide-title">Activity: Search Planning</h2>
+<p class="slide-subtitle">Build your initial search strategy</p>
+<p>Before searching, identify your key concepts. A strong search string usually combines 2-3 core terms with Boolean operators.</p>
+<div class="activity-box">
+  <h3>&#9999;&#65039; Activity: Your Search Plan</h3>
+  <p style="font-size:0.88rem; margin-bottom:10px;">Describe your research topic and list three keywords you will use.</p>
+  <textarea id="act1-response" placeholder="My topic is... My keywords are..."></textarea>
+  <br>
+  <button class="save-btn" onclick="this.nextElementSibling.style.display='block'">Save Response</button>
+  <p class="save-confirm">&#10003; Saved!</p>
+</div>`,
+
+  checklist: `<h2 class="slide-title">Source Evaluation Checklist</h2>
+<p class="slide-subtitle">Apply the CRAAP test to your sources</p>
+<div class="content-box"><p>Click each item as you complete it.</p></div>
+<ul class="checklist">
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Currency:</strong> Published or updated recently enough for your topic</span></li>
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Relevance:</strong> Directly addresses your research question</span></li>
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Authority:</strong> Author has credentials in this subject area</span></li>
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Accuracy:</strong> Claims are supported by evidence and citations</span></li>
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Purpose:</strong> Intent is to inform, not just persuade or sell</span></li>
+</ul>`,
+
+  table: `<h2 class="slide-title">Database Comparison</h2>
+<p class="slide-subtitle">Key databases for social sciences research</p>
+<table>
+  <thead><tr><th>Database</th><th>Best For</th><th>Coverage</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Sociological Abstracts</strong></td><td>Sociology, social work, policy</td><td>1952-present</td></tr>
+    <tr><td><strong>PsycINFO</strong></td><td>Psychology, behavioral science</td><td>1887-present</td></tr>
+    <tr><td><strong>JSTOR</strong></td><td>Humanities, social sciences (older issues)</td><td>Varies by journal</td></tr>
+    <tr><td><strong>Web of Science</strong></td><td>Citation tracking, interdisciplinary</td><td>1900-present</td></tr>
+  </tbody>
+</table>`,
+
+  title: `<div class="title-slide">
+  <h1>Introduction to Academic Research</h1>
+  <p class="presenter">Kay P. Maye, Scholarly Engagement Librarian</p>
+  <p class="institution">Howard-Tilton Memorial Library &middot; Tulane University</p>
+  <p class="nav-hint">Use &larr; &rarr; arrow keys or the dropdown to navigate</p>
+</div>`
+};
+
+function loadPreset(name) {
+  document.getElementById('sandbox-editor').value = PRESETS[name];
+  renderSandbox();
+}
+
+function clearSandbox() {
+  document.getElementById('sandbox-editor').value = '';
+  document.getElementById('sandbox-preview-wrap').style.display = 'none';
+  document.getElementById('sandbox-status').textContent = '';
+}
+
+function renderSandbox() {
+  const html = document.getElementById('sandbox-editor').value.trim();
+  if (!html) {
+    document.getElementById('sandbox-status').textContent = 'Nothing to render.';
+    return;
+  }
+
+  const fontLink = '<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">';
+
+  const doc = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">' + fontLink +
+    '<style>' + SLIDE_CSS + '</style></head><body>' + html + '</body></html>';
+
+  const frame = document.getElementById('sandbox-frame');
+  const wrap  = document.getElementById('sandbox-preview-wrap');
+  wrap.style.display = 'block';
+  frame.srcdoc = doc;
+
+  const lineCount = html.split('\n').length;
+  document.getElementById('sandbox-status').textContent = 'Rendered (' + lineCount + ' lines)';
+  setTimeout(() => { document.getElementById('sandbox-status').textContent = ''; }, 3000);
+}
+
+function copyRenderedLink() {
+  const html = document.getElementById('sandbox-editor').value.trim();
+  if (!html) return;
+  navigator.clipboard.writeText(html).then(() => {
+    const btn = document.getElementById('sandbox-copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = '&#128203; Copy HTML'; }, 2000);
+  });
+}
+
+/* ── Copy code buttons ─── */
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+</script>
+</body>
+</html>
