@@ -4,38 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HTML Presentation Authoring Guide — Howard-Tilton Memorial Library</title>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
      CSS VARIABLES — TULANE DESIGN SYSTEM
-     Edit these to change the entire guide's color scheme.
      ============================================================ */
   :root {
-    --green:      #285C4D;   /* Primary: Tulane green */
-    --green-dark: #1a3d32;   /* Hover / header backgrounds */
-    --green-light:#e8f2ef;   /* Subtle tinted backgrounds */
-    --blue:       #71C5E8;   /* Accent: Tulane sky blue */
-    --blue-light: #d8f0fa;   /* Light blue backgrounds */
-    --gold:       #C8973A;   /* Highlight callouts */
-    --gold-light: #fdf3e0;   /* Light gold background */
-    --red:        #b94040;   /* Warning callouts */
+    --green:      #285C4D;
+    --green-dark: #1a3d32;
+    --green-light:#e8f2ef;
+    --green-tint: #f0f7f4;
+    --blue:       #71C5E8;
+    --blue-light: #d8f0fa;
+    --blue-tint:  #ecf7fc;
+    --gold:       #C8973A;
+    --gold-light: #fdf3e0;
+    --red:        #b94040;
     --red-light:  #fdeaea;
     --white:      #ffffff;
     --off-white:  #f7f9f8;
-    --text:       #1a2e25;   /* Primary body text */
-    --text-muted: #4a6358;   /* Secondary / muted text */
-    --border:     #ccddd8;   /* Subtle borders */
-    --code-bg:    #1a2e25;   /* Dark code block bg */
-    --code-text:  #a8e6cf;   /* Code text */
+    --text:       #1a2e25;
+    --text-muted: #4a6358;
+    --text-soft:  #6b8076;
+    --border:     #ccddd8;
+    --border-soft:#e3ede9;
+    --code-bg:    #1a2e25;
+    --code-text:  #a8e6cf;
 
     --font-body:  'DM Sans', sans-serif;
     --font-serif: 'Source Serif 4', serif;
     --font-code:  'Source Code Pro', monospace;
 
-    --sidebar-w: 260px;
-    --content-max: 860px;
+    --sidebar-w: 280px;
+    --content-max: 920px;
     --radius: 8px;
-    --shadow: 0 2px 12px rgba(40,92,77,0.10);
+    --radius-lg: 12px;
+    --shadow-sm: 0 1px 4px rgba(40,92,77,0.08);
+    --shadow:    0 2px 12px rgba(40,92,77,0.10);
+    --shadow-lg: 0 8px 28px rgba(40,92,77,0.14);
   }
 
   /* ============================================================ RESET */
@@ -48,6 +54,8 @@
     background: var(--off-white);
     display: flex;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* ============================================================ SIDEBAR NAV */
@@ -66,31 +74,60 @@
   }
 
   #sidebar-header {
-    padding: 20px 16px 16px;
+    padding: 22px 18px 16px;
     border-bottom: 1px solid rgba(255,255,255,0.12);
+    flex-shrink: 0;
   }
   #sidebar-header .logo {
     font-family: var(--font-serif);
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-weight: 600;
     color: var(--blue);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     line-height: 1.3;
     margin-bottom: 4px;
   }
   #sidebar-header .subtitle {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.55);
-    font-weight: 300;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 400;
+    line-height: 1.4;
   }
 
-  #sidebar nav { padding: 8px 0 24px; flex: 1; }
+  /* Sidebar search */
+  #sidebar-search {
+    padding: 10px 16px 4px;
+    flex-shrink: 0;
+  }
+  #sidebar-search input {
+    width: 100%;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    border-radius: 5px;
+    padding: 7px 10px 7px 28px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    transition: all 0.15s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2371C5E8'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 8px center;
+    background-size: 13px;
+  }
+  #sidebar-search input::placeholder { color: rgba(255,255,255,0.4); }
+  #sidebar-search input:focus {
+    outline: none;
+    border-color: var(--blue);
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  #sidebar nav { padding: 4px 0 24px; flex: 1; }
   #sidebar nav a {
     display: block;
-    padding: 8px 16px 8px 18px;
-    font-size: 0.80rem;
-    color: rgba(255,255,255,0.75);
+    padding: 7px 16px 7px 18px;
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.78);
     text-decoration: none;
     border-left: 3px solid transparent;
     transition: all 0.15s ease;
@@ -102,13 +139,16 @@
     background: rgba(255,255,255,0.08);
     border-left-color: var(--blue);
   }
+  #sidebar nav a.dimmed {
+    opacity: 0.25;
+  }
   #sidebar nav .nav-section {
-    font-size: 0.65rem;
-    font-weight: 600;
+    font-size: 0.66rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.35);
-    padding: 16px 16px 4px;
+    letter-spacing: 0.12em;
+    color: rgba(113,197,232,0.75);
+    padding: 18px 16px 5px;
   }
 
   /* ============================================================ MAIN CONTENT */
@@ -122,7 +162,7 @@
   #topbar {
     background: var(--green);
     color: var(--white);
-    padding: 16px 40px;
+    padding: 14px 44px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -133,20 +173,38 @@
   }
   #topbar h1 {
     font-family: var(--font-serif);
-    font-size: 1.15rem;
+    font-size: 1.18rem;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
+  #topbar .meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
   #topbar .version {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: var(--blue);
     font-weight: 500;
   }
+  #topbar .help-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-size: 0.85rem;
+  }
+  #topbar .help-btn:hover { background: rgba(255,255,255,0.28); }
 
   /* Content area */
   #content {
-    padding: 48px 40px 80px;
-    max-width: calc(var(--content-max) + 80px);
+    padding: 56px 44px 100px;
+    max-width: calc(var(--content-max) + 88px);
   }
 
   /* ============================================================ TYPOGRAPHY */
@@ -155,118 +213,227 @@
     color: var(--green);
     line-height: 1.25;
   }
-  h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5em; }
+  h1 { font-size: 2.3rem; font-weight: 700; margin-bottom: 0.5em; letter-spacing: -0.015em; }
   h2 {
-    font-size: 1.55rem; font-weight: 600;
-    margin-top: 3rem; margin-bottom: 0.7rem;
-    padding-bottom: 0.4rem;
+    font-size: 1.65rem; font-weight: 600;
+    margin-top: 3.2rem; margin-bottom: 0.85rem;
+    padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--green-light);
+    display: flex; align-items: center; gap: 12px;
+    letter-spacing: -0.01em;
   }
-  h3 { font-size: 1.15rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.5rem; color: var(--green-dark); }
-  h4 { font-size: 0.95rem; font-weight: 600; margin-top: 1.4rem; margin-bottom: 0.35rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
-
-  p { font-size: 0.95rem; line-height: 1.7; color: var(--text); margin-bottom: 0.9em; }
-  p:last-child { margin-bottom: 0; }
-  strong { color: var(--green-dark); }
-  a { color: var(--green); }
-  a:hover { color: var(--blue); }
-
-  ul, ol { margin: 0.5em 0 1em 1.4em; }
-  li { font-size: 0.93rem; line-height: 1.65; margin-bottom: 0.3em; }
-  li ul { margin-top: 0.3em; margin-bottom: 0.3em; }
-
-  /* ============================================================ SECTIONS */
-  .section { margin-bottom: 3rem; scroll-margin-top: 72px; }
-
-  /* Hero intro card */
-  .hero-card {
-    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-    color: white;
-    border-radius: var(--radius);
-    padding: 32px 36px;
-    margin-bottom: 2.5rem;
-    box-shadow: var(--shadow);
-  }
-  .hero-card h1 { color: white; font-size: 1.9rem; margin-bottom: 0.5rem; }
-  .hero-card p { color: rgba(255,255,255,0.85); font-size: 1rem; margin-bottom: 0; }
-  .hero-card .tags { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
-  .hero-card .tag {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: white;
+  h2 .section-num {
+    font-family: var(--font-body);
     font-size: 0.72rem;
-    font-weight: 500;
+    font-weight: 700;
+    color: var(--green);
+    background: var(--green-light);
     padding: 3px 10px;
     border-radius: 20px;
     letter-spacing: 0.04em;
+  }
+  h3 {
+    font-size: 1.20rem; font-weight: 600;
+    margin-top: 2.2rem; margin-bottom: 0.6rem;
+    color: var(--green-dark);
+  }
+  h4 {
+    font-size: 0.92rem; font-weight: 700;
+    margin-top: 1.5rem; margin-bottom: 0.4rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-family: var(--font-body);
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--text);
+    margin-bottom: 1em;
+  }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--green-dark); font-weight: 600; }
+  a { color: var(--green); text-decoration: underline; text-decoration-color: rgba(40,92,77,0.3); text-underline-offset: 2px; }
+  a:hover { color: var(--blue); text-decoration-color: var(--blue); }
+
+  ul, ol { margin: 0.6em 0 1.1em 1.5em; }
+  li { font-size: 0.96rem; line-height: 1.7; margin-bottom: 0.35em; }
+  li ul { margin-top: 0.35em; margin-bottom: 0.35em; }
+
+  /* Lead paragraph after section heading */
+  .lead {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.4em;
+    font-weight: 400;
+  }
+
+  /* ============================================================ SECTIONS */
+  .section {
+    margin-bottom: 3.2rem;
+    scroll-margin-top: 80px;
+  }
+
+  /* Hero intro card */
+  .hero-card {
+    background:
+      radial-gradient(circle at 88% 18%, rgba(113,197,232,0.20) 0%, transparent 45%),
+      linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    color: white;
+    border-radius: var(--radius-lg);
+    padding: 38px 40px 34px;
+    margin-bottom: 2.8rem;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 160px; height: 160px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-card h1 { color: white; font-size: 2rem; margin-bottom: 0.5rem; }
+  .hero-card p { color: rgba(255,255,255,0.88); font-size: 1.04rem; margin-bottom: 0; line-height: 1.6; }
+  .hero-card .tags { margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero-card .tag {
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: white;
+    font-size: 0.74rem;
+    font-weight: 500;
+    padding: 4px 11px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Quick-jump cards under hero */
+  .quick-jump {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+    margin-bottom: 2.5rem;
+  }
+  .quick-jump a {
+    background: white;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.15s;
+    box-shadow: var(--shadow-sm);
+  }
+  .quick-jump a:hover {
+    border-color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    color: var(--text);
+  }
+  .quick-jump .qj-icon { font-size: 1.3rem; margin-bottom: 6px; display: block; }
+  .quick-jump .qj-title {
+    font-size: 0.88rem; font-weight: 600;
+    color: var(--green-dark);
+    margin-bottom: 2px;
+    display: block;
+  }
+  .quick-jump .qj-desc {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.4;
   }
 
   /* ============================================================ CALLOUT BOXES */
   .callout {
     border-radius: var(--radius);
-    padding: 14px 18px;
-    margin: 1.2rem 0;
-    font-size: 0.9rem;
-    line-height: 1.6;
+    padding: 16px 20px;
+    margin: 1.4rem 0;
+    font-size: 0.94rem;
+    line-height: 1.65;
     border-left: 4px solid;
     display: flex;
-    gap: 12px;
+    gap: 14px;
     align-items: flex-start;
+    background: white;
+    box-shadow: var(--shadow-sm);
   }
-  .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .callout-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+    line-height: 1;
+  }
   .callout-body { flex: 1; }
-  .callout-body strong { display: block; margin-bottom: 3px; font-size: 0.88rem; }
-  .callout-body p { font-size: 0.88rem; margin-bottom: 0; }
+  .callout-body strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .callout-body p { font-size: 0.92rem; margin-bottom: 0; line-height: 1.65; }
 
-  .callout-tip    { background: var(--blue-light);  border-color: var(--blue);  }
+  .callout-tip    { background: var(--blue-tint);   border-color: var(--blue);  }
   .callout-warn   { background: var(--gold-light);  border-color: var(--gold);  }
   .callout-danger { background: var(--red-light);   border-color: var(--red);   }
-  .callout-note   { background: var(--green-light); border-color: var(--green); }
+  .callout-note   { background: var(--green-tint);  border-color: var(--green); }
 
   /* ============================================================ CODE BLOCKS */
   .code-block {
     position: relative;
-    margin: 1.2rem 0;
+    margin: 1.3rem 0;
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 3px 16px rgba(0,0,0,0.18);
+    box-shadow: 0 3px 18px rgba(0,0,0,0.18);
   }
   .code-label {
     background: var(--green);
     color: var(--blue);
     font-family: var(--font-code);
-    font-size: 0.70rem;
+    font-size: 0.71rem;
     font-weight: 600;
-    padding: 6px 14px;
-    letter-spacing: 0.08em;
+    padding: 7px 14px;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
+  }
+  .code-label .label-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
   }
   .code-label .copy-btn {
     background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.22);
     color: white;
     font-family: var(--font-body);
-    font-size: 0.68rem;
-    padding: 2px 8px;
-    border-radius: 3px;
+    font-size: 0.70rem;
+    padding: 3px 10px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background 0.2s;
     letter-spacing: normal;
     text-transform: none;
+    flex-shrink: 0;
   }
   .code-label .copy-btn:hover { background: rgba(255,255,255,0.28); }
-  .code-label .copy-btn.copied { color: var(--blue); }
+  .code-label .copy-btn.copied { background: var(--blue); color: var(--green-dark); }
 
   pre {
     background: var(--code-bg);
     color: var(--code-text);
     font-family: var(--font-code);
-    font-size: 0.81rem;
-    line-height: 1.6;
-    padding: 18px 20px;
+    font-size: 0.83rem;
+    line-height: 1.65;
+    padding: 18px 22px;
     overflow-x: auto;
     tab-size: 2;
     white-space: pre;
@@ -276,25 +443,22 @@
     background: var(--green-light);
     color: var(--green-dark);
     font-family: var(--font-code);
-    font-size: 0.82em;
-    padding: 1px 5px;
+    font-size: 0.84em;
+    padding: 1px 6px;
     border-radius: 3px;
     border: 1px solid var(--border);
+    font-weight: 500;
   }
 
-  /* Syntax highlight colors (manual) */
-  .kw  { color: #f8c471; } /* keywords */
-  .str { color: #abebc6; } /* strings */
-  .cm  { color: #7fb3a0; font-style: italic; } /* comments */
-  .fn  { color: #85c1e9; } /* function names */
-  .num { color: #e8a87c; } /* numbers */
-  .tag { color: #f1948a; } /* HTML tags */
-  .attr{ color: #f8c471; } /* HTML attributes */
-  .val { color: #abebc6; } /* attribute values */
-
   /* ============================================================ TABLES */
-  .table-wrap { overflow-x: auto; margin: 1.2rem 0; border-radius: var(--radius); box-shadow: var(--shadow); }
-  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; background: white; }
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1.4rem 0;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-soft);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.91rem; background: white; }
   th {
     background: var(--green);
     color: white;
@@ -303,21 +467,31 @@
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 10px 14px;
+    padding: 12px 16px;
     text-align: left;
   }
-  td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border-soft);
+    vertical-align: top;
+    line-height: 1.55;
+  }
   tr:last-child td { border-bottom: none; }
   tr:nth-child(even) td { background: var(--off-white); }
-  td code { font-size: 0.80em; }
+  td code { font-size: 0.82em; }
 
   /* ============================================================ STEPS */
-  .steps { counter-reset: step; margin: 1.2rem 0; }
+  .steps { counter-reset: step; margin: 1.4rem 0; }
   .step {
     display: flex;
-    gap: 16px;
-    margin-bottom: 1.4rem;
+    gap: 18px;
+    margin-bottom: 1.5rem;
     align-items: flex-start;
+    background: white;
+    padding: 16px 18px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-sm);
   }
   .step-num {
     counter-increment: step;
@@ -325,41 +499,50 @@
     color: white;
     font-family: var(--font-serif);
     font-weight: 700;
-    font-size: 0.9rem;
-    width: 32px; height: 32px;
+    font-size: 0.95rem;
+    width: 34px; height: 34px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 1px;
   }
   .step-body { flex: 1; }
-  .step-body h4 { margin-top: 0; color: var(--green-dark); }
-  .step-body p, .step-body ul { font-size: 0.9rem; }
+  .step-body h4 { margin-top: 0; color: var(--green-dark); text-transform: none; letter-spacing: 0; font-size: 1rem; font-family: var(--font-serif); font-weight: 600; }
+  .step-body p, .step-body ul { font-size: 0.93rem; }
 
   /* ============================================================ COLLAPSIBLE SECTIONS */
   details {
     background: white;
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    margin: 0.8rem 0;
+    margin: 0.9rem 0;
     overflow: hidden;
+    transition: box-shadow 0.15s;
   }
+  details[open] { box-shadow: var(--shadow); }
   details summary {
-    padding: 12px 16px;
+    padding: 13px 18px;
     cursor: pointer;
     font-weight: 600;
-    font-size: 0.90rem;
+    font-size: 0.94rem;
     color: var(--green-dark);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     user-select: none;
     list-style: none;
+    transition: background 0.15s;
   }
-  details summary::before { content: '▶'; font-size: 0.65rem; transition: transform 0.2s; }
+  details summary:hover { background: var(--green-tint); }
+  details summary::before {
+    content: '▶';
+    font-size: 0.65rem;
+    transition: transform 0.2s;
+    color: var(--green);
+  }
   details[open] summary::before { transform: rotate(90deg); }
   details summary::-webkit-details-marker { display: none; }
-  details .details-body { padding: 0 16px 16px; }
+  details .details-body { padding: 4px 18px 18px; border-top: 1px solid var(--border-soft); }
 
   /* ============================================================ EDIT QUICK-REF */
   .edit-table .green { color: var(--green-dark); font-weight: 600; }
@@ -367,7 +550,7 @@
     display: inline-block;
     font-size: 0.68rem;
     font-weight: 700;
-    padding: 1px 6px;
+    padding: 2px 8px;
     border-radius: 3px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -376,6 +559,20 @@
   .badge-easy   { background: #d5f0e8; color: #1a5e42; }
   .badge-medium { background: #fef3d0; color: #7a5100; }
   .badge-hard   { background: #ffe0e0; color: #7a1414; }
+
+  /* Difficulty legend */
+  .difficulty-legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    background: var(--green-tint);
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .difficulty-legend span { display: flex; align-items: center; gap: 6px; }
 
   /* ============================================================ SCROLL PROGRESS */
   #progress-bar {
@@ -388,23 +585,149 @@
     z-index: 999;
   }
 
+  /* ============================================================ BACK TO TOP */
+  #back-to-top {
+    position: fixed;
+    bottom: 28px; left: calc(var(--sidebar-w) + 28px);
+    background: var(--green);
+    color: white;
+    border: none;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s, transform 0.2s, background 0.15s;
+    z-index: 200;
+    font-size: 1.1rem;
+    pointer-events: none;
+  }
+  #back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #back-to-top:hover { background: var(--green-dark); }
+
+  /* ============================================================ KEYBOARD HELP MODAL */
+  #help-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,46,37,0.55);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+  }
+  #help-modal.open { display: flex; }
+  #help-modal .modal-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: var(--shadow-lg);
+  }
+  #help-modal h3 { margin-top: 0; margin-bottom: 14px; }
+  #help-modal kbd {
+    background: var(--green-light);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: var(--font-code);
+    font-size: 0.82rem;
+    color: var(--green-dark);
+    box-shadow: 0 1px 0 var(--border);
+  }
+  #help-modal .shortcut-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 0.92rem;
+  }
+  #help-modal .shortcut-row:last-child { border-bottom: none; }
+  #help-modal .close-btn {
+    margin-top: 18px;
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.88rem;
+  }
+  #help-modal .close-btn:hover { background: var(--green-dark); }
+
   /* ============================================================ RESPONSIVE */
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     #sidebar { display: none; }
     #main { margin-left: 0; }
     #topbar { padding: 12px 20px; }
-    #content { padding: 28px 20px 60px; }
+    #content { padding: 32px 20px 70px; }
+    #back-to-top { left: auto; right: 20px; bottom: 20px; }
+    h1 { font-size: 1.85rem; }
+    h2 { font-size: 1.4rem; }
   }
+
   /* ============================================================ SANDBOX */
-  .sandbox-preset-btn {
-    background: var(--green-light); color: var(--green-dark);
-    border: 1px solid var(--border); border-radius: 5px;
-    padding: 4px 12px; font-family: var(--font-body); font-size: 0.78rem;
-    font-weight: 500; cursor: pointer; transition: background 0.15s;
+  .sandbox-toolbar {
+    background: var(--green-tint);
+    padding: 14px 16px;
+    border-radius: var(--radius) var(--radius) 0 0;
+    border: 1px solid var(--border-soft);
+    border-bottom: none;
+    margin-bottom: 0;
   }
-  .sandbox-preset-btn:hover { background: var(--blue-light); border-color: var(--blue); }
-  .sandbox-clear-btn { background: var(--red-light) !important; color: var(--red) !important; border-color: var(--red) !important; }
-  .sandbox-clear-btn:hover { opacity: 0.8; }
+  .sandbox-toolbar-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .sandbox-preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 6px;
+  }
+  .sandbox-preset-btn {
+    background: white;
+    color: var(--green-dark);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-family: var(--font-body);
+    font-size: 0.79rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sandbox-preset-btn:hover {
+    background: var(--blue-light);
+    border-color: var(--blue);
+    transform: translateY(-1px);
+  }
+  .sandbox-preset-btn .preset-icon { font-size: 0.95rem; flex-shrink: 0; }
+  .sandbox-clear-btn {
+    background: var(--red-light) !important;
+    color: var(--red) !important;
+    border-color: var(--red) !important;
+    grid-column: -2 / -1;
+    justify-content: center;
+  }
+  .sandbox-clear-btn:hover { opacity: 0.85; background: var(--red-light) !important; }
   #sandbox-frame { resize: vertical; }
 </style>
 </head>
@@ -418,6 +741,9 @@
     <div class="logo">Howard-Tilton Memorial Library</div>
     <div class="subtitle">HTML Presentation Authoring Guide</div>
   </div>
+  <div id="sidebar-search">
+    <input type="text" id="nav-filter" placeholder="Filter sections…" autocomplete="off">
+  </div>
   <nav>
     <div class="nav-section">Overview</div>
     <a href="#intro">Introduction</a>
@@ -425,7 +751,7 @@
 
     <div class="nav-section">Building from Scratch</div>
     <a href="#scaffold">The Full Scaffold</a>
-    <a href="#css-variables">CSS Variables & Branding</a>
+    <a href="#css-variables">CSS Variables &amp; Branding</a>
     <a href="#nav-system">Navigation System</a>
     <a href="#slides">Writing Slides</a>
     <a href="#activities">Interactive Activities</a>
@@ -433,17 +759,16 @@
     <a href="#export">Export / Email Panel</a>
 
     <div class="nav-section">Editing Elements</div>
-    <a href="#edit-text">Text & Content</a>
+    <a href="#edit-text">Text &amp; Content</a>
     <a href="#edit-slides-count">Slide Count</a>
-    <a href="#edit-colors">Colors & Branding</a>
+    <a href="#edit-colors">Colors &amp; Branding</a>
     <a href="#edit-activities-edit">Activity Questions</a>
     <a href="#edit-checklist">Checklists</a>
     <a href="#edit-links">Links</a>
 
-    <div class="nav-section">Patterns & Recipes</div>
+    <div class="nav-section">Patterns &amp; Recipes</div>
     <a href="#slide-layouts">Slide Layout Patterns</a>
     <a href="#activity-types">Activity Type Patterns</a>
-    <a href="#tables-patterns">Tables & Comparisons</a>
     <a href="#quiz-pattern">Scored Quiz</a>
 
     <div class="nav-section">Tools</div>
@@ -460,7 +785,10 @@
 <main id="main">
   <div id="topbar">
     <h1>HTML Presentation Authoring Guide</h1>
-    <span class="version">Kay P. Maye · Howard-Tilton Memorial Library</span>
+    <div class="meta">
+      <span class="version">Kay P. Maye · Howard-Tilton Memorial Library</span>
+      <button class="help-btn" onclick="toggleHelp()" title="Keyboard shortcuts (?)">?</button>
+    </div>
   </div>
 
   <div id="content">
@@ -479,12 +807,36 @@
       </div>
     </div>
 
+    <!-- ===== QUICK JUMP ===== -->
+    <div class="quick-jump">
+      <a href="#scaffold">
+        <span class="qj-icon">🚀</span>
+        <span class="qj-title">Start a new file</span>
+        <span class="qj-desc">Copy the full scaffold</span>
+      </a>
+      <a href="#sandbox">
+        <span class="qj-icon">🧪</span>
+        <span class="qj-title">Try a slide</span>
+        <span class="qj-desc">18 ready-made layouts</span>
+      </a>
+      <a href="#slide-layouts">
+        <span class="qj-icon">📐</span>
+        <span class="qj-title">Layout patterns</span>
+        <span class="qj-desc">Two-column, tables, tabs</span>
+      </a>
+      <a href="#troubleshooting">
+        <span class="qj-icon">🔧</span>
+        <span class="qj-title">Fix a problem</span>
+        <span class="qj-desc">Common issues, solved</span>
+      </a>
+    </div>
+
     <!-- ===== SECTION: INTRO ===== -->
     <section class="section" id="intro">
-      <h2>Introduction</h2>
-      <p>These presentations are <strong>self-contained single HTML files</strong> — one file, no dependencies beyond Google Fonts. They require no frameworks, no build tools, and no server-side code. A plain text editor and a web browser are all you need. Each file can be opened locally, emailed, or hosted on GitHub Pages.</p>
+      <h2><span class="section-num">01</span>Introduction</h2>
+      <p class="lead">These presentations are <strong>self-contained single HTML files</strong> — one file, no dependencies beyond Google Fonts. They require no frameworks, no build tools, and no server-side code. A plain text editor and a web browser are all you need.</p>
 
-      <p>The format was designed for library instruction at Howard-Tilton Memorial Library. Core principles:</p>
+      <p>Each file can be opened locally, emailed, or hosted on GitHub Pages. The format was designed for library instruction at Howard-Tilton Memorial Library. Core principles:</p>
       <ul>
         <li><strong>Self-contained:</strong> One file. All CSS, JavaScript, and content live inside it.</li>
         <li><strong>Accessible:</strong> Keyboard navigation (← → arrows), dropdown slide selector, touch/swipe support.</li>
@@ -506,11 +858,11 @@
 
     <!-- ===== SECTION: ANATOMY ===== -->
     <section class="section" id="anatomy">
-      <h2>Anatomy of a Presentation File</h2>
-      <p>Every presentation follows this structure inside a single <code>.html</code> file:</p>
+      <h2><span class="section-num">02</span>Anatomy of a Presentation</h2>
+      <p class="lead">Every presentation follows this structure inside a single <code>.html</code> file. The five pieces below appear in roughly the same order in every file you make.</p>
 
       <div class="code-block">
-        <div class="code-label">HTML FILE STRUCTURE <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">HTML FILE STRUCTURE</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
@@ -553,19 +905,19 @@
 
     <!-- ===== SECTION: SCAFFOLD ===== -->
     <section class="section" id="scaffold">
-      <h2>The Full Scaffold</h2>
-      <p>Copy and paste this entire block to start a new presentation. Replace the placeholder text as noted in the comments. This gives you a 3-slide shell with navigation, activity tracker, and export panel fully wired up.</p>
+      <h2><span class="section-num">03</span>The Full Scaffold</h2>
+      <p class="lead">Copy and paste this entire block to start a new presentation. Replace the placeholder text as noted in the comments. This gives you a 3-slide shell with navigation, activity tracker, and export panel fully wired up.</p>
 
       <div class="callout callout-warn">
         <span class="callout-icon">⚠️</span>
         <div class="callout-body">
-          <strong>Key variable to update first:</strong>
+          <strong>Key variable to update first</strong>
           <p>Find <code>const totalSlides = 3;</code> in the JavaScript section and change <code>3</code> to match however many slides you create. Getting this wrong will break the Previous/Next buttons.</p>
         </div>
       </div>
 
       <div class="code-block">
-        <div class="code-label">COMPLETE STARTER TEMPLATE — presentation-starter.html <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">COMPLETE STARTER TEMPLATE — presentation-starter.html</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
@@ -841,7 +1193,7 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-body); colo
   &lt;div class="slide" id="slide-3"&gt;
     &lt;h2 class="slide-title"&gt;Questions &amp; Next Steps&lt;/h2&gt;
     &lt;div class="blue-box"&gt;
-      &lt;p&gt;&lt;strong&gt;Contact:&lt;/strong&gt; Kay P. Maye · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80ebede1f9e5c0f4f5ece1eee5aee5e4f5">[email&#160;protected]</a>&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;Contact:&lt;/strong&gt; Kay P. Maye · kmaye@tulane.edu&lt;/p&gt;
       &lt;p&gt;&lt;strong&gt;LibGuides:&lt;/strong&gt; &lt;a href="https://libguides.tulane.edu" target="_blank"&gt;libguides.tulane.edu&lt;/a&gt;&lt;/p&gt;
     &lt;/div&gt;
   &lt;/div&gt;
@@ -866,7 +1218,7 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-body); colo
 const totalSlides    = 3;   // ← UPDATE THIS when you add/remove slides
 const totalActivities = 2;  // ← UPDATE THIS to match activity count
 const presTitle      = "YOUR PRESENTATION TITLE";
-const contactEmail   = "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a41474b534f6a5e5f464b444f044f4e5f">[email&#160;protected]</a>";
+const contactEmail   = "kmaye@tulane.edu";
 
 /* ── State ──────────────────────────────────────────────────── */
 let currentSlide = 1;
@@ -951,8 +1303,8 @@ function downloadResponses() {
 
     <!-- ===== SECTION: CSS VARIABLES ===== -->
     <section class="section" id="css-variables">
-      <h2>CSS Variables &amp; Branding</h2>
-      <p>All colors, fonts, and spacing are controlled by CSS custom properties at the top of the <code>&lt;style&gt;</code> block. Changing a variable here updates every element that uses it.</p>
+      <h2><span class="section-num">04</span>CSS Variables &amp; Branding</h2>
+      <p class="lead">All colors, fonts, and spacing are controlled by CSS custom properties at the top of the <code>&lt;style&gt;</code> block. Changing a variable here updates every element that uses it.</p>
 
       <div class="table-wrap">
         <table>
@@ -982,13 +1334,13 @@ function downloadResponses() {
 
     <!-- ===== SECTION: NAV SYSTEM ===== -->
     <section class="section" id="nav-system">
-      <h2>Navigation System</h2>
+      <h2><span class="section-num">05</span>Navigation System</h2>
 
       <h3>Dropdown Slide Selector</h3>
       <p>The <code>&lt;select&gt;</code> element lists every slide. Add or remove <code>&lt;option&gt;</code> elements as you add slides. The <code>value</code> must match the slide number.</p>
 
       <div class="code-block">
-        <div class="code-label">HTML — slide dropdown options <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">HTML — slide dropdown options</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;select id="slide-select" onchange="showSlide(parseInt(this.value))"&gt;
   &lt;option value="1"&gt;1. Introduction&lt;/option&gt;
   &lt;option value="2"&gt;2. Research as Inquiry&lt;/option&gt;
@@ -1010,7 +1362,7 @@ function downloadResponses() {
       <h3>JavaScript Navigation Core</h3>
       <p>This is the <code>showSlide()</code> function. You do not normally need to edit it — just keep <code>totalSlides</code> accurate.</p>
       <div class="code-block">
-        <div class="code-label">JavaScript — navigation core <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">JavaScript — navigation core</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>const totalSlides = 12; // ← always update this
 
 function showSlide(n) {
@@ -1028,11 +1380,11 @@ function showSlide(n) {
 
     <!-- ===== SECTION: SLIDES ===== -->
     <section class="section" id="slides">
-      <h2>Writing Slides</h2>
+      <h2><span class="section-num">06</span>Writing Slides</h2>
 
       <h3>Every slide follows this pattern</h3>
       <div class="code-block">
-        <div class="code-label">HTML — basic content slide <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">HTML — basic content slide</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;!-- Replace N with the slide number. Add class="active" to the first slide only. --&gt;
 &lt;div class="slide" id="slide-N"&gt;
   &lt;h2 class="slide-title"&gt;Slide Title Here&lt;/h2&gt;
@@ -1055,7 +1407,7 @@ function showSlide(n) {
 
       <h3>Title / Opening slide</h3>
       <div class="code-block">
-        <div class="code-label">HTML — title slide (dark green gradient) <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">HTML — title slide (dark green gradient)</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;div class="slide title-slide active" id="slide-1"&gt;
   &lt;h1&gt;Introduction to Academic Research&lt;/h1&gt;
   &lt;p class="presenter"&gt;Kay P. Maye, Scholarly Engagement Librarian&lt;/p&gt;
@@ -1063,17 +1415,25 @@ function showSlide(n) {
   &lt;p class="nav-hint"&gt;Use ← → arrow keys or the dropdown to navigate&lt;/p&gt;
 &lt;/div&gt;</pre>
       </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">🧪</span>
+        <div class="callout-body">
+          <strong>Try it live</strong>
+          <p>Jump to the <a href="#sandbox">Slide Sandbox</a> below to see all 18 slide patterns rendered with full Tulane CSS — including content slides, two-column layouts, activities, quizzes, code blocks, and more.</p>
+        </div>
+      </div>
     </section>
 
     <!-- ===== SECTION: ACTIVITIES ===== -->
     <section class="section" id="activities">
-      <h2>Interactive Activities</h2>
+      <h2><span class="section-num">07</span>Interactive Activities</h2>
 
       <h3>Textarea activity (most common)</h3>
       <p>Add this inside any slide. The <code>id</code> on the <code>&lt;textarea&gt;</code> and the number passed to <code>saveActivity()</code> must be consistent and unique per activity.</p>
 
       <div class="code-block">
-        <div class="code-label">HTML — textarea activity block <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">HTML — textarea activity block</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;div class="activity-box"&gt;
   &lt;h3&gt;✏️ Activity: Your Topic&lt;/h3&gt;
   &lt;p style="font-size:0.88rem; margin-bottom:10px;"&gt;
@@ -1096,7 +1456,7 @@ function showSlide(n) {
 
       <h3>Multiple text inputs (structured reflection)</h3>
       <div class="code-block">
-        <div class="code-label">HTML — multi-field activity <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">HTML — multi-field activity</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;div class="activity-box"&gt;
   &lt;h3&gt;✏️ Activity: Search Planning&lt;/h3&gt;
   &lt;p style="font-size:0.88rem; margin-bottom:12px;"&gt;Complete each field before saving.&lt;/p&gt;
@@ -1126,11 +1486,11 @@ function showSlide(n) {
 
     <!-- ===== SECTION: TRACKER ===== -->
     <section class="section" id="tracker">
-      <h2>Activity Tracker Badge</h2>
-      <p>The badge in the nav bar reads <code>0 / N activities</code> and increments each time a student saves an activity. You only need to keep <code>totalActivities</code> accurate.</p>
+      <h2><span class="section-num">08</span>Activity Tracker Badge</h2>
+      <p class="lead">The badge in the nav bar reads <code>0 / N activities</code> and increments each time a student saves an activity. You only need to keep <code>totalActivities</code> accurate.</p>
 
       <div class="code-block">
-        <div class="code-label">JavaScript — activity tracking <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">JavaScript — activity tracking</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>const totalActivities = 4; // ← number of activities in the presentation
 let activitiesCompleted = new Set(); // Set prevents double-counting
 
@@ -1150,11 +1510,11 @@ function updateBadge() {
 
     <!-- ===== SECTION: EXPORT ===== -->
     <section class="section" id="export">
-      <h2>Export / Email Panel</h2>
-      <p>The floating panel in the bottom-right corner lets students email or download their responses. To add a new activity's response to the export, add its textarea ID to the <code>ids</code> array in <code>collectResponses()</code>.</p>
+      <h2><span class="section-num">09</span>Export / Email Panel</h2>
+      <p class="lead">The floating panel in the bottom-right corner lets students email or download their responses. To add a new activity's response to the export, add its textarea ID to the <code>ids</code> array in <code>collectResponses()</code>.</p>
 
       <div class="code-block">
-        <div class="code-label">JavaScript — export logic <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">JavaScript — export logic</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>function collectResponses() {
   // ← Add or remove IDs here to match your activities
   const ids = [
@@ -1188,7 +1548,14 @@ function updateBadge() {
 
     <!-- ===== EDITING SECTION ===== -->
     <section class="section" id="edit-text">
-      <h2>Editing: Text &amp; Content</h2>
+      <h2><span class="section-num">10</span>Editing: Text &amp; Content</h2>
+
+      <div class="difficulty-legend">
+        <strong style="color:var(--green-dark); font-weight:700;">Difficulty:</strong>
+        <span><span class="badge badge-easy">easy</span> Single line edit</span>
+        <span><span class="badge badge-medium">medium</span> Multiple coordinated changes</span>
+        <span><span class="badge badge-hard">hard</span> Touches JS / structure</span>
+      </div>
 
       <div class="table-wrap">
         <table class="edit-table">
@@ -1235,8 +1602,8 @@ function updateBadge() {
     </section>
 
     <section class="section" id="edit-slides-count">
-      <h2>Editing: Slide Count</h2>
-      <p>Adding or removing slides requires changes in three places. Miss any one of them and navigation breaks.</p>
+      <h2><span class="section-num">11</span>Editing: Slide Count</h2>
+      <p class="lead">Adding or removing slides requires changes in three places. Miss any one of them and navigation breaks.</p>
 
       <div class="steps">
         <div class="step">
@@ -1264,11 +1631,11 @@ function updateBadge() {
     </section>
 
     <section class="section" id="edit-colors">
-      <h2>Editing: Colors &amp; Branding</h2>
-      <p>Change the CSS variables in <code>:root</code> at the top of the <code>&lt;style&gt;</code> block:</p>
+      <h2><span class="section-num">12</span>Editing: Colors &amp; Branding</h2>
+      <p class="lead">Change the CSS variables in <code>:root</code> at the top of the <code>&lt;style&gt;</code> block:</p>
 
       <div class="code-block">
-        <div class="code-label">CSS — change branding colors <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">CSS — change branding colors</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>:root {
   /* Change these two lines to rebrand the entire presentation */
   --green: #285C4D;    /* ← Your primary color */
@@ -1283,7 +1650,7 @@ function updateBadge() {
     </section>
 
     <section class="section" id="edit-activities-edit">
-      <h2>Editing: Activity Questions</h2>
+      <h2><span class="section-num">13</span>Editing: Activity Questions</h2>
       <p>To change an activity prompt: find the <code>.activity-box</code> div for that activity (look for the <code>id</code> on its textarea, e.g., <code>act2-response</code>). Edit the <code>&lt;p&gt;</code> text inside. The save logic does not depend on the prompt text, so no JavaScript changes are needed.</p>
 
       <p>To add a new activity:</p>
@@ -1313,9 +1680,9 @@ function updateBadge() {
     </section>
 
     <section class="section" id="edit-checklist">
-      <h2>Editing: Checklists</h2>
+      <h2><span class="section-num">14</span>Editing: Checklists</h2>
       <div class="code-block">
-        <div class="code-label">HTML — interactive checklist <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">HTML — interactive checklist</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;ul class="checklist"&gt;
   &lt;li onclick="toggleCheck(this)"&gt;
     &lt;span class="cb"&gt;&lt;/span&gt;
@@ -1334,7 +1701,7 @@ function updateBadge() {
 
       <p>Add this small JavaScript function to the <code>&lt;script&gt;</code> block:</p>
       <div class="code-block">
-        <div class="code-label">JavaScript — checklist toggle <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">JavaScript — checklist toggle</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>function toggleCheck(li) {
   li.classList.toggle('checked');
 }</pre>
@@ -1342,10 +1709,10 @@ function updateBadge() {
     </section>
 
     <section class="section" id="edit-links">
-      <h2>Editing: Links</h2>
+      <h2><span class="section-num">15</span>Editing: Links</h2>
       <p>Always use <code>target="_blank"</code> on external links so they open in a new tab and don't break the presentation flow:</p>
       <div class="code-block">
-        <div class="code-label">HTML — external link <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">HTML — external link</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;a href="https://libguides.tulane.edu/az/databases" target="_blank"&gt;
   A–Z Databases
 &lt;/a&gt;</pre>
@@ -1354,13 +1721,14 @@ function updateBadge() {
 
     <!-- ===== PATTERNS ===== -->
     <section class="section" id="slide-layouts">
-      <h2>Slide Layout Patterns</h2>
+      <h2><span class="section-num">16</span>Slide Layout Patterns</h2>
+      <p class="lead">Each pattern below is also available as a one-click preset in the <a href="#sandbox">Slide Sandbox</a>. Click to preview, then copy the rendered HTML.</p>
 
       <details>
         <summary>Two-column layout</summary>
         <div class="details-body">
           <div class="code-block">
-            <div class="code-label">HTML — two-column grid <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-label"><span class="label-text">HTML — two-column grid</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;div class="two-col"&gt;
   &lt;div class="content-box"&gt;
     &lt;h3&gt;Left Column&lt;/h3&gt;
@@ -1379,7 +1747,7 @@ function updateBadge() {
         <summary>Table inside a slide</summary>
         <div class="details-body">
           <div class="code-block">
-            <div class="code-label">HTML — comparison table <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-label"><span class="label-text">HTML — comparison table</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;table style="width:100%; border-collapse:collapse; font-size:0.88rem; margin-top:14px;"&gt;
   &lt;thead&gt;
     &lt;tr style="background:var(--green); color:white;"&gt;
@@ -1410,7 +1778,7 @@ function updateBadge() {
         <div class="details-body">
           <p>Used in the Python and R presentations to show code alongside explanations.</p>
           <div class="code-block">
-            <div class="code-label">HTML + JS — tabbed panel <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-label"><span class="label-text">HTML + JS — tabbed panel</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;!-- Tab buttons --&gt;
 &lt;div style="display:flex; gap:4px; margin-bottom:0;"&gt;
   &lt;button class="tab-btn active" onclick="showTab('tab-overview', this)"&gt;Overview&lt;/button&gt;
@@ -1451,17 +1819,87 @@ function showTab(tabId, btn) {
           </div>
         </div>
       </details>
+
+      <details>
+        <summary>Numbered key points (Five Things to Remember)</summary>
+        <div class="details-body">
+          <p>Used in summary/closing slides across the Search Ecosystem and other presentations.</p>
+          <div class="code-block">
+            <div class="code-label"><span class="label-text">HTML + CSS — numbered key points</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;div class="key-point"&gt;
+  &lt;div class="key-point-icon"&gt;1&lt;/div&gt;
+  &lt;div&gt;&lt;strong&gt;First main idea here.&lt;/strong&gt; Brief explanation that completes the thought.&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="key-point"&gt;
+  &lt;div class="key-point-icon"&gt;2&lt;/div&gt;
+  &lt;div&gt;&lt;strong&gt;Second main idea.&lt;/strong&gt; More detail here.&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.key-point {
+  display:flex; gap:14px; align-items:flex-start;
+  background:var(--off-white); border-left:4px solid var(--green);
+  padding:14px 18px; margin-bottom:10px; border-radius:0 8px 8px 0;
+  font-size:0.93rem; line-height:1.6;
+}
+.key-point-icon {
+  width:32px; height:32px; flex-shrink:0;
+  background:var(--green); color:white;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-heading); font-weight:700;
+}
+&lt;/style&gt;</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Source / resource cards grid</summary>
+        <div class="details-body">
+          <p>Used for library locations, database lists, and resource collections.</p>
+          <div class="code-block">
+            <div class="code-label"><span class="label-text">HTML + CSS — card grid</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;div class="card-grid"&gt;
+  &lt;div class="source-card"&gt;
+    &lt;h4&gt;📚 Resource One&lt;/h4&gt;
+    &lt;p&gt;&lt;strong&gt;Best for:&lt;/strong&gt; What this resource is good for&lt;/p&gt;
+    &lt;p style="font-size:0.85rem; color:var(--text-muted);"&gt;Coverage details or tips&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="source-card"&gt;
+    &lt;h4&gt;🔍 Resource Two&lt;/h4&gt;
+    &lt;p&gt;&lt;strong&gt;Best for:&lt;/strong&gt; What this resource is good for&lt;/p&gt;
+    &lt;p style="font-size:0.85rem; color:var(--text-muted);"&gt;Coverage details or tips&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.card-grid {
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:14px; margin-bottom:16px;
+}
+.source-card {
+  background:white; border:1px solid var(--border); border-radius:8px;
+  padding:16px; box-shadow:0 1px 4px rgba(40,92,77,0.08);
+}
+.source-card h4 {
+  font-family:var(--font-heading); color:var(--green-dark);
+  font-size:1rem; margin-bottom:8px;
+}
+&lt;/style&gt;</pre>
+          </div>
+        </div>
+      </details>
     </section>
 
     <section class="section" id="activity-types">
-      <h2>Activity Type Patterns</h2>
+      <h2><span class="section-num">17</span>Activity Type Patterns</h2>
 
       <details>
         <summary>Auto-populate from previous activity</summary>
         <div class="details-body">
           <p>Used in the lit review and annotated bib presentations — an earlier activity's text pre-fills a later textarea.</p>
           <div class="code-block">
-            <div class="code-label">JavaScript — pull from a prior activity <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-label"><span class="label-text">JavaScript — pull from a prior activity</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>// Call this when navigating to the slide that uses the previous value.
 // Add to showSlide() or to the slide's onshow handler.
 function pullFromPrevious() {
@@ -1485,7 +1923,7 @@ function showSlide(n) {
         <summary>Boolean search builder</summary>
         <div class="details-body">
           <div class="code-block">
-            <div class="code-label">HTML + JS — live Boolean builder <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-label"><span class="label-text">HTML + JS — live Boolean builder</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;div class="activity-box"&gt;
   &lt;h3&gt;🔍 Boolean Search Builder&lt;/h3&gt;
   &lt;div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;"&gt;
@@ -1514,14 +1952,38 @@ function buildBoolean() {
           </div>
         </div>
       </details>
+
+      <details>
+        <summary>Discussion question prompts (no save needed)</summary>
+        <div class="details-body">
+          <p>Used in Discussion &amp; Reflection slides. Open-ended prompts students discuss aloud or write about — no input needed.</p>
+          <div class="code-block">
+            <div class="code-label"><span class="label-text">HTML — discussion prompts</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;div style="display:flex; flex-direction:column; gap:14px; margin-bottom:24px;"&gt;
+  &lt;div style="background:var(--green-light); border-left:4px solid var(--green);
+              padding:14px 18px; border-radius:0 8px 8px 0;"&gt;
+    &lt;p style="font-style:italic; color:var(--text); font-size:0.95rem;"&gt;
+      First open-ended question for students to consider.
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div style="background:var(--blue-light); border-left:4px solid var(--blue);
+              padding:14px 18px; border-radius:0 8px 8px 0;"&gt;
+    &lt;p style="font-style:italic; color:var(--text); font-size:0.95rem;"&gt;
+      Second prompt — alternates green/blue for visual rhythm.
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          </div>
+        </div>
+      </details>
     </section>
 
     <section class="section" id="quiz-pattern">
-      <h2>Scored Quiz Pattern</h2>
-      <p>Used in The Search Ecosystem (6-question Boolean quiz) and the Python / R presentations. Each question is an object in a JavaScript array.</p>
+      <h2><span class="section-num">18</span>Scored Quiz Pattern</h2>
+      <p class="lead">Used in The Search Ecosystem (6-question Boolean quiz) and the Python / R presentations. Each question is an object in a JavaScript array.</p>
 
       <div class="code-block">
-        <div class="code-label">HTML + JavaScript — self-contained scored quiz <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <div class="code-label"><span class="label-text">HTML + JavaScript — self-contained scored quiz</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>&lt;!-- Place this HTML inside any slide --&gt;
 &lt;div id="quiz-container"&gt;&lt;/div&gt;
 &lt;div id="quiz-results" style="display:none; padding:16px; background:var(--green-light);
@@ -1600,9 +2062,143 @@ document.addEventListener('DOMContentLoaded', renderQuiz);
       </div>
     </section>
 
+    <!-- ===== SECTION: SANDBOX ===== -->
+    <section class="section" id="sandbox">
+      <h2><span class="section-num">19</span>🧪 Slide Sandbox</h2>
+      <p class="lead">Paste or write slide HTML below and click <strong>Render Slide</strong> to preview it exactly as it would appear inside a real presentation — complete with Tulane CSS, fonts, and all utility classes. No need to run a local server or open a separate file.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body">
+          <strong>What to paste here</strong>
+          <p>Paste just the <em>inner contents</em> of a <code>&lt;div class="slide"&gt;</code> — the heading, boxes, activity, and text — not the outer slide div itself. You can also paste a full slide div and the sandbox will still render it. Try one of the <strong>18 presets below</strong> to see common patterns immediately.</p>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="sandbox-toolbar">
+        <span class="sandbox-toolbar-label">Load a preset slide</span>
+        <div class="sandbox-preset-grid">
+          <button class="sandbox-preset-btn" onclick="loadPreset('title')"><span class="preset-icon">🎬</span>Title Slide</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('content')"><span class="preset-icon">📄</span>Content Slide</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('twocol')"><span class="preset-icon">📊</span>Two-Column</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('threecol')"><span class="preset-icon">📐</span>Three-Column</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('table')"><span class="preset-icon">🗂️</span>Comparison Table</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('cards')"><span class="preset-icon">🃏</span>Resource Cards</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('stats')"><span class="preset-icon">🔢</span>Big Stats</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('keypoints')"><span class="preset-icon">🎯</span>Key Points</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('checklist')"><span class="preset-icon">✅</span>Checklist</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('tabs')"><span class="preset-icon">📑</span>Tabbed Panel</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('codeblock')"><span class="preset-icon">💻</span>Code Block</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('callouts')"><span class="preset-icon">⚠️</span>Callouts</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('activity')"><span class="preset-icon">✏️</span>Activity Box</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('multifield')"><span class="preset-icon">📝</span>Multi-Field Activity</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('boolean')"><span class="preset-icon">🔍</span>Boolean Builder</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('quiz')"><span class="preset-icon">❓</span>Scored Quiz</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('discussion')"><span class="preset-icon">💬</span>Discussion Prompts</button>
+          <button class="sandbox-preset-btn" onclick="loadPreset('closing')"><span class="preset-icon">🏁</span>Closing / Contact</button>
+          <button class="sandbox-preset-btn sandbox-clear-btn" onclick="clearSandbox()">✕ Clear</button>
+        </div>
+      </div>
+
+      <!-- Editor -->
+      <div style="position:relative;">
+        <textarea id="sandbox-editor"
+          spellcheck="false"
+          placeholder="Paste your slide HTML here, then click Render Slide…"
+          style="
+            width: 100%;
+            min-height: 240px;
+            font-family: var(--font-code);
+            font-size: 0.82rem;
+            line-height: 1.6;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 var(--radius) var(--radius);
+            background: var(--code-bg);
+            color: var(--code-text);
+            resize: vertical;
+            tab-size: 2;
+            outline: none;
+            transition: border-color 0.15s;
+          "
+          onfocus="this.style.borderColor='var(--blue)'"
+          onblur="this.style.borderColor='var(--border)'"
+        ></textarea>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:12px; align-items:center; flex-wrap:wrap;">
+        <button onclick="renderSandbox()" style="
+          background: var(--green); color: white; border: none;
+          border-radius: 6px; padding: 10px 26px;
+          font-family: var(--font-body); font-size: 0.92rem; font-weight: 600;
+          cursor: pointer; transition: background 0.15s;
+          display: flex; align-items: center; gap: 7px;
+        " onmouseover="this.style.background='var(--green-dark)'" onmouseout="this.style.background='var(--green)'">
+          ▶ Render Slide
+        </button>
+        <button onclick="copyRenderedLink()" id="sandbox-copy-btn" style="
+          background: var(--off-white); color: var(--text); border: 1px solid var(--border);
+          border-radius: 6px; padding: 10px 18px;
+          font-family: var(--font-body); font-size: 0.88rem; font-weight: 500;
+          cursor: pointer; transition: background 0.15s;
+        " onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--off-white)'">
+          📋 Copy HTML
+        </button>
+        <span id="sandbox-status" style="font-size:0.82rem; color:var(--text-muted);"></span>
+      </div>
+
+      <!-- Preview frame wrapper -->
+      <div id="sandbox-preview-wrap" style="
+        margin-top: 22px;
+        border: 2px solid var(--green);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        display: none;
+      ">
+        <!-- Preview header bar (mimics the real nav bar) -->
+        <div style="
+          background: var(--green); color: white;
+          padding: 0 16px; height: 44px;
+          display: flex; align-items: center; justify-content: space-between;
+          font-family: var(--font-body); font-size: 0.82rem;
+        ">
+          <span style="font-weight:600; opacity:0.85;">Slide Preview</span>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span style="background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3);
+                         border-radius:4px; padding:3px 10px; font-size:0.75rem; opacity:0.9;">
+              ← Prev
+            </span>
+            <span style="background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3);
+                         border-radius:4px; padding:3px 10px; font-size:0.75rem; opacity:0.9;">
+              Next →
+            </span>
+            <span style="background:var(--blue); color:var(--green-dark);
+                         font-size:0.70rem; font-weight:700; padding:2px 8px; border-radius:10px;">
+              0 / 0 activities
+            </span>
+          </div>
+        </div>
+        <iframe id="sandbox-frame"
+          style="width:100%; height:520px; border:none; display:block; background:white;"
+          sandbox="allow-scripts allow-same-origin"
+          title="Slide preview"
+        ></iframe>
+        <div style="background:var(--green-light); border-top:1px solid var(--border);
+                    padding:6px 14px; font-size:0.74rem; color:var(--text-muted);
+                    display:flex; justify-content:space-between; align-items:center;">
+          <span>Rendered with full Tulane CSS · Activities and buttons are interactive</span>
+          <span>Drag iframe border to resize ↕</span>
+        </div>
+      </div>
+
+    </section>
+
     <!-- ===== HOSTING ===== -->
     <section class="section" id="hosting">
-      <h2>Hosting on GitHub Pages</h2>
+      <h2><span class="section-num">20</span>Hosting on GitHub Pages</h2>
 
       <div class="steps">
         <div class="step">
@@ -1646,7 +2242,7 @@ document.addEventListener('DOMContentLoaded', renderQuiz);
     </section>
 
     <section class="section" id="checklist-launch">
-      <h2>Launch Checklist</h2>
+      <h2><span class="section-num">21</span>Launch Checklist</h2>
       <p>Before sharing a presentation, verify each of these:</p>
       <ul>
         <li>✅ <code>totalSlides</code> matches actual slide count</li>
@@ -1666,7 +2262,7 @@ document.addEventListener('DOMContentLoaded', renderQuiz);
     </section>
 
     <section class="section" id="troubleshooting">
-      <h2>Troubleshooting</h2>
+      <h2><span class="section-num">22</span>Troubleshooting</h2>
 
       <details>
         <summary>Clicking Next/Prev goes past the last or first slide</summary>
@@ -1681,6 +2277,11 @@ document.addEventListener('DOMContentLoaded', renderQuiz);
       <details>
         <summary>Activity badge doesn't increment</summary>
         <div class="details-body"><p>The <code>onclick="saveActivity(N)"</code> call uses a number that doesn't match or the function isn't present. Also check that <code>act<em>N</em>-confirm</code> exists as a paragraph id.</p></div>
+      </details>
+
+      <details>
+        <summary>Two slides show at once / first slide bleeds into the second</summary>
+        <div class="details-body"><p>Almost always a malformed attribute or missing closing tag in the slide above. Common culprits: <code>&lt;p class ="presenter&gt;</code> (missing closing quote, extra space before <code>=</code>), or a <code>&lt;/div&gt;</code> that was deleted when editing. Validate the HTML in any online HTML validator if you can't spot it.</p></div>
       </details>
 
       <details>
@@ -1712,133 +2313,27 @@ document.addEventListener('DOMContentLoaded', renderQuiz);
       </details>
     </section>
 
-    <!-- ===== SECTION: SANDBOX ===== -->
-    <section class="section" id="sandbox">
-      <h2>🧪 Slide Sandbox</h2>
-      <p>Paste or write slide HTML below and click <strong>Render Slide</strong> to preview it exactly as it would appear inside a real presentation — complete with Tulane CSS, fonts, and all utility classes. No need to run a local server or open a separate file.</p>
-
-      <div class="callout callout-tip">
-        <span class="callout-icon">💡</span>
-        <div class="callout-body">
-          <strong>What to paste here</strong>
-          <p>Paste just the <em>inner contents</em> of a <code>&lt;div class="slide"&gt;</code> — the heading, boxes, activity, and text — not the outer slide div itself. You can also paste a full slide div and the sandbox will still render it. Try the <strong>Load Example</strong> buttons to see common patterns immediately.</p>
-        </div>
-      </div>
-
-      <!-- Toolbar -->
-      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; align-items:center;">
-        <span style="font-size:0.80rem; font-weight:600; color:var(--text-muted); margin-right:4px;">Load example:</span>
-        <button class="sandbox-preset-btn" onclick="loadPreset('content')">Content Slide</button>
-        <button class="sandbox-preset-btn" onclick="loadPreset('twocol')">Two-Column</button>
-        <button class="sandbox-preset-btn" onclick="loadPreset('activity')">Activity Box</button>
-        <button class="sandbox-preset-btn" onclick="loadPreset('checklist')">Checklist</button>
-        <button class="sandbox-preset-btn" onclick="loadPreset('table')">Table</button>
-        <button class="sandbox-preset-btn" onclick="loadPreset('title')">Title Slide</button>
-        <button class="sandbox-preset-btn sandbox-clear-btn" onclick="clearSandbox()">✕ Clear</button>
-      </div>
-
-      <!-- Editor -->
-      <div style="position:relative;">
-        <textarea id="sandbox-editor"
-          spellcheck="false"
-          placeholder="Paste your slide HTML here, then click Render Slide…"
-          style="
-            width: 100%;
-            min-height: 220px;
-            font-family: var(--font-code);
-            font-size: 0.81rem;
-            line-height: 1.6;
-            padding: 14px 16px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--code-bg);
-            color: var(--code-text);
-            resize: vertical;
-            tab-size: 2;
-            outline: none;
-            transition: border-color 0.15s;
-          "
-          onfocus="this.style.borderColor='var(--blue)'"
-          onblur="this.style.borderColor='var(--border)'"
-        ></textarea>
-      </div>
-
-      <div style="display:flex; gap:10px; margin-top:10px; align-items:center; flex-wrap:wrap;">
-        <button onclick="renderSandbox()" style="
-          background: var(--green); color: white; border: none;
-          border-radius: 6px; padding: 9px 24px;
-          font-family: var(--font-body); font-size: 0.90rem; font-weight: 600;
-          cursor: pointer; transition: background 0.15s;
-          display: flex; align-items: center; gap: 7px;
-        " onmouseover="this.style.background='var(--green-dark)'" onmouseout="this.style.background='var(--green)'">
-          ▶ Render Slide
-        </button>
-        <button onclick="copyRenderedLink()" id="sandbox-copy-btn" style="
-          background: var(--off-white); color: var(--text); border: 1px solid var(--border);
-          border-radius: 6px; padding: 9px 18px;
-          font-family: var(--font-body); font-size: 0.88rem; font-weight: 500;
-          cursor: pointer; transition: background 0.15s;
-        " onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--off-white)'">
-          📋 Copy HTML
-        </button>
-        <span id="sandbox-status" style="font-size:0.80rem; color:var(--text-muted);"></span>
-      </div>
-
-      <!-- Preview frame wrapper -->
-      <div id="sandbox-preview-wrap" style="
-        margin-top: 20px;
-        border: 2px solid var(--green);
-        border-radius: var(--radius);
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        display: none;
-      ">
-        <!-- Preview header bar (mimics the real nav bar) -->
-        <div style="
-          background: var(--green); color: white;
-          padding: 0 16px; height: 44px;
-          display: flex; align-items: center; justify-content: space-between;
-          font-family: var(--font-body); font-size: 0.82rem;
-        ">
-          <span style="font-weight:600; opacity:0.85;">Slide Preview</span>
-          <div style="display:flex; gap:10px; align-items:center;">
-            <span style="background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3);
-                         border-radius:4px; padding:3px 10px; font-size:0.75rem; opacity:0.9;">
-              ← Prev
-            </span>
-            <span style="background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3);
-                         border-radius:4px; padding:3px 10px; font-size:0.75rem; opacity:0.9;">
-              Next →
-            </span>
-            <span style="background:var(--blue); color:var(--green-dark);
-                         font-size:0.70rem; font-weight:700; padding:2px 8px; border-radius:10px;">
-              0 / 0 activities
-            </span>
-          </div>
-        </div>
-        <!-- The iframe -->
-        <iframe id="sandbox-frame"
-          style="width:100%; height:480px; border:none; display:block; background:white;"
-          sandbox="allow-scripts allow-same-origin"
-          title="Slide preview"
-        ></iframe>
-        <!-- Resize handle label -->
-        <div style="background:var(--green-light); border-top:1px solid var(--border);
-                    padding:5px 12px; font-size:0.72rem; color:var(--text-muted);
-                    display:flex; justify-content:space-between; align-items:center;">
-          <span>Rendered with full Tulane CSS · Activities and buttons are interactive</span>
-          <span>Drag iframe border to resize ↕</span>
-        </div>
-      </div>
-
-    </section>
-
   </div><!-- /content -->
 </main><!-- /main -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<!-- ============================================================ BACK TO TOP -->
+<button id="back-to-top" onclick="scrollToTop()" title="Back to top">↑</button>
+
+<!-- ============================================================ KEYBOARD HELP MODAL -->
+<div id="help-modal" onclick="if(event.target===this) toggleHelp()">
+  <div class="modal-card">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Show this help</span><kbd>?</kbd></div>
+    <div class="shortcut-row"><span>Focus filter box</span><kbd>/</kbd></div>
+    <div class="shortcut-row"><span>Back to top</span><kbd>g</kbd> <kbd>g</kbd></div>
+    <div class="shortcut-row"><span>Close modal / clear filter</span><kbd>Esc</kbd></div>
+    <button class="close-btn" onclick="toggleHelp()">Got it</button>
+  </div>
+</div>
+
+<script>
 /* ── Sidebar smooth-scroll (offset for sticky topbar) ─── */
-const TOPBAR_H = 64; // px — matches #topbar height
+const TOPBAR_H = 64;
 
 document.querySelectorAll('#sidebar nav a[href^="#"]').forEach(link => {
   link.addEventListener('click', function(e) {
@@ -1847,9 +2342,19 @@ document.querySelectorAll('#sidebar nav a[href^="#"]').forEach(link => {
     if (!target) return;
     const top = target.getBoundingClientRect().top + window.scrollY - TOPBAR_H - 8;
     window.scrollTo({ top, behavior: 'smooth' });
-    // update active state immediately on click
     document.querySelectorAll('#sidebar nav a').forEach(a => a.classList.remove('active'));
     this.classList.add('active');
+  });
+});
+
+/* Quick-jump cards smooth-scroll too */
+document.querySelectorAll('.quick-jump a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.scrollY - TOPBAR_H - 8;
+    window.scrollTo({ top, behavior: 'smooth' });
   });
 });
 
@@ -1867,21 +2372,80 @@ const observer  = new IntersectionObserver(entries => {
 }, { rootMargin: '-20% 0px -70% 0px' });
 sections.forEach(s => observer.observe(s));
 
-/* ── Scroll progress bar ─── */
+/* ── Scroll progress bar + back-to-top ─── */
+const backToTop = document.getElementById('back-to-top');
 window.addEventListener('scroll', () => {
   const h  = document.documentElement;
   const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
   document.getElementById('progress-bar').style.width = pct + '%';
+  backToTop.classList.toggle('visible', h.scrollTop > 400);
 });
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-/* ── Sandbox ─────────────────────────────────────────────── */
+/* ── Sidebar filter ─── */
+const navFilter = document.getElementById('nav-filter');
+navFilter.addEventListener('input', e => {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('#sidebar nav a').forEach(a => {
+    if (!q) {
+      a.classList.remove('dimmed');
+      a.style.display = '';
+      return;
+    }
+    const matches = a.textContent.toLowerCase().includes(q);
+    a.style.display = matches ? '' : 'none';
+  });
+});
+
+/* ── Keyboard shortcuts ─── */
+let lastG = 0;
+document.addEventListener('keydown', e => {
+  // Don't intercept when typing in inputs/textareas
+  if (e.target.matches('input, textarea, select')) {
+    if (e.key === 'Escape') {
+      e.target.blur();
+      if (e.target === navFilter) {
+        navFilter.value = '';
+        navFilter.dispatchEvent(new Event('input'));
+      }
+    }
+    return;
+  }
+  if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+    e.preventDefault();
+    toggleHelp();
+  } else if (e.key === '/') {
+    e.preventDefault();
+    navFilter.focus();
+  } else if (e.key === 'Escape') {
+    document.getElementById('help-modal').classList.remove('open');
+  } else if (e.key === 'g') {
+    const now = Date.now();
+    if (now - lastG < 500) {
+      scrollToTop();
+      lastG = 0;
+    } else {
+      lastG = now;
+    }
+  }
+});
+
+function toggleHelp() {
+  document.getElementById('help-modal').classList.toggle('open');
+}
+
+/* ── Sandbox CSS shared across all presets ─── */
 const SLIDE_CSS = `
   :root {
     --green:#285C4D; --green-dark:#1a3d32; --green-light:#e8f2ef;
-    --blue:#71C5E8; --blue-light:#d8f0fa; --gold:#C8973A;
+    --blue:#71C5E8; --blue-light:#d8f0fa; --gold:#C8973A; --gold-light:#fdf3e0;
+    --red:#b94040; --red-light:#fdeaea;
     --white:#ffffff; --off-white:#f5f7f6; --text:#1a2e25;
     --text-muted:#4a6358; --border:#d0ddd9;
+    --code-bg:#1a2e25; --code-text:#a8e6cf;
     --font-heading:'Source Serif 4',Georgia,serif;
     --font-body:'DM Sans',system-ui,sans-serif;
     --font-code:'Source Code Pro','Courier New',monospace;
@@ -1895,6 +2459,8 @@ const SLIDE_CSS = `
   h1{font-family:var(--font-heading);font-size:2.2rem;font-weight:700;
     color:var(--green);margin-bottom:0.4em;line-height:1.2;}
   h3{font-family:var(--font-heading);font-size:1.05rem;font-weight:600;
+    color:var(--green-dark);margin-bottom:8px;}
+  h4{font-family:var(--font-heading);font-size:1rem;font-weight:600;
     color:var(--green-dark);margin-bottom:8px;}
   p{font-size:0.93rem;line-height:1.68;margin-bottom:0.85em;}
   ul,ol{margin:0.4em 0 0.85em 1.3em;}
@@ -1910,6 +2476,10 @@ const SLIDE_CSS = `
   .blue-box{background:var(--blue-light);border-left:4px solid var(--blue);
     border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:14px;}
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+  @media (max-width: 680px) {
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
   .title-slide{background:linear-gradient(150deg,var(--green) 0%,var(--green-dark) 100%);
     color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:48px;min-height:calc(100vh - 0px);margin:-32px -40px -28px;}
@@ -1921,9 +2491,11 @@ const SLIDE_CSS = `
   .activity-box{background:var(--blue-light);border:2px solid var(--blue);
     border-radius:10px;padding:18px;margin-top:18px;}
   .activity-box h3{color:var(--green-dark);font-size:1rem;font-weight:600;margin-bottom:10px;}
+  .activity-box label{font-size:0.85rem;font-weight:600;color:var(--green-dark);display:block;margin-bottom:4px;}
   .activity-box textarea,.activity-box input[type=text]{width:100%;border:1px solid var(--border);
     border-radius:6px;padding:9px 12px;font-family:var(--font-body);font-size:0.90rem;
-    background:white;resize:vertical;min-height:76px;}
+    background:white;resize:vertical;}
+  .activity-box textarea{min-height:76px;}
   .activity-box textarea:focus,.activity-box input:focus{outline:none;
     border-color:var(--green);box-shadow:0 0 0 3px rgba(40,92,77,0.12);}
   .save-btn{background:var(--green);color:white;border:none;border-radius:6px;
@@ -1947,9 +2519,75 @@ const SLIDE_CSS = `
   td{padding:8px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
   tr:last-child td{border-bottom:none;}
   tr:nth-child(even) td{background:var(--off-white);}
+  /* Key points */
+  .key-point{display:flex;gap:14px;align-items:flex-start;background:var(--off-white);
+    border-left:4px solid var(--green);padding:14px 18px;margin-bottom:10px;
+    border-radius:0 8px 8px 0;font-size:0.93rem;line-height:1.6;}
+  .key-point-icon{width:32px;height:32px;flex-shrink:0;background:var(--green);color:white;
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-heading);font-weight:700;}
+  /* Resource cards */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:12px;margin-bottom:14px;}
+  .source-card{background:white;border:1px solid var(--border);border-radius:8px;
+    padding:14px 16px;box-shadow:0 1px 4px rgba(40,92,77,0.08);}
+  .source-card h4{font-family:var(--font-heading);color:var(--green-dark);
+    font-size:0.98rem;margin-bottom:6px;}
+  .source-card p{font-size:0.85rem;line-height:1.5;margin-bottom:4px;}
+  /* Stats */
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+    gap:14px;margin-bottom:18px;}
+  .stat-card{background:linear-gradient(150deg, var(--green) 0%, var(--green-dark) 100%);
+    color:white;padding:20px 16px;border-radius:10px;text-align:center;}
+  .stat-num{font-family:var(--font-heading);font-size:2.4rem;font-weight:700;
+    color:var(--blue);line-height:1;display:block;margin-bottom:4px;}
+  .stat-label{font-size:0.82rem;color:rgba(255,255,255,0.85);font-weight:500;}
+  /* Tabs */
+  .tab-btn{background:var(--border);color:var(--text);border:1px solid var(--border);
+    padding:6px 14px;border-radius:6px 6px 0 0;cursor:pointer;font-size:0.83rem;
+    font-family:var(--font-body);font-weight:500;}
+  .tab-btn.active{background:var(--green);color:white;border-color:var(--green);}
+  .tab-panel{padding:16px;background:var(--off-white);border:1px solid var(--border);
+    border-radius:0 8px 8px 8px;}
+  .tab-panel.code{background:var(--code-bg);}
+  .tab-panel.code pre{background:transparent;padding:0;color:var(--code-text);}
+  /* Callouts */
+  .callout-mini{border-radius:6px;padding:12px 16px;margin-bottom:10px;border-left:4px solid;
+    display:flex;gap:10px;align-items:flex-start;font-size:0.9rem;line-height:1.55;}
+  .callout-mini-tip{background:var(--blue-light);border-color:var(--blue);}
+  .callout-mini-warn{background:var(--gold-light);border-color:var(--gold);}
+  .callout-mini-danger{background:var(--red-light);border-color:var(--red);}
+  .callout-mini-note{background:var(--green-light);border-color:var(--green);}
+  /* Boolean builder */
+  .bool-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
+  .bool-row input,.bool-row select{padding:8px;border:1px solid var(--border);
+    border-radius:6px;font-family:var(--font-body);font-size:0.88rem;}
+  .bool-row input{flex:1;min-width:120px;}
+  /* Discussion */
+  .discussion-prompt{padding:14px 18px;border-radius:0 8px 8px 0;margin-bottom:12px;}
+  .discussion-prompt p{font-style:italic;font-size:0.95rem;color:var(--text);margin:0;}
+  .discussion-green{background:var(--green-light);border-left:4px solid var(--green);}
+  .discussion-blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+  /* Closing */
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:12px;margin-top:16px;}
+  .contact-item{background:white;border:1px solid var(--border);border-radius:8px;
+    padding:14px;box-shadow:0 1px 4px rgba(40,92,77,0.08);}
+  .contact-item .icon{font-size:1.4rem;margin-bottom:6px;display:block;}
+  .contact-item h4{font-size:0.92rem;margin-bottom:4px;}
+  .contact-item p{font-size:0.85rem;color:var(--text-muted);margin:0;}
 `;
 
 const PRESETS = {
+  /* ============================================================ TITLE */
+  title: `<div class="title-slide">
+  <h1>Introduction to Academic Research</h1>
+  <p class="presenter">Kay P. Maye, Scholarly Engagement Librarian</p>
+  <p class="institution">Howard-Tilton Memorial Library &middot; Tulane University</p>
+  <p class="nav-hint">Use &larr; &rarr; arrow keys or the dropdown to navigate</p>
+</div>`,
+
+  /* ============================================================ CONTENT */
   content: `<h2 class="slide-title">Types of Sources</h2>
 <p class="slide-subtitle">Choosing the right source for your research question</p>
 
@@ -1966,6 +2604,7 @@ const PRESETS = {
   <p><strong>Tip:</strong> Use the "Peer Reviewed" filter in most library databases to limit results automatically.</p>
 </div>`,
 
+  /* ============================================================ TWO-COL */
   twocol: `<h2 class="slide-title">Primary vs. Secondary Sources</h2>
 <p class="slide-subtitle">Understanding the difference</p>
 <div class="two-col">
@@ -1981,29 +2620,28 @@ const PRESETS = {
   </div>
 </div>`,
 
-  activity: `<h2 class="slide-title">Activity: Search Planning</h2>
-<p class="slide-subtitle">Build your initial search strategy</p>
-<p>Before searching, identify your key concepts. A strong search string usually combines 2-3 core terms with Boolean operators.</p>
-<div class="activity-box">
-  <h3>&#9999;&#65039; Activity: Your Search Plan</h3>
-  <p style="font-size:0.88rem; margin-bottom:10px;">Describe your research topic and list three keywords you will use.</p>
-  <textarea id="act1-response" placeholder="My topic is... My keywords are..."></textarea>
-  <br>
-  <button class="save-btn" onclick="this.nextElementSibling.style.display='block'">Save Response</button>
-  <p class="save-confirm">&#10003; Saved!</p>
+  /* ============================================================ THREE-COL */
+  threecol: `<h2 class="slide-title">Three Types of Literature Reviews</h2>
+<p class="slide-subtitle">Match the review type to your research goal</p>
+<div class="three-col">
+  <div class="content-box">
+    <h3>Narrative Review</h3>
+    <p>Broad overview of a topic, organized thematically. Most flexible.</p>
+    <p style="font-size:0.82rem;color:var(--text-muted);margin-top:8px;"><strong>Use when:</strong> Establishing context for a paper.</p>
+  </div>
+  <div class="blue-box">
+    <h3>Scoping Review</h3>
+    <p>Maps the breadth of evidence using PRISMA-ScR. More structured.</p>
+    <p style="font-size:0.82rem;color:var(--text-muted);margin-top:8px;"><strong>Use when:</strong> Identifying gaps in a field.</p>
+  </div>
+  <div class="content-box" style="border-left-color:var(--gold);background:var(--gold-light);">
+    <h3>Systematic Review</h3>
+    <p>Exhaustive search with strict inclusion criteria. Most rigorous.</p>
+    <p style="font-size:0.82rem;color:var(--text-muted);margin-top:8px;"><strong>Use when:</strong> Synthesizing evidence for policy.</p>
+  </div>
 </div>`,
 
-  checklist: `<h2 class="slide-title">Source Evaluation Checklist</h2>
-<p class="slide-subtitle">Apply the CRAAP test to your sources</p>
-<div class="content-box"><p>Click each item as you complete it.</p></div>
-<ul class="checklist">
-  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Currency:</strong> Published or updated recently enough for your topic</span></li>
-  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Relevance:</strong> Directly addresses your research question</span></li>
-  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Authority:</strong> Author has credentials in this subject area</span></li>
-  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Accuracy:</strong> Claims are supported by evidence and citations</span></li>
-  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Purpose:</strong> Intent is to inform, not just persuade or sell</span></li>
-</ul>`,
-
+  /* ============================================================ TABLE */
   table: `<h2 class="slide-title">Database Comparison</h2>
 <p class="slide-subtitle">Key databases for social sciences research</p>
 <table>
@@ -2016,17 +2654,376 @@ const PRESETS = {
   </tbody>
 </table>`,
 
-  title: `<div class="title-slide">
-  <h1>Introduction to Academic Research</h1>
-  <p class="presenter">Kay P. Maye, Scholarly Engagement Librarian</p>
-  <p class="institution">Howard-Tilton Memorial Library &middot; Tulane University</p>
-  <p class="nav-hint">Use &larr; &rarr; arrow keys or the dropdown to navigate</p>
+  /* ============================================================ CARDS */
+  cards: `<h2 class="slide-title">Tulane Library Locations</h2>
+<p class="slide-subtitle">Six libraries across campus &mdash; each with its own specialty</p>
+<div class="card-grid">
+  <div class="source-card">
+    <h4>📚 Howard-Tilton Memorial</h4>
+    <p><strong>Main Library</strong> &mdash; Newcomb Place</p>
+    <p>Study spaces, group rooms, computer labs, 24-hour finals access.</p>
+  </div>
+  <div class="source-card">
+    <h4>🌎 Latin American Library</h4>
+    <p><strong>4th floor of Howard-Tilton</strong></p>
+    <p>World-class research collection &mdash; rare books, manuscripts, maps.</p>
+  </div>
+  <div class="source-card">
+    <h4>⚕️ Matas Health Sciences</h4>
+    <p><strong>Downtown campus</strong></p>
+    <p>Medicine, public health, tropical medicine resources.</p>
+  </div>
+  <div class="source-card">
+    <h4>📜 Special Collections</h4>
+    <p><strong>Jones Hall</strong></p>
+    <p>Hogan Jazz Archive, Louisiana Research Collection, rare books.</p>
+  </div>
+</div>`,
+
+  /* ============================================================ STATS */
+  stats: `<h2 class="slide-title">What's Available to You</h2>
+<p class="slide-subtitle">Your Splash Card unlocks a full research ecosystem</p>
+<div class="stat-grid">
+  <div class="stat-card">
+    <span class="stat-num">3M+</span>
+    <span class="stat-label">Books, journals, &amp; media items</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">400+</span>
+    <span class="stat-label">Research databases</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">24/7</span>
+    <span class="stat-label">Access during finals week</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">1:1</span>
+    <span class="stat-label">Research consultations</span>
+  </div>
+</div>
+<div class="blue-box" style="margin-top:14px;">
+  <p>Every Tulane student, faculty member, and staff member has access to all of these resources at no additional cost.</p>
+</div>`,
+
+  /* ============================================================ KEY POINTS */
+  keypoints: `<h2 class="slide-title">Five Things to Remember</h2>
+<p class="slide-subtitle">Your takeaways from today's session</p>
+
+<div class="key-point">
+  <div class="key-point-icon">1</div>
+  <div><strong>Scholarly &ne; Credible.</strong> All scholarly sources are credible, but not all credible sources are scholarly.</div>
+</div>
+<div class="key-point">
+  <div class="key-point-icon">2</div>
+  <div><strong>Break your topic into concepts, then add synonyms.</strong> AND to narrow, OR to broaden, NOT to exclude.</div>
+</div>
+<div class="key-point">
+  <div class="key-point-icon">3</div>
+  <div><strong>Use the right tool.</strong> Google for background. Library Search for broad. Subject databases for depth.</div>
+</div>
+<div class="key-point">
+  <div class="key-point-icon">4</div>
+  <div><strong>The ecosystem has cracks.</strong> Search beyond the usual databases. Question your terms.</div>
+</div>
+<div class="key-point">
+  <div class="key-point-icon">5</div>
+  <div><strong>Ask a librarian early.</strong> A 15-minute consultation saves you hours of dead-end searching.</div>
+</div>`,
+
+  /* ============================================================ CHECKLIST */
+  checklist: `<h2 class="slide-title">Source Evaluation Checklist</h2>
+<p class="slide-subtitle">Apply the CRAAP test to your sources</p>
+<div class="content-box"><p>Click each item as you complete it.</p></div>
+<ul class="checklist">
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Currency:</strong> Published or updated recently enough for your topic</span></li>
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Relevance:</strong> Directly addresses your research question</span></li>
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Authority:</strong> Author has credentials in this subject area</span></li>
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Accuracy:</strong> Claims are supported by evidence and citations</span></li>
+  <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Purpose:</strong> Intent is to inform, not just persuade or sell</span></li>
+</ul>`,
+
+  /* ============================================================ TABS */
+  tabs: `<h2 class="slide-title">Reading a CSV File in Python</h2>
+<p class="slide-subtitle">Three views of the same operation</p>
+
+<div style="display:flex; gap:4px; margin-bottom:0;">
+  <button class="tab-btn active" onclick="showTab(event, 'tab-overview')">Overview</button>
+  <button class="tab-btn" onclick="showTab(event, 'tab-code')">Code</button>
+  <button class="tab-btn" onclick="showTab(event, 'tab-output')">Output</button>
+</div>
+
+<div id="tab-overview" class="tab-panel">
+  <p>The <code>pandas</code> library makes reading CSV files into a DataFrame a single function call. The result is a tabular structure you can filter, group, and analyze.</p>
+  <ul style="margin-top:10px;"><li>Each column becomes a Series with a consistent type</li><li>The index identifies rows (default: 0, 1, 2...)</li><li>Missing values become <code>NaN</code></li></ul>
+</div>
+<div id="tab-code" class="tab-panel code" style="display:none;">
+<pre>import pandas as pd
+
+df = pd.read_csv('library_usage.csv')
+print(df.head())
+print(df.describe())</pre>
+</div>
+<div id="tab-output" class="tab-panel" style="display:none;">
+<pre style="font-size:0.78rem;">     date    visitors  checkouts
+0  2024-01-15      245        38
+1  2024-01-16      198        29
+2  2024-01-17      312        51
+3  2024-01-18      267        44
+4  2024-01-19      198        31</pre>
+</div>
+
+<script>
+function showTab(e, id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).style.display = 'block';
+  e.target.classList.add('active');
+}
+</script>`,
+
+  /* ============================================================ CODE BLOCK */
+  codeblock: `<h2 class="slide-title">Building a Search String</h2>
+<p class="slide-subtitle">Combine concepts with Boolean operators &amp; wildcards</p>
+
+<div class="content-box">
+  <h3>Step-by-step</h3>
+  <p>Group synonyms with parentheses and OR. Combine concept groups with AND. Use truncation (*) to catch word variants.</p>
+</div>
+
+<pre><span style="color:#7fb3a0;">// Concept 1: social media platforms</span>
+("social media" <span style="color:#f8c471;">OR</span> Instagram <span style="color:#f8c471;">OR</span> TikTok <span style="color:#f8c471;">OR</span> Twitter)
+
+<span style="color:#7fb3a0;">// AND</span>
+
+<span style="color:#7fb3a0;">// Concept 2: mental health terms (with truncation)</span>
+(depress* <span style="color:#f8c471;">OR</span> anxi* <span style="color:#f8c471;">OR</span> "mental health")
+
+<span style="color:#7fb3a0;">// AND</span>
+
+<span style="color:#7fb3a0;">// Concept 3: target population</span>
+("college students" <span style="color:#f8c471;">OR</span> undergrad*)</pre>
+
+<div class="blue-box">
+  <p><strong>Why parentheses matter:</strong> Without them, databases process AND before OR, which gives you wildly different (and usually wrong) results.</p>
+</div>`,
+
+  /* ============================================================ CALLOUTS */
+  callouts: `<h2 class="slide-title">Working with the AI Policy</h2>
+<p class="slide-subtitle">Four kinds of callouts for different emphasis</p>
+
+<div class="callout-mini callout-mini-tip">
+  <span style="font-size:1.1rem;">💡</span>
+  <div><strong>Tip:</strong> Always check with your instructor before using AI on an assignment &mdash; expectations vary by course and discipline.</div>
+</div>
+
+<div class="callout-mini callout-mini-note">
+  <span style="font-size:1.1rem;">📋</span>
+  <div><strong>Tulane policy:</strong> Disclose AI use in any work you submit. Treat AI output as a starting point, not a final answer.</div>
+</div>
+
+<div class="callout-mini callout-mini-warn">
+  <span style="font-size:1.1rem;">⚠️</span>
+  <div><strong>Caution:</strong> AI tools fabricate citations. Always verify every reference in a database before adding it to your paper.</div>
+</div>
+
+<div class="callout-mini callout-mini-danger">
+  <span style="font-size:1.1rem;">🚫</span>
+  <div><strong>Don't:</strong> Paste sensitive data, FERPA-protected info, or unpublished research into commercial AI tools.</div>
+</div>`,
+
+  /* ============================================================ ACTIVITY */
+  activity: `<h2 class="slide-title">Activity: Search Planning</h2>
+<p class="slide-subtitle">Build your initial search strategy</p>
+<p>Before searching, identify your key concepts. A strong search string usually combines 2-3 core terms with Boolean operators.</p>
+<div class="activity-box">
+  <h3>&#9999;&#65039; Activity: Your Search Plan</h3>
+  <p style="font-size:0.88rem; margin-bottom:10px;">Describe your research topic and list three keywords you will use.</p>
+  <textarea id="act1-response" placeholder="My topic is... My keywords are..."></textarea>
+  <br>
+  <button class="save-btn" onclick="this.nextElementSibling.style.display='block'">Save Response</button>
+  <p class="save-confirm">&#10003; Saved!</p>
+</div>`,
+
+  /* ============================================================ MULTI-FIELD ACTIVITY */
+  multifield: `<h2 class="slide-title">Activity: Research Question Workshop</h2>
+<p class="slide-subtitle">Refine your topic into a focused research question</p>
+
+<div class="activity-box">
+  <h3>&#9999;&#65039; Activity: Build a Research Question</h3>
+  <p style="font-size:0.88rem; margin-bottom:14px;">Complete each field. Your research question will assemble at the bottom.</p>
+
+  <label>1. Topic area (broad subject):</label>
+  <input type="text" id="rq-topic" placeholder="e.g., social media use" style="margin-bottom:12px;">
+
+  <label>2. Population or context:</label>
+  <input type="text" id="rq-pop" placeholder="e.g., college students" style="margin-bottom:12px;">
+
+  <label>3. Outcome or aspect of interest:</label>
+  <input type="text" id="rq-outcome" placeholder="e.g., academic performance" style="margin-bottom:12px;">
+
+  <label>4. Why does this matter to you?</label>
+  <textarea id="rq-why" placeholder="One or two sentences..."></textarea>
+
+  <button class="save-btn" onclick="document.querySelector('.save-confirm').style.display='block'">Save Plan</button>
+  <p class="save-confirm">&#10003; Saved!</p>
+</div>`,
+
+  /* ============================================================ BOOLEAN BUILDER */
+  boolean: `<h2 class="slide-title">Boolean Search Builder</h2>
+<p class="slide-subtitle">Combine your concepts to generate a search string</p>
+
+<div class="activity-box">
+  <h3>🔍 Build Your Search</h3>
+  <p style="font-size:0.88rem; margin-bottom:12px;">Enter terms; choose how to combine them.</p>
+
+  <div class="bool-row">
+    <input type="text" id="bool-t1" placeholder="Concept 1 (e.g., 'social media')">
+    <select id="bool-op">
+      <option value="AND">AND</option>
+      <option value="OR">OR</option>
+      <option value="NOT">NOT</option>
+    </select>
+    <input type="text" id="bool-t2" placeholder="Concept 2 (e.g., 'anxiety')">
+  </div>
+
+  <button class="save-btn" onclick="buildBool()">Build Search String</button>
+
+  <div id="bool-result" style="margin-top:14px; padding:14px; background:var(--code-bg); color:var(--code-text); border-radius:6px; font-family:var(--font-code); font-size:0.92rem; min-height:30px;">
+    <span style="color:#888; font-style:italic;">Your search string will appear here…</span>
+  </div>
+</div>
+
+<script>
+function buildBool() {
+  const t1 = document.getElementById('bool-t1').value.trim();
+  const op = document.getElementById('bool-op').value;
+  const t2 = document.getElementById('bool-t2').value.trim();
+  const out = document.getElementById('bool-result');
+  if (!t1 || !t2) {
+    out.innerHTML = '<span style="color:#fc8181;">Enter both concepts first.</span>';
+    return;
+  }
+  const q1 = t1.includes(' ') ? '"' + t1 + '"' : t1;
+  const q2 = t2.includes(' ') ? '"' + t2 + '"' : t2;
+  const opColor = op === 'AND' ? '#f8c471' : op === 'OR' ? '#a8e6cf' : '#fc8181';
+  out.innerHTML = '<span style="color:#90cdf4;">' + q1 + '</span> <span style="color:' + opColor + ';font-weight:700;">' + op + '</span> <span style="color:#90cdf4;">' + q2 + '</span>';
+}
+</script>`,
+
+  /* ============================================================ QUIZ */
+  quiz: `<h2 class="slide-title">Practice: Boolean Operators</h2>
+<p class="slide-subtitle">Test your understanding before moving on</p>
+
+<div id="quiz-container"></div>
+<div id="quiz-results" style="display:none; padding:16px; background:var(--green-light); border-radius:8px; margin-top:12px;"></div>
+
+<script>
+const quizQs = [
+  {
+    q: "Which operator narrows a search by requiring BOTH terms to appear?",
+    opts: ["OR", "NOT", "AND", "NEAR"],
+    correct: 2,
+    why: "AND narrows results &mdash; both terms must be present in each result."
+  },
+  {
+    q: "Which operator broadens a search to include EITHER term?",
+    opts: ["AND", "OR", "NOT", "WITH"],
+    correct: 1,
+    why: "OR broadens results by including synonyms or related concepts."
+  },
+  {
+    q: "What does the search 'jazz NOT smooth' return?",
+    opts: ["Records about jazz that don't mention smooth jazz", "Records about smooth jazz only", "Records with both terms", "An error"],
+    correct: 0,
+    why: "NOT excludes results containing the second term. Use sparingly &mdash; it can hide useful sources."
+  }
+];
+let answers = {};
+function renderQuiz() {
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = quizQs.map((q, i) =>
+    '<div style="background:white; border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin-bottom:12px;">' +
+      '<p style="font-weight:600; font-size:0.92rem; margin-bottom:10px;">' + (i+1) + '. ' + q.q + '</p>' +
+      q.opts.map((o, j) =>
+        '<label style="display:flex; align-items:center; gap:8px; margin-bottom:6px; cursor:pointer; font-size:0.88rem;">' +
+          '<input type="radio" name="q' + i + '" onchange="answers[' + i + ']=' + j + '"> ' + o +
+        '</label>'
+      ).join('') +
+    '</div>'
+  ).join('');
+  c.innerHTML += '<button class="save-btn" onclick="scoreQuiz()">Submit Quiz</button>';
+}
+function scoreQuiz() {
+  let score = 0, fb = '';
+  quizQs.forEach((q, i) => {
+    const ok = answers[i] === q.correct;
+    if (ok) score++;
+    fb += '<p style="margin-bottom:8px;"><strong>Q' + (i+1) + ':</strong> ' + (ok ? '✅' : '❌') +
+          (!ok ? ' <em>(' + q.opts[q.correct] + ')</em> &mdash; ' : ' ') + q.why + '</p>';
+  });
+  const r = document.getElementById('quiz-results');
+  r.style.display = 'block';
+  r.innerHTML = '<h3 style="font-family:var(--font-heading); color:var(--green); margin-bottom:10px;">Score: ' + score + ' / ' + quizQs.length + '</h3>' + fb;
+}
+renderQuiz();
+</script>`,
+
+  /* ============================================================ DISCUSSION */
+  discussion: `<h2 class="slide-title">Discussion &amp; Reflection</h2>
+<p class="slide-subtitle">Sit with these questions &mdash; there are no right answers</p>
+
+<div class="discussion-prompt discussion-green">
+  <p>Whose voices do you notice missing from the sources you've found so far on your topic?</p>
+</div>
+<div class="discussion-prompt discussion-blue">
+  <p>If a database hasn't returned what you expected, what's one assumption about your search you could revisit?</p>
+</div>
+<div class="discussion-prompt discussion-green">
+  <p>What's one thing you'll do differently the next time you start a research project?</p>
+</div>
+<div class="discussion-prompt discussion-blue">
+  <p>What is the single most useful idea from today that you'll apply this week?</p>
+</div>`,
+
+  /* ============================================================ CLOSING */
+  closing: `<h2 class="slide-title">Questions &amp; Next Steps</h2>
+<p class="slide-subtitle">Stay in touch &mdash; the library is here all semester</p>
+
+<div class="content-box">
+  <h3>Thank you for being here today!</h3>
+  <p>The skills we covered &mdash; choosing sources, building searches, evaluating credibility &mdash; transfer to every research project ahead of you. You don't have to remember everything; you just have to know where to come back.</p>
+</div>
+
+<div class="contact-grid">
+  <div class="contact-item">
+    <span class="icon">💬</span>
+    <h4>Chat with a Librarian</h4>
+    <p>library.tulane.edu &mdash; available 7 days a week</p>
+  </div>
+  <div class="contact-item">
+    <span class="icon">📧</span>
+    <h4>Email me directly</h4>
+    <p>kmaye@tulane.edu</p>
+  </div>
+  <div class="contact-item">
+    <span class="icon">🗓️</span>
+    <h4>Book a consultation</h4>
+    <p>30-minute 1:1 session for your specific project</p>
+  </div>
+</div>
+
+<div class="blue-box" style="margin-top:18px; text-align:center;">
+  <p><strong>Don't forget to save your work!</strong> Click the Download / Email Responses panel in the bottom-right to keep your activity answers.</p>
 </div>`
 };
 
 function loadPreset(name) {
   document.getElementById('sandbox-editor').value = PRESETS[name];
   renderSandbox();
+  // Scroll the preview into view smoothly
+  setTimeout(() => {
+    document.getElementById('sandbox-preview-wrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 100);
 }
 
 function clearSandbox() {
@@ -2062,8 +3059,9 @@ function copyRenderedLink() {
   if (!html) return;
   navigator.clipboard.writeText(html).then(() => {
     const btn = document.getElementById('sandbox-copy-btn');
-    btn.textContent = 'Copied!';
-    setTimeout(() => { btn.textContent = '&#128203; Copy HTML'; }, 2000);
+    const orig = btn.innerHTML;
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => { btn.innerHTML = '📋 Copy HTML'; }, 2000);
   });
 }
 
@@ -2076,7 +3074,6 @@ function copyCode(btn) {
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
   });
 }
-
 </script>
 </body>
 </html>
