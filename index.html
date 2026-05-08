@@ -678,11 +678,24 @@
   /* ============================================================ SANDBOX */
   .sandbox-toolbar {
     background: var(--green-tint);
-    padding: 14px 16px;
+    padding: 14px 16px 10px;
     border-radius: var(--radius) var(--radius) 0 0;
     border: 1px solid var(--border-soft);
     border-bottom: none;
     margin-bottom: 0;
+  }
+  .preset-category {
+    margin-bottom: 10px;
+  }
+  .preset-category:last-child { margin-bottom: 0; }
+  .preset-category-label {
+    font-size: 0.70rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    display: block;
   }
   .sandbox-toolbar-label {
     font-size: 0.78rem;
@@ -695,7 +708,7 @@
   }
   .sandbox-preset-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 6px;
   }
   .sandbox-preset-btn {
@@ -817,7 +830,7 @@
       <a href="#sandbox">
         <span class="qj-icon">🧪</span>
         <span class="qj-title">Try a slide</span>
-        <span class="qj-desc">18 ready-made layouts</span>
+        <span class="qj-desc">29 ready-made layouts</span>
       </a>
       <a href="#slide-layouts">
         <span class="qj-icon">📐</span>
@@ -1420,7 +1433,7 @@ function showSlide(n) {
         <span class="callout-icon">🧪</span>
         <div class="callout-body">
           <strong>Try it live</strong>
-          <p>Jump to the <a href="#sandbox">Slide Sandbox</a> below to see all 18 slide patterns rendered with full Tulane CSS — including content slides, two-column layouts, activities, quizzes, code blocks, and more.</p>
+          <p>Jump to the <a href="#sandbox">Slide Sandbox</a> below to see all 29 slide patterns rendered with full Tulane CSS — including content slides, two-column layouts, activities, quizzes, code blocks, timelines, decision trees, comparisons, and more.</p>
         </div>
       </div>
     </section>
@@ -2071,33 +2084,70 @@ document.addEventListener('DOMContentLoaded', renderQuiz);
         <span class="callout-icon">💡</span>
         <div class="callout-body">
           <strong>What to paste here</strong>
-          <p>Paste just the <em>inner contents</em> of a <code>&lt;div class="slide"&gt;</code> — the heading, boxes, activity, and text — not the outer slide div itself. You can also paste a full slide div and the sandbox will still render it. Try one of the <strong>18 presets below</strong> to see common patterns immediately.</p>
+          <p>Paste just the <em>inner contents</em> of a <code>&lt;div class="slide"&gt;</code> — the heading, boxes, activity, and text — not the outer slide div itself. You can also paste a full slide div and the sandbox will still render it. Try one of the <strong>29 presets below</strong> to see common patterns immediately.</p>
         </div>
       </div>
 
       <!-- Toolbar -->
       <div class="sandbox-toolbar">
-        <span class="sandbox-toolbar-label">Load a preset slide</span>
-        <div class="sandbox-preset-grid">
-          <button class="sandbox-preset-btn" onclick="loadPreset('title')"><span class="preset-icon">🎬</span>Title Slide</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('content')"><span class="preset-icon">📄</span>Content Slide</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('twocol')"><span class="preset-icon">📊</span>Two-Column</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('threecol')"><span class="preset-icon">📐</span>Three-Column</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('table')"><span class="preset-icon">🗂️</span>Comparison Table</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('cards')"><span class="preset-icon">🃏</span>Resource Cards</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('stats')"><span class="preset-icon">🔢</span>Big Stats</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('keypoints')"><span class="preset-icon">🎯</span>Key Points</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('checklist')"><span class="preset-icon">✅</span>Checklist</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('tabs')"><span class="preset-icon">📑</span>Tabbed Panel</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('codeblock')"><span class="preset-icon">💻</span>Code Block</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('callouts')"><span class="preset-icon">⚠️</span>Callouts</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('activity')"><span class="preset-icon">✏️</span>Activity Box</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('multifield')"><span class="preset-icon">📝</span>Multi-Field Activity</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('boolean')"><span class="preset-icon">🔍</span>Boolean Builder</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('quiz')"><span class="preset-icon">❓</span>Scored Quiz</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('discussion')"><span class="preset-icon">💬</span>Discussion Prompts</button>
-          <button class="sandbox-preset-btn" onclick="loadPreset('closing')"><span class="preset-icon">🏁</span>Closing / Contact</button>
-          <button class="sandbox-preset-btn sandbox-clear-btn" onclick="clearSandbox()">✕ Clear</button>
+        <div class="preset-category">
+          <span class="preset-category-label">Layouts</span>
+          <div class="sandbox-preset-grid">
+            <button class="sandbox-preset-btn" onclick="loadPreset('title')"><span class="preset-icon">🎬</span>Title Slide</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('content')"><span class="preset-icon">📄</span>Content Slide</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('twocol')"><span class="preset-icon">📊</span>Two-Column</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('threecol')"><span class="preset-icon">📐</span>Three-Column</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('vs')"><span class="preset-icon">⚔️</span>VS Comparison</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('cards')"><span class="preset-icon">🃏</span>Resource Cards</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('table')"><span class="preset-icon">🗂️</span>Comparison Table</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('imagecaption')"><span class="preset-icon">🖼️</span>Image with Caption</button>
+          </div>
+        </div>
+
+        <div class="preset-category">
+          <span class="preset-category-label">Content blocks</span>
+          <div class="sandbox-preset-grid">
+            <button class="sandbox-preset-btn" onclick="loadPreset('keypoints')"><span class="preset-icon">🎯</span>Numbered Key Points</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('definitions')"><span class="preset-icon">📖</span>Definition Cards</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('stats')"><span class="preset-icon">🔢</span>Big Stats</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('pullquote')"><span class="preset-icon">❝</span>Pull Quote</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('codeblock')"><span class="preset-icon">💻</span>Code Block</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('callouts')"><span class="preset-icon">⚠️</span>Callouts (4 types)</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('bigwarning')"><span class="preset-icon">🛑</span>Big Warning</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('dodont')"><span class="preset-icon">⚖️</span>Do / Don't</button>
+          </div>
+        </div>
+
+        <div class="preset-category">
+          <span class="preset-category-label">Process &amp; structure</span>
+          <div class="sandbox-preset-grid">
+            <button class="sandbox-preset-btn" onclick="loadPreset('timeline')"><span class="preset-icon">📅</span>Vertical Timeline</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('processhoriz')"><span class="preset-icon">➡️</span>Horizontal Process</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('flowchart')"><span class="preset-icon">🔀</span>Decision Tree</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('checklist')"><span class="preset-icon">✅</span>Checklist</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('tabs')"><span class="preset-icon">📑</span>Tabbed Panel</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('faq')"><span class="preset-icon">❓</span>FAQ Accordion</button>
+          </div>
+        </div>
+
+        <div class="preset-category">
+          <span class="preset-category-label">Activities &amp; assessment</span>
+          <div class="sandbox-preset-grid">
+            <button class="sandbox-preset-btn" onclick="loadPreset('activity')"><span class="preset-icon">✏️</span>Activity Box</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('multifield')"><span class="preset-icon">📝</span>Multi-Field Activity</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('boolean')"><span class="preset-icon">🔍</span>Boolean Builder</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('quiz')"><span class="preset-icon">🧠</span>Scored Quiz</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('discussion')"><span class="preset-icon">💬</span>Discussion Prompts</button>
+          </div>
+        </div>
+
+        <div class="preset-category">
+          <span class="preset-category-label">Closing slides</span>
+          <div class="sandbox-preset-grid">
+            <button class="sandbox-preset-btn" onclick="loadPreset('resources')"><span class="preset-icon">🔗</span>Resource List</button>
+            <button class="sandbox-preset-btn" onclick="loadPreset('closing')"><span class="preset-icon">🏁</span>Closing / Contact</button>
+            <button class="sandbox-preset-btn sandbox-clear-btn" onclick="clearSandbox()">✕ Clear</button>
+          </div>
         </div>
       </div>
 
@@ -2576,18 +2626,165 @@ const SLIDE_CSS = `
   .contact-item .icon{font-size:1.4rem;margin-bottom:6px;display:block;}
   .contact-item h4{font-size:0.92rem;margin-bottom:4px;}
   .contact-item p{font-size:0.85rem;color:var(--text-muted);margin:0;}
+
+  /* Timeline (vertical) */
+  .timeline{position:relative;padding-left:14px;margin:12px 0;}
+  .timeline::before{content:'';position:absolute;left:28px;top:14px;bottom:14px;
+    width:2px;background:var(--green-light);}
+  .timeline-item{position:relative;display:flex;gap:18px;margin-bottom:18px;align-items:flex-start;}
+  .timeline-dot{width:32px;height:32px;border-radius:50%;background:var(--green);
+    color:white;font-family:var(--font-heading);font-weight:700;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    font-size:0.95rem;z-index:1;border:3px solid white;box-shadow:0 0 0 1px var(--green);}
+  .timeline-content{flex:1;background:white;border:1px solid var(--border);
+    border-radius:8px;padding:12px 16px;box-shadow:0 1px 4px rgba(40,92,77,0.08);}
+  .timeline-content h4{font-family:var(--font-heading);color:var(--green-dark);
+    font-size:0.98rem;margin-bottom:4px;}
+  .timeline-content p{font-size:0.88rem;line-height:1.55;margin-bottom:6px;}
+  .timeline-time{display:inline-block;font-size:0.72rem;font-weight:700;
+    color:var(--green);background:var(--green-light);padding:2px 8px;border-radius:10px;
+    text-transform:uppercase;letter-spacing:0.05em;}
+
+  /* Definition cards */
+  .def-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:12px;margin-top:8px;}
+  .def-card{background:white;border:1px solid var(--border);border-left:4px solid var(--blue);
+    border-radius:0 8px 8px 0;padding:12px 16px;}
+  .def-card .def-term{font-family:var(--font-heading);font-weight:700;font-size:1rem;
+    color:var(--green-dark);display:block;margin-bottom:4px;}
+  .def-card p{font-size:0.85rem;line-height:1.55;margin:0;}
+
+  /* Flowchart / decision tree */
+  .flow-tree{display:flex;flex-direction:column;align-items:center;margin:14px 0;}
+  .flow-node{padding:10px 18px;border-radius:8px;text-align:center;font-size:0.9rem;
+    line-height:1.4;max-width:280px;}
+  .flow-question{background:var(--green);color:white;font-size:1rem;}
+  .flow-answer{background:var(--blue-light);border:1px solid var(--blue);color:var(--text);
+    font-size:0.88rem;}
+  .flow-result{background:var(--off-white);border:1px solid var(--border);color:var(--text);
+    border-left:4px solid var(--green);font-size:0.85rem;}
+  .flow-arrow{color:var(--green);font-size:1.4rem;line-height:1;margin:4px 0;}
+  .flow-options{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;width:100%;}
+  .flow-option{display:flex;flex-direction:column;align-items:center;gap:0;flex:1;min-width:200px;max-width:240px;}
+  .flow-branch{display:flex;justify-content:center;}
+
+  /* Big warning */
+  .big-warning{display:flex;gap:18px;align-items:flex-start;
+    background:var(--red-light);border:2px solid var(--red);
+    border-radius:10px;padding:18px 20px;margin:14px 0;}
+  .big-warning-icon{font-size:2.2rem;line-height:1;flex-shrink:0;}
+  .big-warning-body{flex:1;}
+  .big-warning-body h3{color:var(--red);font-size:1.2rem;margin-bottom:8px;}
+  .big-warning-body p{font-size:0.92rem;line-height:1.6;margin-bottom:8px;}
+
+  /* Horizontal process */
+  .process-row{display:flex;align-items:stretch;gap:6px;flex-wrap:nowrap;
+    overflow-x:auto;padding-bottom:4px;margin:14px 0;}
+  .process-step-h{flex:1;min-width:130px;background:white;border:1px solid var(--border);
+    border-top:3px solid var(--green);border-radius:8px;padding:14px 12px;text-align:center;
+    box-shadow:0 1px 4px rgba(40,92,77,0.08);}
+  .process-step-h h4{font-family:var(--font-heading);color:var(--green-dark);
+    font-size:0.95rem;margin:6px 0 4px;}
+  .process-step-h p{font-size:0.78rem;line-height:1.4;margin:0;}
+  .process-num{width:28px;height:28px;border-radius:50%;background:var(--green);color:white;
+    font-family:var(--font-heading);font-weight:700;font-size:0.95rem;
+    display:flex;align-items:center;justify-content:center;margin:0 auto;}
+  .process-arrow-h{color:var(--green);font-size:1.3rem;display:flex;align-items:center;
+    flex-shrink:0;font-weight:700;}
+
+  /* VS comparison */
+  .vs-container{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;
+    margin:14px 0;}
+  @media (max-width: 680px) {
+    .vs-container{grid-template-columns:1fr;}
+  }
+  .vs-side{padding:16px 18px;border-radius:10px;}
+  .vs-side h3{font-size:1.1rem;margin-bottom:4px;}
+  .vs-tagline{font-style:italic;color:var(--text-muted);font-size:0.85rem;margin-bottom:10px;}
+  .vs-blue{background:var(--blue-light);border:1px solid var(--blue);}
+  .vs-green{background:var(--green-light);border:1px solid var(--green);}
+  .vs-list{list-style:none;margin:0;padding:0;}
+  .vs-list li{padding:5px 0 5px 22px;position:relative;font-size:0.86rem;line-height:1.5;}
+  .vs-pro::before{content:'+';position:absolute;left:0;top:5px;color:var(--green);
+    font-weight:700;background:var(--green-light);width:16px;height:16px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:0.85rem;}
+  .vs-con::before{content:'\\2212';position:absolute;left:0;top:5px;color:var(--red);
+    font-weight:700;background:var(--red-light);width:16px;height:16px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:0.85rem;}
+  .vs-divider{display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-heading);font-weight:700;font-size:1.3rem;
+    color:var(--green);background:var(--off-white);border-radius:50%;
+    width:48px;height:48px;align-self:center;border:2px solid var(--green);}
+  @media (max-width: 680px) {
+    .vs-divider{width:auto;height:auto;border-radius:8px;padding:6px 14px;}
+  }
+
+  /* Image figure */
+  .image-figure{margin:14px 0;border:1px solid var(--border);border-radius:8px;
+    background:white;padding:16px;box-shadow:0 1px 4px rgba(40,92,77,0.08);}
+  .image-figure figcaption{font-size:0.84rem;color:var(--text-muted);font-style:italic;
+    line-height:1.5;margin-top:10px;text-align:center;}
+
+  /* Pull quote */
+  .pull-quote{background:var(--green-light);border-left:6px solid var(--green);
+    padding:18px 24px 16px;border-radius:0 10px 10px 0;margin:14px 0;position:relative;}
+  .pull-quote .quote-mark{font-family:var(--font-heading);font-size:3rem;font-weight:700;
+    color:var(--green);line-height:0.5;display:block;margin-bottom:6px;}
+  .pull-quote p{font-family:var(--font-heading);font-size:1.1rem;font-style:italic;
+    line-height:1.5;color:var(--text);margin-bottom:12px;}
+  .pull-quote footer{font-size:0.82rem;color:var(--text-muted);font-style:normal;}
+  .pull-quote cite{font-style:italic;color:var(--green-dark);}
+
+  /* FAQ accordion */
+  .faq-list{margin:12px 0;}
+  .faq-item{background:white;border:1px solid var(--border);border-radius:8px;
+    margin-bottom:8px;overflow:hidden;}
+  .faq-item summary{padding:12px 16px;cursor:pointer;font-weight:600;font-size:0.92rem;
+    color:var(--green-dark);list-style:none;display:flex;align-items:center;gap:10px;
+    background:var(--off-white);}
+  .faq-item summary::before{content:'+';font-family:var(--font-heading);font-size:1.2rem;
+    color:var(--green);font-weight:700;transition:transform 0.2s;}
+  .faq-item[open] summary::before{content:'\\2212';}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item p{padding:12px 16px;font-size:0.88rem;line-height:1.6;margin:0;
+    border-top:1px solid var(--border);}
+
+  /* Do / Don't */
+  .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+  @media (max-width: 680px) { .do-dont-grid{grid-template-columns:1fr;} }
+  .do-side, .dont-side{padding:16px 18px;border-radius:10px;border:1px solid;}
+  .do-side{background:var(--green-light);border-color:var(--green);}
+  .dont-side{background:var(--red-light);border-color:var(--red);}
+  .do-side h3, .dont-side h3{font-size:1.1rem;margin-bottom:8px;}
+  .do-side h3{color:var(--green-dark);}
+  .dont-side h3{color:var(--red);}
+  .do-side ul, .dont-side ul{list-style:disc;margin-left:18px;margin-bottom:0;}
+  .do-side li, .dont-side li{font-size:0.88rem;line-height:1.55;margin-bottom:6px;}
+
+  /* Resource list */
+  .resource-list{display:flex;flex-direction:column;gap:10px;margin:14px 0;}
+  .resource-link{display:flex;gap:14px;align-items:flex-start;
+    background:white;border:1px solid var(--border);border-radius:8px;padding:14px 16px;
+    text-decoration:none;color:var(--text);transition:all 0.15s;
+    box-shadow:0 1px 4px rgba(40,92,77,0.08);}
+  .resource-link:hover{border-color:var(--blue);transform:translateX(2px);
+    box-shadow:0 3px 12px rgba(40,92,77,0.12);}
+  .resource-icon{font-size:1.6rem;flex-shrink:0;line-height:1;margin-top:2px;}
+  .resource-body{flex:1;}
+  .resource-body h4{font-family:var(--font-heading);color:var(--green-dark);
+    font-size:0.98rem;margin-bottom:4px;}
+  .resource-body p{font-size:0.86rem;line-height:1.55;margin-bottom:4px;}
+  .resource-url{font-family:var(--font-code);font-size:0.78rem;color:var(--green);
+    background:var(--green-light);padding:1px 6px;border-radius:3px;}
 `;
 
 const PRESETS = {
-  /* ============================================================ TITLE */
   title: `<div class="title-slide">
   <h1>Introduction to Academic Research</h1>
   <p class="presenter">Kay P. Maye, Scholarly Engagement Librarian</p>
   <p class="institution">Howard-Tilton Memorial Library &middot; Tulane University</p>
   <p class="nav-hint">Use &larr; &rarr; arrow keys or the dropdown to navigate</p>
 </div>`,
-
-  /* ============================================================ CONTENT */
   content: `<h2 class="slide-title">Types of Sources</h2>
 <p class="slide-subtitle">Choosing the right source for your research question</p>
 
@@ -2603,8 +2800,6 @@ const PRESETS = {
 <div class="blue-box">
   <p><strong>Tip:</strong> Use the "Peer Reviewed" filter in most library databases to limit results automatically.</p>
 </div>`,
-
-  /* ============================================================ TWO-COL */
   twocol: `<h2 class="slide-title">Primary vs. Secondary Sources</h2>
 <p class="slide-subtitle">Understanding the difference</p>
 <div class="two-col">
@@ -2619,8 +2814,6 @@ const PRESETS = {
     <ul><li>Textbooks, review articles</li><li>Biographies, documentaries</li><li>Literature review chapters</li></ul>
   </div>
 </div>`,
-
-  /* ============================================================ THREE-COL */
   threecol: `<h2 class="slide-title">Three Types of Literature Reviews</h2>
 <p class="slide-subtitle">Match the review type to your research goal</p>
 <div class="three-col">
@@ -2640,8 +2833,6 @@ const PRESETS = {
     <p style="font-size:0.82rem;color:var(--text-muted);margin-top:8px;"><strong>Use when:</strong> Synthesizing evidence for policy.</p>
   </div>
 </div>`,
-
-  /* ============================================================ TABLE */
   table: `<h2 class="slide-title">Database Comparison</h2>
 <p class="slide-subtitle">Key databases for social sciences research</p>
 <table>
@@ -2653,8 +2844,6 @@ const PRESETS = {
     <tr><td><strong>Web of Science</strong></td><td>Citation tracking, interdisciplinary</td><td>1900-present</td></tr>
   </tbody>
 </table>`,
-
-  /* ============================================================ CARDS */
   cards: `<h2 class="slide-title">Tulane Library Locations</h2>
 <p class="slide-subtitle">Six libraries across campus &mdash; each with its own specialty</p>
 <div class="card-grid">
@@ -2679,8 +2868,6 @@ const PRESETS = {
     <p>Hogan Jazz Archive, Louisiana Research Collection, rare books.</p>
   </div>
 </div>`,
-
-  /* ============================================================ STATS */
   stats: `<h2 class="slide-title">What's Available to You</h2>
 <p class="slide-subtitle">Your Splash Card unlocks a full research ecosystem</p>
 <div class="stat-grid">
@@ -2704,8 +2891,6 @@ const PRESETS = {
 <div class="blue-box" style="margin-top:14px;">
   <p>Every Tulane student, faculty member, and staff member has access to all of these resources at no additional cost.</p>
 </div>`,
-
-  /* ============================================================ KEY POINTS */
   keypoints: `<h2 class="slide-title">Five Things to Remember</h2>
 <p class="slide-subtitle">Your takeaways from today's session</p>
 
@@ -2729,8 +2914,6 @@ const PRESETS = {
   <div class="key-point-icon">5</div>
   <div><strong>Ask a librarian early.</strong> A 15-minute consultation saves you hours of dead-end searching.</div>
 </div>`,
-
-  /* ============================================================ CHECKLIST */
   checklist: `<h2 class="slide-title">Source Evaluation Checklist</h2>
 <p class="slide-subtitle">Apply the CRAAP test to your sources</p>
 <div class="content-box"><p>Click each item as you complete it.</p></div>
@@ -2741,8 +2924,6 @@ const PRESETS = {
   <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Accuracy:</strong> Claims are supported by evidence and citations</span></li>
   <li onclick="this.classList.toggle('checked')"><span class="cb"></span><span><strong>Purpose:</strong> Intent is to inform, not just persuade or sell</span></li>
 </ul>`,
-
-  /* ============================================================ TABS */
   tabs: `<h2 class="slide-title">Reading a CSV File in Python</h2>
 <p class="slide-subtitle">Three views of the same operation</p>
 
@@ -2779,9 +2960,7 @@ function showTab(e, id) {
   document.getElementById(id).style.display = 'block';
   e.target.classList.add('active');
 }
-</script>`,
-
-  /* ============================================================ CODE BLOCK */
+</scr` + `ipt>`,
   codeblock: `<h2 class="slide-title">Building a Search String</h2>
 <p class="slide-subtitle">Combine concepts with Boolean operators &amp; wildcards</p>
 
@@ -2806,8 +2985,6 @@ function showTab(e, id) {
 <div class="blue-box">
   <p><strong>Why parentheses matter:</strong> Without them, databases process AND before OR, which gives you wildly different (and usually wrong) results.</p>
 </div>`,
-
-  /* ============================================================ CALLOUTS */
   callouts: `<h2 class="slide-title">Working with the AI Policy</h2>
 <p class="slide-subtitle">Four kinds of callouts for different emphasis</p>
 
@@ -2830,8 +3007,6 @@ function showTab(e, id) {
   <span style="font-size:1.1rem;">🚫</span>
   <div><strong>Don't:</strong> Paste sensitive data, FERPA-protected info, or unpublished research into commercial AI tools.</div>
 </div>`,
-
-  /* ============================================================ ACTIVITY */
   activity: `<h2 class="slide-title">Activity: Search Planning</h2>
 <p class="slide-subtitle">Build your initial search strategy</p>
 <p>Before searching, identify your key concepts. A strong search string usually combines 2-3 core terms with Boolean operators.</p>
@@ -2843,8 +3018,6 @@ function showTab(e, id) {
   <button class="save-btn" onclick="this.nextElementSibling.style.display='block'">Save Response</button>
   <p class="save-confirm">&#10003; Saved!</p>
 </div>`,
-
-  /* ============================================================ MULTI-FIELD ACTIVITY */
   multifield: `<h2 class="slide-title">Activity: Research Question Workshop</h2>
 <p class="slide-subtitle">Refine your topic into a focused research question</p>
 
@@ -2867,8 +3040,6 @@ function showTab(e, id) {
   <button class="save-btn" onclick="document.querySelector('.save-confirm').style.display='block'">Save Plan</button>
   <p class="save-confirm">&#10003; Saved!</p>
 </div>`,
-
-  /* ============================================================ BOOLEAN BUILDER */
   boolean: `<h2 class="slide-title">Boolean Search Builder</h2>
 <p class="slide-subtitle">Combine your concepts to generate a search string</p>
 
@@ -2895,22 +3066,20 @@ function showTab(e, id) {
 
 <script>
 function buildBool() {
-  const t1 = document.getElementById('bool-t1').value.trim();
-  const op = document.getElementById('bool-op').value;
-  const t2 = document.getElementById('bool-t2').value.trim();
-  const out = document.getElementById('bool-result');
+  var t1 = document.getElementById('bool-t1').value.trim();
+  var op = document.getElementById('bool-op').value;
+  var t2 = document.getElementById('bool-t2').value.trim();
+  var out = document.getElementById('bool-result');
   if (!t1 || !t2) {
     out.innerHTML = '<span style="color:#fc8181;">Enter both concepts first.</span>';
     return;
   }
-  const q1 = t1.includes(' ') ? '"' + t1 + '"' : t1;
-  const q2 = t2.includes(' ') ? '"' + t2 + '"' : t2;
-  const opColor = op === 'AND' ? '#f8c471' : op === 'OR' ? '#a8e6cf' : '#fc8181';
+  var q1 = t1.indexOf(' ') >= 0 ? '"' + t1 + '"' : t1;
+  var q2 = t2.indexOf(' ') >= 0 ? '"' + t2 + '"' : t2;
+  var opColor = op === 'AND' ? '#f8c471' : op === 'OR' ? '#a8e6cf' : '#fc8181';
   out.innerHTML = '<span style="color:#90cdf4;">' + q1 + '</span> <span style="color:' + opColor + ';font-weight:700;">' + op + '</span> <span style="color:#90cdf4;">' + q2 + '</span>';
 }
-</script>`,
-
-  /* ============================================================ QUIZ */
+</scr` + `ipt>`,
   quiz: `<h2 class="slide-title">Practice: Boolean Operators</h2>
 <p class="slide-subtitle">Test your understanding before moving on</p>
 
@@ -2918,7 +3087,7 @@ function buildBool() {
 <div id="quiz-results" style="display:none; padding:16px; background:var(--green-light); border-radius:8px; margin-top:12px;"></div>
 
 <script>
-const quizQs = [
+var quizQs = [
   {
     q: "Which operator narrows a search by requiring BOTH terms to appear?",
     opts: ["OR", "NOT", "AND", "NEAR"],
@@ -2938,37 +3107,39 @@ const quizQs = [
     why: "NOT excludes results containing the second term. Use sparingly &mdash; it can hide useful sources."
   }
 ];
-let answers = {};
+var answers = {};
 function renderQuiz() {
-  const c = document.getElementById('quiz-container');
-  c.innerHTML = quizQs.map((q, i) =>
-    '<div style="background:white; border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin-bottom:12px;">' +
-      '<p style="font-weight:600; font-size:0.92rem; margin-bottom:10px;">' + (i+1) + '. ' + q.q + '</p>' +
-      q.opts.map((o, j) =>
-        '<label style="display:flex; align-items:center; gap:8px; margin-bottom:6px; cursor:pointer; font-size:0.88rem;">' +
-          '<input type="radio" name="q' + i + '" onchange="answers[' + i + ']=' + j + '"> ' + o +
-        '</label>'
-      ).join('') +
-    '</div>'
-  ).join('');
-  c.innerHTML += '<button class="save-btn" onclick="scoreQuiz()">Submit Quiz</button>';
+  var c = document.getElementById('quiz-container');
+  var html = '';
+  for (var i = 0; i < quizQs.length; i++) {
+    var q = quizQs[i];
+    html += '<div style="background:white; border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin-bottom:12px;">';
+    html += '<p style="font-weight:600; font-size:0.92rem; margin-bottom:10px;">' + (i+1) + '. ' + q.q + '</p>';
+    for (var j = 0; j < q.opts.length; j++) {
+      html += '<label style="display:flex; align-items:center; gap:8px; margin-bottom:6px; cursor:pointer; font-size:0.88rem;">';
+      html += '<input type="radio" name="q' + i + '" onchange="answers[' + i + ']=' + j + '"> ' + q.opts[j];
+      html += '</label>';
+    }
+    html += '</div>';
+  }
+  html += '<button class="save-btn" onclick="scoreQuiz()">Submit Quiz</button>';
+  c.innerHTML = html;
 }
 function scoreQuiz() {
-  let score = 0, fb = '';
-  quizQs.forEach((q, i) => {
-    const ok = answers[i] === q.correct;
+  var score = 0, fb = '';
+  for (var i = 0; i < quizQs.length; i++) {
+    var q = quizQs[i];
+    var ok = answers[i] === q.correct;
     if (ok) score++;
-    fb += '<p style="margin-bottom:8px;"><strong>Q' + (i+1) + ':</strong> ' + (ok ? '✅' : '❌') +
-          (!ok ? ' <em>(' + q.opts[q.correct] + ')</em> &mdash; ' : ' ') + q.why + '</p>';
-  });
-  const r = document.getElementById('quiz-results');
+    fb += '<p style="margin-bottom:8px;"><strong>Q' + (i+1) + ':</strong> ' + (ok ? '✅' : '❌');
+    fb += (!ok ? ' <em>(' + q.opts[q.correct] + ')</em> &mdash; ' : ' ') + q.why + '</p>';
+  }
+  var r = document.getElementById('quiz-results');
   r.style.display = 'block';
   r.innerHTML = '<h3 style="font-family:var(--font-heading); color:var(--green); margin-bottom:10px;">Score: ' + score + ' / ' + quizQs.length + '</h3>' + fb;
 }
 renderQuiz();
-</script>`,
-
-  /* ============================================================ DISCUSSION */
+</scr` + `ipt>`,
   discussion: `<h2 class="slide-title">Discussion &amp; Reflection</h2>
 <p class="slide-subtitle">Sit with these questions &mdash; there are no right answers</p>
 
@@ -2984,8 +3155,6 @@ renderQuiz();
 <div class="discussion-prompt discussion-blue">
   <p>What is the single most useful idea from today that you'll apply this week?</p>
 </div>`,
-
-  /* ============================================================ CLOSING */
   closing: `<h2 class="slide-title">Questions &amp; Next Steps</h2>
 <p class="slide-subtitle">Stay in touch &mdash; the library is here all semester</p>
 
@@ -3014,7 +3183,350 @@ renderQuiz();
 
 <div class="blue-box" style="margin-top:18px; text-align:center;">
   <p><strong>Don't forget to save your work!</strong> Click the Download / Email Responses panel in the bottom-right to keep your activity answers.</p>
-</div>`
+</div>`,
+  timeline: `<h2 class="slide-title">The Research Process Timeline</h2>
+<p class="slide-subtitle">From topic selection to final draft</p>
+
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-dot">1</div>
+    <div class="timeline-content">
+      <h4>Choose &amp; Refine Your Topic</h4>
+      <p>Start broad, then narrow. Read 2-3 background sources to identify subtopics worth pursuing.</p>
+      <span class="timeline-time">Week 1</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-dot">2</div>
+    <div class="timeline-content">
+      <h4>Build Your Search Strategy</h4>
+      <p>List concepts, brainstorm synonyms, combine with Boolean operators.</p>
+      <span class="timeline-time">Week 2</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-dot">3</div>
+    <div class="timeline-content">
+      <h4>Search, Evaluate, Save</h4>
+      <p>Run searches in 2-3 databases. Use a citation manager to organize sources.</p>
+      <span class="timeline-time">Weeks 3-4</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-dot">4</div>
+    <div class="timeline-content">
+      <h4>Read, Synthesize, Outline</h4>
+      <p>Take notes that connect sources to one another, not just summaries.</p>
+      <span class="timeline-time">Week 5</span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-dot">5</div>
+    <div class="timeline-content">
+      <h4>Draft &amp; Revise</h4>
+      <p>Write a rough first draft, then revise for argument and citation accuracy.</p>
+      <span class="timeline-time">Weeks 6-7</span>
+    </div>
+  </div>
+</div>`,
+  definitions: `<h2 class="slide-title">Key Terms in Information Literacy</h2>
+<p class="slide-subtitle">Vocabulary to anchor today's discussion</p>
+
+<div class="def-grid">
+  <div class="def-card">
+    <span class="def-term">Peer Review</span>
+    <p>The process by which experts in a field evaluate a manuscript before it's published. The signal you've found a scholarly source.</p>
+  </div>
+  <div class="def-card">
+    <span class="def-term">Database</span>
+    <p>A curated, searchable collection of sources with built-in filters for date, source type, peer-review status, and subject.</p>
+  </div>
+  <div class="def-card">
+    <span class="def-term">Boolean Operators</span>
+    <p>The words AND, OR, and NOT that combine search terms to broaden or narrow your results.</p>
+  </div>
+  <div class="def-card">
+    <span class="def-term">Truncation</span>
+    <p>An asterisk (*) used to capture all word endings: <code>educ*</code> finds <em>education, educator, educational</em>.</p>
+  </div>
+  <div class="def-card">
+    <span class="def-term">Controlled Vocabulary</span>
+    <p>A standardized set of subject terms a database uses to tag records consistently &mdash; sometimes called "subject headings."</p>
+  </div>
+  <div class="def-card">
+    <span class="def-term">DOI</span>
+    <p>Digital Object Identifier &mdash; a permanent link to a published source. More reliable than a regular URL.</p>
+  </div>
+</div>`,
+  flowchart: `<h2 class="slide-title">Choosing the Right Search Tool</h2>
+<p class="slide-subtitle">A decision tree for when to use what</p>
+
+<div class="flow-tree">
+  <div class="flow-node flow-question">
+    <strong>What stage are you at?</strong>
+  </div>
+  <div class="flow-branch">
+    <div class="flow-arrow">↓</div>
+  </div>
+  <div class="flow-options">
+    <div class="flow-option">
+      <div class="flow-node flow-answer">
+        <strong>Just starting / need background</strong>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node flow-result">
+        <strong>Wikipedia + Credo Reference</strong><br>
+        <small>For overviews, key terms, and citations to follow up.</small>
+      </div>
+    </div>
+    <div class="flow-option">
+      <div class="flow-node flow-answer">
+        <strong>Need scholarly sources broadly</strong>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node flow-result">
+        <strong>Library Search (catalog)</strong><br>
+        <small>Books, articles, media in one search across most disciplines.</small>
+      </div>
+    </div>
+    <div class="flow-option">
+      <div class="flow-node flow-answer">
+        <strong>Need depth in one field</strong>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node flow-result">
+        <strong>Subject database</strong><br>
+        <small>PsycINFO for psychology, Sociological Abstracts for sociology, etc.</small>
+      </div>
+    </div>
+  </div>
+</div>`,
+  bigwarning: `<h2 class="slide-title">A Warning About AI Tools</h2>
+<p class="slide-subtitle">Before you use an LLM for research, read this slide</p>
+
+<div class="big-warning">
+  <div class="big-warning-icon">⚠️</div>
+  <div class="big-warning-body">
+    <h3>AI tools fabricate citations.</h3>
+    <p>Even premium models invent journal articles, authors, page numbers, and DOIs that look completely real. The citations cite plausible authors, in plausible journals, on plausible topics &mdash; but the article does not exist.</p>
+    <p><strong>Always verify every citation</strong> by searching for it directly in a library database before including it in your work.</p>
+  </div>
+</div>
+
+<div class="content-box">
+  <h3>What AI is good for in research</h3>
+  <ul>
+    <li>Brainstorming synonyms and related concepts for a search</li>
+    <li>Explaining unfamiliar vocabulary you encounter in articles</li>
+    <li>Summarizing a source you've already read (to check your understanding)</li>
+    <li>Suggesting databases or subject headings to try</li>
+  </ul>
+</div>
+
+<div class="callout-mini callout-mini-note">
+  <span style="font-size:1.1rem;">📋</span>
+  <div>Tulane's AI policy requires you to disclose AI use in any submitted work. Check your syllabus for course-specific rules.</div>
+</div>`,
+  processhoriz: `<h2 class="slide-title">The CRAAP Test in Five Beats</h2>
+<p class="slide-subtitle">A quick mental checklist for every source</p>
+
+<div class="process-row">
+  <div class="process-step-h">
+    <div class="process-num">C</div>
+    <h4>Currency</h4>
+    <p>How recent is it? Is recency required for your topic?</p>
+  </div>
+  <div class="process-arrow-h">→</div>
+  <div class="process-step-h">
+    <div class="process-num">R</div>
+    <h4>Relevance</h4>
+    <p>Does it directly address your research question?</p>
+  </div>
+  <div class="process-arrow-h">→</div>
+  <div class="process-step-h">
+    <div class="process-num">A</div>
+    <h4>Authority</h4>
+    <p>Who wrote it? What are their credentials?</p>
+  </div>
+  <div class="process-arrow-h">→</div>
+  <div class="process-step-h">
+    <div class="process-num">A</div>
+    <h4>Accuracy</h4>
+    <p>Are claims supported by evidence and citations?</p>
+  </div>
+  <div class="process-arrow-h">→</div>
+  <div class="process-step-h">
+    <div class="process-num">P</div>
+    <h4>Purpose</h4>
+    <p>Why was it created? Inform, persuade, or sell?</p>
+  </div>
+</div>
+
+<div class="blue-box" style="margin-top:18px;">
+  <p><strong>Heuristic, not a rule:</strong> No source passes all five perfectly. The point is to think critically, not to disqualify on one criterion.</p>
+</div>`,
+  vs: `<h2 class="slide-title">Google Scholar vs. Library Databases</h2>
+<p class="slide-subtitle">Same scholarly content, different strengths</p>
+
+<div class="vs-container">
+  <div class="vs-side vs-blue">
+    <h3>🌐 Google Scholar</h3>
+    <p class="vs-tagline">Wide net, light filters</p>
+    <ul class="vs-list">
+      <li class="vs-pro">Searches everything in one place</li>
+      <li class="vs-pro">Catches preprints &amp; gray literature</li>
+      <li class="vs-pro">Cited-by feature is excellent</li>
+      <li class="vs-con">Few filters for source type</li>
+      <li class="vs-con">Includes predatory journals</li>
+      <li class="vs-con">Paywalls without library access</li>
+    </ul>
+  </div>
+  <div class="vs-divider">VS</div>
+  <div class="vs-side vs-green">
+    <h3>📚 Library Databases</h3>
+    <p class="vs-tagline">Curated, with filters</p>
+    <ul class="vs-list">
+      <li class="vs-pro">Filters by date, type, peer-review</li>
+      <li class="vs-pro">Subject headings for precision</li>
+      <li class="vs-pro">Tulane access removes paywalls</li>
+      <li class="vs-pro">Citation export is built-in</li>
+      <li class="vs-con">You pick the right database first</li>
+      <li class="vs-con">Less coverage for emerging topics</li>
+    </ul>
+  </div>
+</div>
+
+<div class="content-box" style="margin-top:14px;">
+  <p><strong>Best practice:</strong> Use both. Start in a library database for the curated set, then check Google Scholar for citing articles to expand outward.</p>
+</div>`,
+  imagecaption: `<h2 class="slide-title">The Search Ecosystem Diagram</h2>
+<p class="slide-subtitle">Where different tools live in the information landscape</p>
+
+<figure class="image-figure">
+  <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-height:300px;">
+    <!-- Background -->
+    <rect width="600" height="280" fill="#f5f7f6"/>
+    <!-- Surface layer -->
+    <rect x="20" y="20" width="560" height="60" fill="#71C5E8" rx="6" opacity="0.85"/>
+    <text x="300" y="48" text-anchor="middle" font-family="DM Sans" font-weight="600" font-size="14" fill="#1a3d32">SURFACE WEB &mdash; Google, Wikipedia, news</text>
+    <text x="300" y="68" text-anchor="middle" font-family="DM Sans" font-size="11" fill="#1a3d32" opacity="0.85">Indexed, accessible, often unfiltered</text>
+
+    <!-- Middle layer -->
+    <rect x="20" y="100" width="560" height="80" fill="#285C4D" rx="6" opacity="0.92"/>
+    <text x="300" y="135" text-anchor="middle" font-family="DM Sans" font-weight="600" font-size="14" fill="white">LIBRARY-MEDIATED &mdash; Library Search, Subject Databases</text>
+    <text x="300" y="156" text-anchor="middle" font-family="DM Sans" font-size="11" fill="white" opacity="0.85">Curated, peer-reviewed, citation-managed</text>
+
+    <!-- Deep layer -->
+    <rect x="20" y="200" width="560" height="60" fill="#1a3d32" rx="6"/>
+    <text x="300" y="228" text-anchor="middle" font-family="DM Sans" font-weight="600" font-size="14" fill="#71C5E8">DEEP WEB &mdash; Special Collections, Archives, Datasets</text>
+    <text x="300" y="248" text-anchor="middle" font-family="DM Sans" font-size="11" fill="white" opacity="0.7">Primary sources, often request-only</text>
+  </svg>
+  <figcaption>Three layers of the information ecosystem. Most undergraduate research lives in the middle band; deep-web sources are essential for specialized work.</figcaption>
+</figure>`,
+  pullquote: `<h2 class="slide-title">What the ACRL Framework Says</h2>
+<p class="slide-subtitle">A framing concept for our session</p>
+
+<blockquote class="pull-quote">
+  <span class="quote-mark">&ldquo;</span>
+  <p>Information possesses several dimensions of value, including as a commodity, as a means of education, as a means to influence, and as a means of negotiating and understanding the world.</p>
+  <footer>&mdash; ACRL Framework for Information Literacy in Higher Education<br><cite>"Information Has Value" frame</cite></footer>
+</blockquote>
+
+<div class="content-box">
+  <h3>What this means in practice</h3>
+  <p>Information isn't just abstractly useful &mdash; it's produced, owned, sold, and gatekept. As a researcher, you're navigating those systems every time you choose a source, cite an author, or share what you find.</p>
+</div>
+
+<div class="blue-box">
+  <p><strong>For discussion:</strong> Whose values are most visible in the sources easiest for you to access? Whose values are harder to find?</p>
+</div>`,
+  faq: `<h2 class="slide-title">Common Questions About Citation Managers</h2>
+<p class="slide-subtitle">Click each question to expand</p>
+
+<div class="faq-list">
+  <details class="faq-item">
+    <summary>Which citation manager should I use?</summary>
+    <p>Tulane supports <strong>Zotero</strong> (free, open source, works offline) and <strong>EndNote</strong> (free for Tulane affiliates, more features). Zotero is the easiest entry point; switch later if you need EndNote-specific features.</p>
+  </details>
+  <details class="faq-item">
+    <summary>Do I really need one for an undergraduate paper?</summary>
+    <p>For a single 5-page paper with 4 sources, no &mdash; manual citations are fine. For anything longer or for multi-paper projects (theses, capstones, professional research), yes. The time investment pays back immediately.</p>
+  </details>
+  <details class="faq-item">
+    <summary>Can it generate my bibliography automatically?</summary>
+    <p>Yes, in any major style (APA, MLA, Chicago, IEEE, Vancouver, and ~9,000 others). Always proof the output &mdash; managers handle most cases but stumble on unusual source types.</p>
+  </details>
+  <details class="faq-item">
+    <summary>Will it sync across my devices?</summary>
+    <p>Yes. Both Zotero and EndNote sync via free accounts. Sign up before you start adding sources so you don't lose work.</p>
+  </details>
+  <details class="faq-item">
+    <summary>Where do I get help?</summary>
+    <p>Tulane Libraries offers Zotero workshops every semester. Check the workshop calendar at <code>library.tulane.edu/events</code> or schedule a 1:1 with a librarian.</p>
+  </details>
+</div>`,
+  dodont: `<h2 class="slide-title">Citing AI-Generated Content</h2>
+<p class="slide-subtitle">What to do, what to avoid</p>
+
+<div class="do-dont-grid">
+  <div class="do-side">
+    <h3>✅ Do</h3>
+    <ul>
+      <li><strong>Disclose</strong> AI use in your methods or acknowledgments</li>
+      <li><strong>Cite the tool</strong> as the author (e.g., "ChatGPT-5, OpenAI, 2026")</li>
+      <li><strong>Save your prompts</strong> &mdash; they're part of your reproducibility trail</li>
+      <li><strong>Verify every fact</strong> the AI provides against a primary source</li>
+      <li><strong>Use AI for ideation</strong>, not for the final argument</li>
+    </ul>
+  </div>
+  <div class="dont-side">
+    <h3>🚫 Don't</h3>
+    <ul>
+      <li><strong>Submit AI output</strong> as your own writing</li>
+      <li><strong>Trust fabricated citations</strong> &mdash; they look real but aren't</li>
+      <li><strong>Paste sensitive data</strong> (FERPA, IRB, HIPAA, unpublished work)</li>
+      <li><strong>Use AI in courses</strong> that prohibit it &mdash; check the syllabus</li>
+      <li><strong>Skip the verification step</strong> just because it's faster</li>
+    </ul>
+  </div>
+</div>`,
+  resources: `<h2 class="slide-title">Resources for Your Next Step</h2>
+<p class="slide-subtitle">Where to go from here</p>
+
+<div class="resource-list">
+  <a class="resource-link" href="#" onclick="return false;">
+    <div class="resource-icon">📚</div>
+    <div class="resource-body">
+      <h4>A&ndash;Z Database List</h4>
+      <p>Browse all 400+ Tulane databases by name or subject area.</p>
+      <span class="resource-url">libguides.tulane.edu/az/databases</span>
+    </div>
+  </a>
+  <a class="resource-link" href="#" onclick="return false;">
+    <div class="resource-icon">🗺️</div>
+    <div class="resource-body">
+      <h4>Subject LibGuides</h4>
+      <p>Curated database lists, search tips, and citation help for your major.</p>
+      <span class="resource-url">libguides.tulane.edu</span>
+    </div>
+  </a>
+  <a class="resource-link" href="#" onclick="return false;">
+    <div class="resource-icon">💬</div>
+    <div class="resource-body">
+      <h4>Ask a Librarian</h4>
+      <p>Live chat with a librarian seven days a week, plus email support.</p>
+      <span class="resource-url">library.tulane.edu/help</span>
+    </div>
+  </a>
+  <a class="resource-link" href="#" onclick="return false;">
+    <div class="resource-icon">🗓️</div>
+    <div class="resource-body">
+      <h4>Schedule a Research Consultation</h4>
+      <p>Book a 30-minute 1:1 session with the librarian for your subject.</p>
+      <span class="resource-url">library.tulane.edu/consult</span>
+    </div>
+  </a>
+</div>`,
 };
 
 function loadPreset(name) {
